@@ -50,7 +50,7 @@ package Game
 			prisonButton.y = 320;
 			buttonsContainer.addChild(prisonButton);
 			
-			var alterationsButton:MainMenuButton = new MainMenuButton(185, 50, "ALETRATIONS", true, 0);
+			var alterationsButton:MainMenuButton = new MainMenuButton(185, 50, "ALTERATIONS", true, 0);
 			alterationsButton.x =  _stageWidth/2 - 185 /2;
 			alterationsButton.y = 380;
 			buttonsContainer.addChild(alterationsButton);
