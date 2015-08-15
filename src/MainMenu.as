@@ -23,6 +23,7 @@ package
 		private const BUTTON_SPACING:int = 5;
 		
 		private var backgroundPath:String = "background1.jpg";
+		private var cash:int = 1000; 
 		
 		private var backgroundContainer:Sprite = new Sprite();
 		private var menuContainer:Sprite = new Sprite();
