@@ -37,16 +37,16 @@ package
 			
 			var buttonCounter:int = 0;
 			
-			for (var i:int = 0; i < MainMenuButtons.length; i++) 
+			for (var i:int = 0; i < MAIN_MENU_BUTTONS.length; i++) 
 			{
-				var button:MenuButton = new MenuButton(MainMenuButtons[i]);
+				var button:MenuButton = new MenuButton(MAIN_MENU_BUTTONS[i]);
 				button.x = STAGE_WIDTH / 2 - BUTTON_WIDTH / 2;
 				button.y = STAGE_HEIGHT / 5 + BUTTON_HEIGHT * buttonCounter + BUTTON_SPACING;
 				button.buttonMode = true;
 				buttonsContainer.addChild(button);
 				
 				//add event listener
-				var functionName:String = MainMenuButtons[i].substring(0, MainMenuButtons[i].length - 4);
+				var functionName:String = MAIN_MENU_BUTTONS[i].substring(0, MAIN_MENU_BUTTONS[i].length - 4);
 				var buttonFunction:Function = this[functionName];
 				button.addEventListener(MouseEvent.CLICK, buttonFunction);
 				
