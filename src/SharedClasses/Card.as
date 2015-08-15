@@ -16,7 +16,7 @@ package SharedClasses
 		public function Card(cardUrl:String,cardValue:int,cardSkin:String = "Skin1/") 
 		{
 			this.cardUrl = new URLRequest("Data/images/Cards/" + cardSkin + cardUrl + ".png");
-			this.CardValue = cardValue;
+			this.cardValue = cardValue;
 			
 			loadCard();
 		}
