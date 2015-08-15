@@ -49,5 +49,8 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+#swf files
+*.swf
+
 # Windows shortcuts
 *.lnk
