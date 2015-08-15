@@ -19,8 +19,12 @@ package SharedClasses
 			this.cardUrl = new URLRequest("Data/images/Cards/" + cardSkin + cardUrl + ".png");
 			this.cardValue = cardValue;
 			
-			if (cardValue != 0) {
+			if (cardValue > 0 && cardValue < 10) {
 				this.cardSign = cardUrl.substring(1, 2);
+			}
+			else if ( cardValue > 9 )
+			{
+				this.cardSign = cardUrl.substring(2, 3);
 			}
 			else {
 				this.cardSign = "back";
