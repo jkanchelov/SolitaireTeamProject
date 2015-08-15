@@ -2,16 +2,7 @@ package Game
 {
 	import com.greensock.events.LoaderEvent;
 	import flash.display.*;
-	import flash.media.*;
 	import flash.events.*;
-	import flash.utils.*;
-	import flash.text.*;
-	import flash.net.*;
-	import flash.geom.*;
-	import com.greensock.*;
-	import com.greensock.easing.*
-	import flash.ui.Keyboard;
-	import flash.geom.ColorTransform;
 	import flash.net.*;
 	
 	/**
@@ -20,8 +11,13 @@ package Game
 	 */
 	public class MainMenu extends Sprite
 	{
-		private const _stageWidth:int = 800;
-		private const _stageHeight:int = 600;
+		private const StageWidth:int = 800;
+		private const StageHeight:int = 600;
+		private const ButtonWidth:int = 200;
+		private const ButtonHeight:int = 80; 
+		private const ButtonSpacing:int = 10;
+		
+		private var mainMenuButtons:Vector.<String> = new <String>["grandFather.png","eightOff.png","prison.png","alternations.png","topsyTurvyQueens.png"]
 		
 		private var backgroundContainer:Sprite = new Sprite();
 		private var buttonsContainer:Sprite = new Sprite();
@@ -35,63 +31,61 @@ package Game
 		private function loadMenuButtons():void
 		{
 			addChild(buttonsContainer);
-			var eightOffButton:MainMenuButton = new MainMenuButton(140, 50, "EIGHT OFF", true, 0);
-			eightOffButton.x = _stageWidth/2 - 140 /2;
-			eightOffButton.y = 200;
-			buttonsContainer.addChild(eightOffButton);
 			
-			var grandfatherButton:MainMenuButton = new MainMenuButton(200, 50, "GRANDFATHER", true, 0);
-			grandfatherButton.x = _stageWidth/2 - 200 /2;
-			grandfatherButton.y = 260;
-			buttonsContainer.addChild(grandfatherButton);
+			var buttonCounter:int = 0;
 			
-			var prisonButton:MainMenuButton = new MainMenuButton(107, 50, "PRISON", true, 0);
-			prisonButton.x = _stageWidth/2 - 107/2;
-			prisonButton.y = 320;
-			buttonsContainer.addChild(prisonButton);
-			
-			var alterationsButton:MainMenuButton = new MainMenuButton(185, 50, "ALTERATIONS", true, 0);
-			alterationsButton.x =  _stageWidth/2 - 185 /2;
-			alterationsButton.y = 380;
-			buttonsContainer.addChild(alterationsButton);
-			
-			var topsyButton:MainMenuButton = new MainMenuButton(270, 50, "TOPSY-TURVY QEENS", true, 0);
-			topsyButton.x =_stageWidth/2 - 270/2;
-			topsyButton.y = 440;
-			buttonsContainer.addChild(topsyButton);
-		
+			for (var i:int = 0; i < mainMenuButtons.length; i++) 
+			{
+				var button:MenuButton = new MenuButton(mainMenuButtons[i]);
+				button.x = StageWidth / 2 - ButtonWidth / 2;
+				button.y = StageHeight / 5 + ButtonHeight * buttonCounter + ButtonSpacing;
+				button.buttonMode = true;
+				buttonsContainer.addChild(button);
+				
+				//Addeventlistnere
+				var functionName:String = mainMenuButtons[i].substring(0, mainMenuButtons[i].length - 4);
+				var buttonFunction:Function = this[functionName];
+				button.addEventListener(MouseEvent.CLICK, buttonFunction);
+				
+				buttonCounter++;
+			}
 		}
 		
-		private function eightOff():void
+		private function eightOff(e:Event):void
 		{
 			//TODO:
+			trace("eightOff");
 		}
 		
-		private function grandFather():void
+		private function grandFather(e:Event):void
 		{
 			//TODO:
+			trace("grandFather");
 		}
 		
-		private function prison():void
+		private function prison(e:Event):void
 		{
 			//TODO:
+			trace("prison");
 		}
 		
-		private function alternations():void
+		private function alternations(e:Event):void
 		{
 			//TODO:
+			trace("alternations");
 		}
 		
-		private function topsyTurvyQeens():void
+		private function topsyTurvyQueens(e:Event):void
 		{
 			//TODO:
+			trace("topsyTurvyQueens");
 		}
 		
 		private function loadBackground():void
 		{
 			addChild(backgroundContainer);
 			
-			var backgroundUrl:URLRequest = new URLRequest("Data/images/backgroundMainMenu2.jpg");
+			var backgroundUrl:URLRequest = new URLRequest("Data/images/Background/background2.jpg");
 			var loader:Loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderCompleate);
 			loader.load(backgroundUrl);
@@ -105,5 +99,4 @@ package Game
 			}
 		}
 	}
-
 }
