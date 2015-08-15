@@ -11,13 +11,18 @@ package SharedClasses
 	public class Card extends Sprite
 	{
 		private var cardUrl:URLRequest;
+		private var cardValue:int;
 		
 		public function Card(cardUrl:String,cardValue:int,cardSkin:String = "Skin1/") 
 		{
 			this.cardUrl = new URLRequest("Data/images/Cards/" + cardSkin + cardUrl + ".png");
-			this.name =	cardValue.toString();
+			this.CardValue = cardValue;
 			
 			loadCard();
+		}
+		
+		private function get CardValue():int {
+			return this.cardValue;
 		}
 		
 		private function loadCard():void {
@@ -36,5 +41,4 @@ package SharedClasses
 			}
 		}
 	}
-
 }
