@@ -51,6 +51,7 @@ $RECYCLE.BIN/
 
 #swf files
 *.swf
+*.psd
 
 # Windows shortcuts
 *.lnk

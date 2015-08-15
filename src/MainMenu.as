@@ -13,8 +13,8 @@ package
 	
 	public class MainMenu extends Sprite
 	{
-		private const MAIN_MENU_BUTTONS:Vector.<String> = new <String>
-		["prison.png", "eightOff.png", "grandFather.png", "alternations.png", "topsyTurvyQueens.png"]
+		private const MAIN_MENU_BUTTONS:Vector.<String> = new < String > ["prison.png",
+		"eightOff.png", "grandFather.png", "alternations.png", "topsyTurvyQueens.png"]
 		
 		private const STAGE_WIDTH:int = 800;
 		private const STAGE_HEIGHT:int = 600;
@@ -25,7 +25,7 @@ package
 		private var backgroundPath:String = "background1.jpg";
 		
 		private var backgroundContainer:Sprite = new Sprite();
-		private var buttonsContainer:Sprite = new Sprite();
+		private var menuContainer:Sprite = new Sprite();
 		
 		public function MainMenu()
 		{
@@ -35,7 +35,7 @@ package
 		
 		private function loadMenuButtons():void
 		{
-			addChild(buttonsContainer);
+			addChild(menuContainer);
 			
 			var buttonCounter:int = 0;
 			
@@ -45,7 +45,7 @@ package
 				button.x = STAGE_WIDTH / 2 - BUTTON_WIDTH / 2;
 				button.y = STAGE_HEIGHT / 5 + BUTTON_HEIGHT * buttonCounter +  BUTTON_SPACING*buttonCounter;
 				button.buttonMode = true;
-				buttonsContainer.addChild(button);
+				menuContainer.addChild(button);
 				
 				//add event listener
 				var functionName:String = MAIN_MENU_BUTTONS[i].substring(0, MAIN_MENU_BUTTONS[i].length - 4);
@@ -84,6 +84,14 @@ package
 		{
 			//TODO:
 			trace("topsyTurvyQueens");
+		}
+		
+		private function showMainMenu():void { 
+			addChild(menuContainer);
+		}
+		
+		private function clearMainMenu():void {
+			removeChild(menuContainer);
 		}
 		
 		private function loadBackground():void
