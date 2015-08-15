@@ -11,6 +11,7 @@ package SharedClasses
 	public class Card extends Sprite
 	{
 		private var cardUrl:URLRequest;
+		private var cardSign:String 
 		private var cardValue:int;
 		
 		public function Card(cardUrl:String,cardValue:int,cardSkin:String = "Skin1/") 
@@ -18,10 +19,21 @@ package SharedClasses
 			this.cardUrl = new URLRequest("Data/images/Cards/" + cardSkin + cardUrl + ".png");
 			this.cardValue = cardValue;
 			
+			if (cardValue != 0) {
+				this.cardSign = cardUrl.substring(1, 2);
+			}
+			else {
+				this.cardSign = "back";
+			}
+			
 			loadCard();
 		}
 		
-		private function get CardValue():int {
+		public function get CardSign():String {
+			return this.cardSign;
+		}
+		
+		public function get CardValue():int {
 			return this.cardValue;
 		}
 		
