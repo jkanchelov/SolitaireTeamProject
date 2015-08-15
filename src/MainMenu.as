@@ -8,17 +8,19 @@ package
 	
 	/**
 	 * ...
-	 * @author SS
+	 * @author SolitaireTeam
 	 */
+		
 	public class MainMenu extends Sprite
 	{
-		private const StageWidth:int = 800;
-		private const StageHeight:int = 600;
-		private const ButtonWidth:int = 200;
-		private const ButtonHeight:int = 80; 
-		private const ButtonSpacing:int = 10;
-		
-		private var mainMenuButtons:Vector.<String> = new <String>["prison.png","eightOff.png","grandFather.png","alternations.png","topsyTurvyQueens.png"]
+		private const MAIN_MENU_BUTTONS:Vector.<String> = new < String > ["prison.png",
+		"eightOff.png","grandFather.png","alternations.png","topsyTurvyQueens.png"]
+
+		private const STAGE_WIDTH:int = 800;
+		private const STAGE_HEIGHT:int = 600;
+		private const BUTTON_WIDTH:int = 200;
+		private const BUTTON_HEIGHT:int = 80; 
+		private const BUTTON_SPACING:int = 10;
 		
 		private var backgroundContainer:Sprite = new Sprite();
 		private var buttonsContainer:Sprite = new Sprite();
@@ -35,16 +37,16 @@ package
 			
 			var buttonCounter:int = 0;
 			
-			for (var i:int = 0; i < mainMenuButtons.length; i++) 
+			for (var i:int = 0; i < MainMenuButtons.length; i++) 
 			{
-				var button:MenuButton = new MenuButton(mainMenuButtons[i]);
-				button.x = StageWidth / 2 - ButtonWidth / 2;
-				button.y = StageHeight / 5 + ButtonHeight * buttonCounter + ButtonSpacing;
+				var button:MenuButton = new MenuButton(MainMenuButtons[i]);
+				button.x = STAGE_WIDTH / 2 - BUTTON_WIDTH / 2;
+				button.y = STAGE_HEIGHT / 5 + BUTTON_HEIGHT * buttonCounter + BUTTON_SPACING;
 				button.buttonMode = true;
 				buttonsContainer.addChild(button);
 				
 				//add event listener
-				var functionName:String = mainMenuButtons[i].substring(0, mainMenuButtons[i].length - 4);
+				var functionName:String = MainMenuButtons[i].substring(0, MainMenuButtons[i].length - 4);
 				var buttonFunction:Function = this[functionName];
 				button.addEventListener(MouseEvent.CLICK, buttonFunction);
 				

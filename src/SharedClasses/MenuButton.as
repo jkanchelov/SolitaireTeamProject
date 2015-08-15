@@ -11,7 +11,7 @@ package SharedClasses
 	public class MenuButton extends Sprite
 	{
 		
-		public function MenuButton(fileName:String )
+		public function MenuButton(fileName:String)
 		{
 			loadButton(fileName);
 		}
@@ -32,5 +32,4 @@ package SharedClasses
 			}
 		}
 	}
-
 }
