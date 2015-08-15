@@ -1,4 +1,4 @@
-package Game
+package SharedClasses
 {
 	import flash.events.*;
 	import flash.display.*;

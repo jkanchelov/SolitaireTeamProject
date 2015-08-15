@@ -1,7 +1,8 @@
 package
 {
 	import flash.display.Sprite;
-	import Game.MainMenu;
+	import MainMenu;
+	import SharedClasses.Card;
 	
 	/**
 	 * ...
@@ -10,7 +11,7 @@ package
 	public class Main extends Sprite 
 	{	
 		public function Main() 
-		{
+		{		
 			var game:MainMenu = new MainMenu();
 			addChild(game);
 		}

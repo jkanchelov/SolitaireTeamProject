@@ -1,6 +1,7 @@
-package Game
+package
 {
 	import com.greensock.events.LoaderEvent;
+	import SharedClasses.*;
 	import flash.display.*;
 	import flash.events.*;
 	import flash.net.*;
@@ -17,7 +18,7 @@ package Game
 		private const ButtonHeight:int = 80; 
 		private const ButtonSpacing:int = 10;
 		
-		private var mainMenuButtons:Vector.<String> = new <String>["grandFather.png","eightOff.png","prison.png","alternations.png","topsyTurvyQueens.png"]
+		private var mainMenuButtons:Vector.<String> = new <String>["prison.png","eightOff.png","grandFather.png","alternations.png","topsyTurvyQueens.png"]
 		
 		private var backgroundContainer:Sprite = new Sprite();
 		private var buttonsContainer:Sprite = new Sprite();
@@ -42,7 +43,7 @@ package Game
 				button.buttonMode = true;
 				buttonsContainer.addChild(button);
 				
-				//Addeventlistnere
+				//add event listener
 				var functionName:String = mainMenuButtons[i].substring(0, mainMenuButtons[i].length - 4);
 				var buttonFunction:Function = this[functionName];
 				button.addEventListener(MouseEvent.CLICK, buttonFunction);
