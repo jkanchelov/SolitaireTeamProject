@@ -10,17 +10,19 @@ package
 	 * ...
 	 * @author SolitaireTeam
 	 */
-		
+	
 	public class MainMenu extends Sprite
 	{
-		private const MAIN_MENU_BUTTONS:Vector.<String> = new < String > ["prison.png",
-		"eightOff.png","grandFather.png","alternations.png","topsyTurvyQueens.png"]
-
+		private const MAIN_MENU_BUTTONS:Vector.<String> = new <String>
+		["prison.png", "eightOff.png", "grandFather.png", "alternations.png", "topsyTurvyQueens.png"]
+		
 		private const STAGE_WIDTH:int = 800;
 		private const STAGE_HEIGHT:int = 600;
 		private const BUTTON_WIDTH:int = 200;
-		private const BUTTON_HEIGHT:int = 80; 
-		private const BUTTON_SPACING:int = 10;
+		private const BUTTON_HEIGHT:int = 60;
+		private const BUTTON_SPACING:int = 5;
+		
+		private var backgroundPath:String = "background1.jpg";
 		
 		private var backgroundContainer:Sprite = new Sprite();
 		private var buttonsContainer:Sprite = new Sprite();
@@ -37,11 +39,11 @@ package
 			
 			var buttonCounter:int = 0;
 			
-			for (var i:int = 0; i < MAIN_MENU_BUTTONS.length; i++) 
+			for (var i:int = 0; i < MAIN_MENU_BUTTONS.length; i++)
 			{
 				var button:MenuButton = new MenuButton(MAIN_MENU_BUTTONS[i]);
 				button.x = STAGE_WIDTH / 2 - BUTTON_WIDTH / 2;
-				button.y = STAGE_HEIGHT / 5 + BUTTON_HEIGHT * buttonCounter + BUTTON_SPACING;
+				button.y = STAGE_HEIGHT / 5 + BUTTON_HEIGHT * buttonCounter +  BUTTON_SPACING*buttonCounter;
 				button.buttonMode = true;
 				buttonsContainer.addChild(button);
 				
@@ -88,7 +90,7 @@ package
 		{
 			addChild(backgroundContainer);
 			
-			var backgroundUrl:URLRequest = new URLRequest("Data/images/Background/background2.jpg");
+			var backgroundUrl:URLRequest = new URLRequest("Data/images/Background/" + backgroundPath);
 			var loader:Loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderCompleate);
 			loader.load(backgroundUrl);
