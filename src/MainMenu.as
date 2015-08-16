@@ -26,14 +26,17 @@ package
 		private var cash:int = 1000; 
 		
 		private var backgroundContainer:Sprite = new Sprite();
+		private var musicButtonContainer:Sprite = new Sprite();
+		
 		private var menuContainer:Sprite = new Sprite();
 		
 		public function MainMenu()
 		{
 			loadBackground();
 			loadMenuButtons();
-			clearMainMenu();
+			loadMusic();
 		}
+		
 		
 		private function loadMenuButtons():void
 		{
@@ -56,6 +59,15 @@ package
 				
 				buttonCounter++;
 			}
+		}
+		
+		private function loadMusic():void {
+			addChild(musicButtonContainer);
+			
+			var music:Music = new Music();
+			music.showButton();
+			
+			musicButtonContainer.addChild(music);
 		}
 		
 		private function eightOff(e:Event):void
