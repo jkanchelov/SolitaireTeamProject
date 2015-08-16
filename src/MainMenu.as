@@ -14,8 +14,7 @@ package
 	
 	public class MainMenu extends Sprite
 	{
-		private const MAIN_MENU_BUTTONS:Vector.<String> = new < String > ["prison.png",
-		"eightOff.png", "grandFather.png", "alternations.png", "topsyTurvyQueens.png"]
+		private const MAIN_MENU_BUTTONS:Vector.<String> = new <String>["prison.png", "eightOff.png", "grandFather.png", "alternations.png", "topsyTurvyQueens.png"]
 		
 		private const STAGE_WIDTH:int = 800;
 		private const STAGE_HEIGHT:int = 600;
@@ -24,7 +23,7 @@ package
 		private const BUTTON_SPACING:int = 5;
 		
 		private var backgroundPath:String = "background1.jpg";
-		private var cash:int = 1000; 
+		private var cash:int = 1000;
 		
 		private var backgroundContainer:Sprite = new Sprite();
 		private var musicButtonContainer:Sprite = new Sprite();
@@ -38,7 +37,6 @@ package
 			loadMusic();
 		}
 		
-		
 		private function loadMenuButtons():void
 		{
 			addChild(menuContainer);
@@ -49,7 +47,7 @@ package
 			{
 				var button:MenuButton = new MenuButton(MAIN_MENU_BUTTONS[i]);
 				button.x = STAGE_WIDTH / 2 - BUTTON_WIDTH / 2;
-				button.y = STAGE_HEIGHT / 5 + BUTTON_HEIGHT * buttonCounter +  BUTTON_SPACING*buttonCounter;
+				button.y = STAGE_HEIGHT / 5 + BUTTON_HEIGHT * buttonCounter + BUTTON_SPACING * buttonCounter;
 				button.buttonMode = true;
 				menuContainer.addChild(button);
 				
@@ -62,16 +60,6 @@ package
 			}
 		}
 		
-		private function loadMusic():void {
-			addChild(musicButtonContainer);
-			
-			var music:Music = new Music();
-			music.showButton();
-			
-			musicButtonContainer.addChild(music);
-		}
-		
-			
 		private function prison(e:Event):void
 		{
 			startGame(PrisonSolitaire);
@@ -87,7 +75,6 @@ package
 		{
 			//startGame(grandFather)
 		}
-	
 		
 		private function alternations(e:Event):void
 		{
@@ -101,17 +88,30 @@ package
 			trace("topsyTurvyQueens");
 		}
 		
-		private function startGame(game:Object) {
+		private function startGame(game:Object)
+		{
 			clearMainMenu();
 			
 			addChild(new game());
 		}
 		
-		private function showMainMenu():void { 
+		private function loadMusic():void
+		{
+			addChild(musicButtonContainer);
+			
+			var music:Music = new Music();
+			music.showButton();
+			
+			musicButtonContainer.addChild(music);
+		}
+		
+		private function showMainMenu():void
+		{
 			addChild(menuContainer);
 		}
 		
-		private function clearMainMenu():void {
+		private function clearMainMenu():void
+		{
 			removeChild(menuContainer);
 		}
 		
