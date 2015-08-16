@@ -32,6 +32,7 @@ package
 		{
 			loadBackground();
 			loadMenuButtons();
+			clearMainMenu();
 		}
 		
 		private function loadMenuButtons():void
