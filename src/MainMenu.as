@@ -71,6 +71,12 @@ package
 			musicButtonContainer.addChild(music);
 		}
 		
+			
+		private function prison(e:Event):void
+		{
+			startGame(PrisonSolitaire);
+		}
+		
 		private function eightOff(e:Event):void
 		{
 			//TODO:
@@ -79,28 +85,26 @@ package
 		
 		private function grandFather(e:Event):void
 		{
-			//TODO:
-			trace("grandFather");
+			//startGame(grandFather)
 		}
-		
-		private function prison(e:Event):void
-		{
-			//TODO:
-			clearMainMenu();
-			var prisonGame:PrisonSolitaire= new PrisonSolitaire();
-			addChild(prisonGame);
-		}
+	
 		
 		private function alternations(e:Event):void
 		{
 			//TODO:
-			trace("alternations");
+			//startGame(alternations)
 		}
 		
 		private function topsyTurvyQueens(e:Event):void
 		{
 			//TODO:
 			trace("topsyTurvyQueens");
+		}
+		
+		private function startGame(game:Object) {
+			clearMainMenu();
+			
+			addChild(new game());
 		}
 		
 		private function showMainMenu():void { 
