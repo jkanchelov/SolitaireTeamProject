@@ -47,7 +47,7 @@ package Games.Prison
 			loadDeck();
 			loadCardsFoundation();
 			loadReservedCards();
-		
+			loadTaublePilesCards();
 		}
 		
 		private function loadCardsFoundation():void
@@ -72,6 +72,7 @@ package Games.Prison
 							object.addChild(cards[card - counterAddedCards])
 							cards.splice(card - counterAddedCards, 1);
 							counterAddedCards++;
+							counterPlacedCards++;
 						}
 					}
 					counter++;
@@ -81,13 +82,25 @@ package Games.Prison
 		
 		private function loadReservedCards():void
 		{
-		
+			var reservedPiles:int = 8;
+			
+			
+			for (var i:int = 0; i < reservedPiles; i++) 
+			{
+				var reservedPile:Sprite = reservesContainer.getChildAt(i) as Sprite;
+				drawRandomCard(reservedPile);
+			}
 		}
 		
+		private function loadTaublePilesCards():void { 
+			
+		}
+		h
 		private function drawRandomCard(drawAt:Sprite):void
 		{
-			var rndCardNumber:int = randomRange(0, 52 - counterPlacedCards);
+			var rndCardNumber:int = randomRange(0, 51 - counterPlacedCards);
 			drawAt.addChild(cards[rndCardNumber]);
+			counterPlacedCards++;
 			cards.splice(rndCardNumber, 1);
 		}
 		
@@ -153,11 +166,6 @@ package Games.Prison
 			}
 		}
 		
-		private function addCard():void
-		{
-		
-		}
-		
 		private function loadDeck():void
 		{
 			var cardUrl:String;
@@ -207,6 +215,7 @@ package Games.Prison
 					cardUrl = i + cardColor;
 					
 					var card:Card = new Card(cardUrl, i);
+					card.buttonMode = true;
 					cards.push(card);
 				}
 			}

@@ -1,9 +1,10 @@
-package SharedClasses 
+package SharedClasses
 {
 	import flash.events.*;
 	import flash.display.*;
 	import flash.geom.*;
 	import flash.net.URLRequest;
+	
 	/**
 	 * ...
 	 * @author Jordan
@@ -11,15 +12,14 @@ package SharedClasses
 	public class PileBackground extends Sprite
 	{
 		private static const CONTAINER_WIDTH:int = 65;
-		private static const CONTAINER_HEIGHT:int = 100; 
+		private static const CONTAINER_HEIGHT:int = 100;
 		
-		public function PileBackground() 
+		public function PileBackground()
 		{
 			loadBackground();
 		}
-			
 		
-		private function loadBackground():void 
+		private function loadBackground():void
 		{
 			var backgroundUrl:URLRequest = new URLRequest("Data/images/Background/backgroundSprite.png");
 			var loader:Loader = new Loader();
