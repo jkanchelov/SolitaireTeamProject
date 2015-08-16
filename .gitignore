@@ -56,3 +56,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 *.psd
+obj/SolitaireTeamProjectConfig.old
+obj/SolitaireTeamProjectConfig.xml
