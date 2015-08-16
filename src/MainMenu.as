@@ -1,6 +1,7 @@
 package
 {
 	import com.greensock.events.LoaderEvent;
+	import Games.Prison.PrisonSolitaire;
 	import SharedClasses.*;
 	import flash.display.*;
 	import flash.events.*;
@@ -85,7 +86,9 @@ package
 		private function prison(e:Event):void
 		{
 			//TODO:
-			trace("prison");
+			clearMainMenu();
+			var prisonGame:PrisonSolitaire= new PrisonSolitaire();
+			addChild(prisonGame);
 		}
 		
 		private function alternations(e:Event):void
