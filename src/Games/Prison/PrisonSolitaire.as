@@ -1,6 +1,9 @@
 package Games.Prison
 {
-	import flash.display.Sprite;
+	import flash.events.*;
+	import flash.display.*;
+	import flash.geom.*;
+	import flash.net.URLRequest;
 	import SharedClasses.*
 	
 	/**
@@ -15,11 +18,13 @@ package Games.Prison
 		private const RESERVE_CONTAINER_Y:int = 195;
 		private const TAUBLE_CONTAINER_X:int = 25;
 		private const TAUBLE_CONTAINER_Y:int = 320;
-		private const CONTAINER_SPACING:int = 10;
-		
-		private var isGameRunning:Boolean = true;
+		private const CONTAINER_WIDTH:int = 65;
+		private const CONTAINER_HEIGHT:int = 100;
+		private const CONTAINER_WIDTH_SPACING:int = 10;
 		
 		private var cards:Vector.<Card> = new Vector.<Card>();
+		private var isGameRunning:Boolean = true;
+		private var counterPlacedCards:int = 0;
 		
 		private var foundationContainer:Sprite;
 		private var reservesContainer:Sprite;
@@ -38,64 +43,113 @@ package Games.Prison
 		private function DealSolitaire():void
 		{
 			addCardContainers();
+			
+			loadDeck();
+			loadCardsFoundation();
+			loadReservedCards();
 		
-			//loadDeck();
+		}
+		
+		private function loadCardsFoundation():void
+		{
+			var rndCardNumber:int = randomRange(0, 52 - counterPlacedCards);
+			
+			var counter:int = 0;
+			var counterAddedCards:int = 0;
+			
+			var cardNumbers:int = 13;
+			var cardColors:int = 4
+			
+			for (var cardValue:int = 0; cardValue < cardNumbers; cardValue++)
+			{
+				for (var cardSign:int = 0; cardSign < cardColors; cardSign++)
+				{
+					if (counter == rndCardNumber)
+					{
+						for (var card:int = cardValue * cardColors; card < cardValue * cardColors + cardColors; card++)
+						{
+							var object:Sprite = foundationContainer.getChildAt(counterAddedCards) as Sprite;
+							object.addChild(cards[card - counterAddedCards])
+							cards.splice(card - counterAddedCards, 1);
+							counterAddedCards++;
+						}
+					}
+					counter++;
+				}
+			}
+		}
+		
+		private function loadReservedCards():void
+		{
+		
+		}
+		
+		private function drawRandomCard(drawAt:Sprite):void
+		{
+			var rndCardNumber:int = randomRange(0, 52 - counterPlacedCards);
+			drawAt.addChild(cards[rndCardNumber]);
+			cards.splice(rndCardNumber, 1);
 		}
 		
 		private function addCardContainers():void
 		{
-			addFoundationContainer();
-			addReserveContainer();
-			addTaubleContaier();
+			fillFoundationContainer();
+			fillReserveContainer();
+			fillTaubleContainer();
 			
-			function addTaubleContaier():void {
+			function fillTaubleContainer():void
+			{
 				taublePilesContainer = new Sprite();
 				taublePilesContainer.x = TAUBLE_CONTAINER_X
 				taublePilesContainer.y = TAUBLE_CONTAINER_Y
 				
-				for (var i:int = 0; i < 10; i++) 
+				for (var cardCount:int = 0; cardCount < 10; cardCount++)
 				{
-					var containerX = CardsContainer.ContainerWidth * i + i * 10;
-					taublePilesContainer.addChild(addCardContainer(containerX));
+					var containerX:int = CONTAINER_WIDTH * cardCount + cardCount * CONTAINER_WIDTH_SPACING;
+					taublePilesContainer.addChild(addCardContainer(containerX, "tauble" + cardCount));
 				}
 				
 				addChild(taublePilesContainer);
 			}
 			
-			function addReserveContainer():void {
+			function fillReserveContainer():void
+			{
 				reservesContainer = new Sprite();
-				reservesContainer.x = RESERVE_CONTAINER_X; 
+				reservesContainer.x = RESERVE_CONTAINER_X;
 				reservesContainer.y = RESERVE_CONTAINER_Y;
 				
-				for (var i:int = 0; i < 8; i++) 
+				for (var cardCount:int = 0; cardCount < 8; cardCount++)
 				{
-					var containerX = CardsContainer.ContainerWidth * i + i * 10;
-					reservesContainer.addChild(addCardContainer(containerX));
+					var containerX = CONTAINER_WIDTH * cardCount + cardCount * CONTAINER_WIDTH_SPACING;
+					reservesContainer.addChild(addCardContainer(containerX, "reserve" + cardCount));
 				}
 				
 				addChild(reservesContainer);
 			}
 			
-			function addFoundationContainer():void {
+			function fillFoundationContainer():void
+			{
 				foundationContainer = new Sprite();
-				foundationContainer.x = FOUNDATION_CONTAINER_X; 
+				foundationContainer.x = FOUNDATION_CONTAINER_X;
 				foundationContainer.y = FOUNDATION_CONTAINER_Y;
 				
-				for (var i:int = 0; i < 4; i++) 
+				for (var cardCount:int = 0; cardCount < 4; cardCount++)
 				{
-					var containerX = CardsContainer.ContainerWidth * i + i * 10;
-					foundationContainer.addChild(addCardContainer(containerX));
+					var containerX:int = CONTAINER_WIDTH * cardCount + cardCount * CONTAINER_WIDTH_SPACING;
+					foundationContainer.addChild(addCardContainer(containerX, "foundation" + cardCount));
 				}
 				
 				addChild(foundationContainer);
 			}
 			
-			function addCardContainer(x:int):Sprite
+			function addCardContainer(x:int, name:String):Sprite
 			{
-				var container:CardsContainer = new CardsContainer();
+				var container:Sprite = new Sprite();
 				container.x = x;
+				container.name = name;
+				container.addChild(new PileBackground());
 				
-				return container
+				return container;
 			}
 		}
 		
