@@ -8,23 +8,16 @@ package SharedClasses
 	 * ...
 	 * @author Jordan
 	 */
-	public class CardsContainer extends Sprite
+	public class PileBackground extends Sprite
 	{
-		private static const CONTAINER_WIDTH = 65;
-		private static const CONTAINER_HEIGHT = 100; 
+		private static const CONTAINER_WIDTH:int = 65;
+		private static const CONTAINER_HEIGHT:int = 100; 
 		
-		public function CardsContainer() 
+		public function PileBackground() 
 		{
 			loadBackground();
 		}
 			
-		public static function get ContainerWidth():int {
-			return CONTAINER_WIDTH
-		}
-		
-		public static function get ContainerHeight():int {
-			return CONTAINER_HEIGHT;
-		}
 		
 		private function loadBackground():void 
 		{
