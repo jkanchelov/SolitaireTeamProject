@@ -44,7 +44,7 @@ package Games.Prison
 		public function PrisonSolitaire()
 		{
 			showMenu()
-			
+		
 			//DealSolitaire();
 		}
 		
@@ -53,7 +53,8 @@ package Games.Prison
 			return this.isGameRunning;
 		}
 		
-		private function showMenu():void {
+		private function showMenu():void
+		{
 			menuContainer = new Sprite();
 			
 			var helpMenu:PrisonHelpMenu = new PrisonHelpMenu();
@@ -63,18 +64,31 @@ package Games.Prison
 			startButton.addEventListener(MouseEvent.CLICK, startGame);
 			startButton.x = 150;
 			startButton.y = helpMenu.height + 20;
+			startButton.buttonMode = true;
 			menuContainer.addChild(startButton);
 			
-
-			menuContainer.x = STAGE_WIDTH/2 - menuContainer.width / 2;
-			addChild(menuContainer);	
+			var scoreButton:MenuButton = new MenuButton("score.png");
+			scoreButton.addEventListener(MouseEvent.CLICK, showScore);
+			scoreButton.x = 150;
+			scoreButton.y = helpMenu.height + 90;
+			scoreButton.buttonMode = true;
+			menuContainer.addChild(scoreButton);
+			
+			menuContainer.x = STAGE_WIDTH / 2 - menuContainer.width / 2;
+			addChild(menuContainer);
 		}
 		
-		private function startGame(e:MouseEvent):void { 
+		private function startGame(e:MouseEvent):void
+		{
 			removeChild(menuContainer);
 			menuContainer = null;
 			
 			DealSolitaire();
+		}
+		
+		private function showScore(e:MouseEvent):void
+		{
+			//TODO: 
 		}
 		
 		private function DealSolitaire():void
@@ -160,17 +174,18 @@ package Games.Prison
 			cards.splice(rndCardNumber, 1);
 		}
 		
-		
-		private function startDraging(e:MouseEvent):void {
+		private function startDraging(e:MouseEvent):void
+		{
 			
-			if (isLastCardOfPile) {
+			if (isLastCardOfPile(e.target as Card))
+			{
 				movingCardObject = e.target as Sprite;
-
+				
 				movingCardSprite = movingCardObject.parent as Sprite;
 				movingCardObject.parent.removeChild(movingCardObject);
 				
 				addChild(movingCardObject);
-				movingCardObject.x = mouseX - movingCardObject.width/2;
+				movingCardObject.x = mouseX - movingCardObject.width / 2;
 				movingCardObject.y = mouseY - movingCardObject.height / 2;
 				
 				movingCardX = mouseX;
@@ -180,7 +195,8 @@ package Games.Prison
 			}
 		}
 		
-		private function stopDraging(e:MouseEvent):void {
+		private function stopDraging(e:MouseEvent):void
+		{
 			movingCardObject.stopDrag();
 			removeChild(movingCardObject);
 			movingCardSprite.addChild(movingCardObject);
@@ -195,7 +211,7 @@ package Games.Prison
 			}
 		}
 		
-		private function isLastCardOfPile():Boolean
+		private function isLastCardOfPile(card:Card):Boolean
 		{
 			return true;
 		}
