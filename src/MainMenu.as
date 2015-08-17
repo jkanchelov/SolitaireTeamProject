@@ -1,7 +1,8 @@
 package
 {
 	import com.greensock.events.LoaderEvent;
-	import Games.Prison.PrisonSolitaire;
+	import Games.GrandFather.*
+	import Games.Prison.*
 	import SharedClasses.*;
 	import flash.display.*;
 	import flash.events.*;
@@ -73,7 +74,7 @@ package
 		
 		private function grandFather(e:Event):void
 		{
-			//startGame(grandFather)
+			startGame(Grandfather)
 		}
 		
 		private function alternations(e:Event):void
