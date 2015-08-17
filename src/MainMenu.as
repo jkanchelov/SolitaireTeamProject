@@ -6,6 +6,7 @@ package
 	import flash.display.*;
 	import flash.events.*;
 	import flash.net.*;
+	import Games.TopsyTurvyQueens.TopsyTurvyQueens;
 	
 	/**
 	 * ...
@@ -84,8 +85,8 @@ package
 		
 		private function topsyTurvyQueens(e:Event):void
 		{
-			//TODO:
-			trace("topsyTurvyQueens");
+			startGame(TopsyTurvyQueens);
+			
 		}
 		
 		private function startGame(game:Object)
