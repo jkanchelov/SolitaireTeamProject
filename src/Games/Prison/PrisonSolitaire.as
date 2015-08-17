@@ -95,7 +95,7 @@ package Games.Prison
 		private function loadTaublePilesCards():void { 
 			
 		}
-		h
+		
 		private function drawRandomCard(drawAt:Sprite):void
 		{
 			var rndCardNumber:int = randomRange(0, 51 - counterPlacedCards);
