@@ -4,6 +4,7 @@ package Games.Prison
 	import flash.display.*;
 	import flash.geom.*;
 	import flash.net.URLRequest;
+	import Games.Prison.Objects.PrisonHelpMenu;
 	import SharedClasses.*
 	
 	/**
@@ -12,6 +13,9 @@ package Games.Prison
 	 */
 	public class PrisonSolitaire extends Sprite
 	{
+		private const STAGE_WIDTH = 800;
+		private const STAGE_HEIGHT = 600;
+		
 		private const FOUNDATION_CONTAINER_X:int = 250;
 		private const FOUNDATION_CONTAINER_Y:int = 70;
 		private const RESERVE_CONTAINER_X:int = 100;
@@ -21,23 +25,70 @@ package Games.Prison
 		private const CONTAINER_WIDTH:int = 65;
 		private const CONTAINER_HEIGHT:int = 100;
 		private const CONTAINER_WIDTH_SPACING:int = 10;
+		private const CARDS_Y_SPACING:int = 35;
 		
 		private var cards:Vector.<Card> = new Vector.<Card>();
 		private var isGameRunning:Boolean = true;
 		private var counterPlacedCards:int = 0;
 		
+		private var movCardCurrentSprite:Sprite;
+		private var movingCardObject:Sprite;
+		private var movingCardX:int;
+		private var movingCardY:int;
+		
+		private var menuContainer:Sprite;
 		private var foundationContainer:Sprite;
 		private var reservesContainer:Sprite;
 		private var taublePilesContainer:Sprite;
 		
 		public function PrisonSolitaire()
 		{
-			DealSolitaire();
+			showMenu()
+		
+			//DealSolitaire();
 		}
 		
 		public function get IsGameRunning():Boolean
 		{
 			return this.isGameRunning;
+		}
+		
+		private function showMenu():void
+		{
+			menuContainer = new Sprite();
+			
+			var helpMenu:PrisonHelpMenu = new PrisonHelpMenu();
+			menuContainer.addChild(helpMenu);
+			
+			var startButton:MenuButton = new MenuButton("start.png");
+			startButton.addEventListener(MouseEvent.CLICK, startGame);
+			startButton.x = 150;
+			startButton.y = helpMenu.height + 20;
+			startButton.buttonMode = true;
+			menuContainer.addChild(startButton);
+			
+			var scoreButton:MenuButton = new MenuButton("score.png");
+			scoreButton.addEventListener(MouseEvent.CLICK, showScore);
+			scoreButton.x = 150;
+			scoreButton.y = helpMenu.height + 90;
+			scoreButton.buttonMode = true;
+			menuContainer.addChild(scoreButton);
+			
+			menuContainer.x = STAGE_WIDTH / 2 - menuContainer.width / 2;
+			addChild(menuContainer);
+		}
+		
+		private function startGame(e:MouseEvent):void
+		{
+			removeChild(menuContainer);
+			menuContainer = null;
+			
+			DealSolitaire();
+		}
+		
+		private function showScore(e:MouseEvent):void
+		{
+			//TODO: 
 		}
 		
 		private function DealSolitaire():void
@@ -70,6 +121,13 @@ package Games.Prison
 						{
 							var object:Sprite = foundationContainer.getChildAt(counterAddedCards) as Sprite;
 							object.addChild(cards[card - counterAddedCards])
+							
+							//removing buttonMode for the foundation cards
+							var currentCard:Card = object.getChildAt(1) as Card;
+							currentCard.buttonMode = false;
+							currentCard.removeEventListener(MouseEvent.MOUSE_DOWN, startDraging);
+							currentCard.removeEventListener(MouseEvent.MOUSE_UP, stopDraging);
+							
 							cards.splice(card - counterAddedCards, 1);
 							counterAddedCards++;
 							counterPlacedCards++;
@@ -84,24 +142,112 @@ package Games.Prison
 		{
 			var reservedPiles:int = 8;
 			
-			
-			for (var i:int = 0; i < reservedPiles; i++) 
+			for (var i:int = 0; i < reservedPiles; i++)
 			{
 				var reservedPile:Sprite = reservesContainer.getChildAt(i) as Sprite;
 				drawRandomCard(reservedPile);
 			}
 		}
 		
-		private function loadTaublePilesCards():void { 
+		private function loadTaublePilesCards():void
+		{
+			var taublePiles:int = 10;
+			var taubleCards:int = 4;
 			
+			for (var pile:int = 0; pile < taublePiles; pile++)
+			{
+				for (var card:int = 0; card < taubleCards; card++)
+				{
+					var pileContainer:Sprite = taublePilesContainer.getChildAt(pile) as Sprite;
+					var cardY = (pileContainer.numChildren - 1) * CARDS_Y_SPACING;
+					drawRandomCard(pileContainer, cardY);
+				}
+			}
+		
 		}
 		
-		private function drawRandomCard(drawAt:Sprite):void
+		private function drawRandomCard(drawAt:Sprite, y:int = 0):void
 		{
 			var rndCardNumber:int = randomRange(0, 51 - counterPlacedCards);
-			drawAt.addChild(cards[rndCardNumber]);
+			drawAt.addChild(cards[rndCardNumber]).y = y;
 			counterPlacedCards++;
 			cards.splice(rndCardNumber, 1);
+		}
+		
+		private function startDraging(e:MouseEvent):void
+		{
+			if (isLastCardOfPile(e.target as Card))
+			{
+				movingCardObject = e.target as Sprite;
+				
+				movCardCurrentSprite = movingCardObject.parent as Sprite;
+				movingCardObject.parent.removeChild(movingCardObject);
+				
+				addChild(movingCardObject);
+				movingCardObject.x = mouseX - movingCardObject.width / 2;
+				movingCardObject.y = mouseY - movingCardObject.height / 2;
+				
+				movingCardX = mouseX;
+				movingCardY = mouseY;
+				
+				e.target.startDrag();
+			}
+		}
+		
+		private function stopDraging(e:MouseEvent):void
+		{
+			if (movingCardObject != null)
+			{
+				movingCardObject.stopDrag();
+				removeChild(movingCardObject);
+				if (!true) // can move
+				{
+					
+				}
+				else // can't be moved 
+				{
+					e.target.x = 0
+					e.target.y = (movCardCurrentSprite.numChildren - 1) * CARDS_Y_SPACING
+					movCardCurrentSprite.addChild(movingCardObject);
+					
+					movingCardObject = null;
+				}
+			}
+		
+		}
+		
+		private function canBeMoved(givenCard:Card):Boolean
+		{
+			return true
+		}
+		
+		private function isLastCardOfPile(givenCard:Card):Boolean
+		{
+			//checks in each container - reserved and container if the given object is equal to the last in the pile 
+			
+			//check if card is from reserves container
+			if (givenCard.parent.parent == reservesContainer)
+			{
+				return true;
+			}
+			
+			//check for tauble pile
+			for (var pile:int = 0; pile < taublePilesContainer.numChildren; pile++)
+			{
+				var pileContainer:Sprite = taublePilesContainer.getChildAt(pile) as Sprite;
+				
+				var cardChild:int = pileContainer.numChildren - 1;
+				
+				var card:Card = pileContainer.getChildAt(cardChild) as Card;
+				
+				if (givenCard == card)
+				{
+					return true;
+				}
+				
+			}
+			
+			return false;
 		}
 		
 		private function addCardContainers():void
@@ -215,6 +361,8 @@ package Games.Prison
 					cardUrl = i + cardColor;
 					
 					var card:Card = new Card(cardUrl, i);
+					card.addEventListener(MouseEvent.MOUSE_DOWN, startDraging);
+					card.addEventListener(MouseEvent.MOUSE_UP, stopDraging);
 					card.buttonMode = true;
 					cards.push(card);
 				}
