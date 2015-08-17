@@ -18,7 +18,7 @@ package SharedClasses
 		private var minutes:Number;
 		private var hours:Number;
 		private var tField:TextField;
-		private var _timerTxtColor;
+		private var _timerTxtColor:int;
 		
 		public function TimerCounter(timerTxtColor:int = 0x000000)
 		{
