@@ -13,7 +13,7 @@ package SharedClasses
 	{
 		private var sound:Sound = new Sound();
 		private var channel:SoundChannel = new SoundChannel();
-		private var myTransform:SoundTransform = new SoundTransform();
+		private var myTransform = new SoundTransform();
 		private var lastPosition:Number = 0;
 		
 		private var iconUrl:URLRequest;
@@ -42,7 +42,7 @@ package SharedClasses
 			playSound();
 		}
 		
-		public function showButton():void
+		public function showButton()
 		{
 			while (buttonContainer.numChildren > 0)
 			{

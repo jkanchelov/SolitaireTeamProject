@@ -2,7 +2,6 @@ package
 {
 	import com.greensock.events.LoaderEvent;
 	import Games.Prison.PrisonSolitaire;
-	import Games.TopsyTurvyQueens.TopsyTurvyQueens;
 	import SharedClasses.*;
 	import flash.display.*;
 	import flash.events.*;
@@ -85,12 +84,11 @@ package
 		
 		private function topsyTurvyQueens(e:Event):void
 		{
-			
-			startGame(TopsyTurvyQueens);
-			
+			//TODO:
+			trace("topsyTurvyQueens");
 		}
 		
-		private function startGame(game:Object):void
+		private function startGame(game:Object)
 		{
 			clearMainMenu();
 			
