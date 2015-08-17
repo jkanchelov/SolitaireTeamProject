@@ -133,7 +133,7 @@ package Games.Prison
 				
 				for (var cardCount:int = 0; cardCount < 8; cardCount++)
 				{
-					var containerX = CONTAINER_WIDTH * cardCount + cardCount * CONTAINER_WIDTH_SPACING;
+					var containerX:int = CONTAINER_WIDTH * cardCount + cardCount * CONTAINER_WIDTH_SPACING;
 					reservesContainer.addChild(addCardContainer(containerX, "reserve" + cardCount));
 				}
 				
