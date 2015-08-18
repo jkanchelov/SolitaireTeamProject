@@ -29,10 +29,13 @@ package Games.Prison
 		
 		private var cards:Vector.<Card> = new Vector.<Card>();
 		private var isGameRunning:Boolean = true;
+		private var isWin:Boolean = false;
 		private var counterPlacedCards:int = 0;
 		
 		private var movCardCurrentSprite:Sprite;
+		private var movCardNewSprite:Sprite;
 		private var movingCardObject:Sprite;
+		private var movCardToFoundation:Boolean = false;
 		private var movingCardX:int;
 		private var movingCardY:int;
 		
@@ -44,8 +47,6 @@ package Games.Prison
 		public function PrisonSolitaire()
 		{
 			showMenu()
-		
-			//DealSolitaire();
 		}
 		
 		public function get IsGameRunning():Boolean
@@ -163,15 +164,6 @@ package Games.Prison
 					drawRandomCard(pileContainer, cardY);
 				}
 			}
-		
-		}
-		
-		private function drawRandomCard(drawAt:Sprite, y:int = 0):void
-		{
-			var rndCardNumber:int = randomRange(0, 51 - counterPlacedCards);
-			drawAt.addChild(cards[rndCardNumber]).y = y;
-			counterPlacedCards++;
-			cards.splice(rndCardNumber, 1);
 		}
 		
 		private function startDraging(e:MouseEvent):void
@@ -199,26 +191,139 @@ package Games.Prison
 			if (movingCardObject != null)
 			{
 				movingCardObject.stopDrag();
-				removeChild(movingCardObject);
-				if (!true) // can move
+				var movingCard:Card = movingCardObject as Card;
+				
+				if (canBeMoved(movingCard))
 				{
+					removeChild(movingCardObject);
+					movingCardObject.x = 0;
 					
+					if (movCardToFoundation)
+					{
+						movingCardObject.y = 0;
+						movingCardObject.buttonMode = false;
+						movingCardObject.removeEventListener(MouseEvent.MOUSE_DOWN, startDraging);
+						movingCardObject.removeEventListener(MouseEvent.MOUSE_UP, stopDraging);
+					}
+					else
+					{
+						movingCardObject.y = (movCardNewSprite.numChildren - 1) * CARDS_Y_SPACING
+					}
+					
+					movCardNewSprite.addChild(movingCardObject);
+					checkWin();
+					
+					resetMovCardVariables();
 				}
 				else // can't be moved 
 				{
+					removeChild(movingCardObject);
+					
 					e.target.x = 0
 					e.target.y = (movCardCurrentSprite.numChildren - 1) * CARDS_Y_SPACING
 					movCardCurrentSprite.addChild(movingCardObject);
 					
-					movingCardObject = null;
+					resetMovCardVariables();
 				}
 			}
 		
 		}
 		
+		private function resetMovCardVariables():void
+		{
+			movCardNewSprite = null;
+			movCardToFoundation = false;
+			movingCardObject = null;
+			movCardCurrentSprite = null;
+		}
+		
 		private function canBeMoved(givenCard:Card):Boolean
 		{
-			return true
+			// check if card can be moved to target possition and if its true sets the sprite field to it 
+			
+			//foundation container
+			if (givenCard.hitTestObject(foundationContainer))
+			{
+				for (var pile:int = 0; pile < foundationContainer.numChildren; pile++)
+				{
+					var pileContainer:Sprite = foundationContainer.getChildAt(pile) as Sprite;
+					var lastCardIndex:int = pileContainer.numChildren - 1;
+					var lastCard:Card = pileContainer.getChildAt(lastCardIndex) as Card;
+					
+					if (givenCard.hitTestObject(pileContainer))
+					{
+						if (givenCard.CardSign == lastCard.CardSign)
+						{
+							if (lastCard.CardValue != 13)
+							{
+								if (lastCard.CardValue + 1 == givenCard.CardValue)
+								{
+									movCardToFoundation = true;
+									movCardNewSprite = pileContainer as Sprite;
+									return true;
+								}
+							}
+							else if (lastCard.CardValue == 13 && givenCard.CardValue == 1)
+							{
+								movCardToFoundation = true;
+								movCardNewSprite = pileContainer as Sprite;
+								return true;
+							}
+						}
+					}
+				}
+			}
+			
+			//reserve container
+			if (givenCard.hitTestObject(reservesContainer))
+			{
+				for (var pile:int = 0; pile < reservesContainer.numChildren; pile++)
+				{
+					var pileContainer:Sprite = reservesContainer.getChildAt(pile) as Sprite;
+					
+					if (givenCard.hitTestObject(pileContainer))
+					{
+						if (pileContainer.numChildren == 1)
+						{
+							movCardNewSprite = pileContainer as Sprite;
+							return true;
+						}
+					}
+				}
+			}
+			
+			//tauble container
+			if (givenCard.hitTestObject(taublePilesContainer))
+			{
+				for (var pile:int = 0; pile < taublePilesContainer.numChildren; pile++)
+				{
+					var pileContainer:Sprite = taublePilesContainer.getChildAt(pile) as Sprite;
+					var lastCardIndex:int = pileContainer.numChildren - 1;
+					var lastCard:Card = pileContainer.getChildAt(lastCardIndex) as Card;
+					
+					if (givenCard.hitTestObject(pileContainer))
+					{
+						if (pileContainer.numChildren > 1)
+						{
+							if (givenCard.CardSign == lastCard.CardSign)
+							{
+								if (lastCard.CardValue - 1 == givenCard.CardValue)
+								{
+									movCardNewSprite = pileContainer as Sprite;
+									return true;
+								}
+							}
+						}
+						else
+						{
+							movCardNewSprite = pileContainer as Sprite;
+							return true;
+						}
+					}
+				}
+			}
+			
+			return false
 		}
 		
 		private function isLastCardOfPile(givenCard:Card):Boolean
@@ -236,9 +341,9 @@ package Games.Prison
 			{
 				var pileContainer:Sprite = taublePilesContainer.getChildAt(pile) as Sprite;
 				
-				var cardChild:int = pileContainer.numChildren - 1;
+				var lastCardIndex:int = pileContainer.numChildren - 1;
 				
-				var card:Card = pileContainer.getChildAt(cardChild) as Card;
+				var card:Card = pileContainer.getChildAt(lastCardIndex) as Card;
 				
 				if (givenCard == card)
 				{
@@ -310,6 +415,39 @@ package Games.Prison
 				
 				return container;
 			}
+		}
+		
+		private function checkWin():void
+		{
+			isWin = true;
+			
+			for (var pile:int = 0; pile < foundationContainer.numChildren; pile++)
+			{
+				var pileContainer:Sprite = foundationContainer.getChildAt(pile) as Sprite;
+				
+				if (pileContainer.numChildren != 14)
+				{
+					isWin = false
+				}
+			}
+			
+			if (isWin)
+			{
+				gameOver();
+			}
+		}
+		
+		private function gameOver():void
+		{
+			isGameRunning = false;
+		}
+		
+		private function drawRandomCard(drawAt:Sprite, y:int = 0):void
+		{
+			var rndCardNumber:int = randomRange(0, 51 - counterPlacedCards);
+			drawAt.addChild(cards[rndCardNumber]).y = y;
+			counterPlacedCards++;
+			cards.splice(rndCardNumber, 1);
 		}
 		
 		private function loadDeck():void
