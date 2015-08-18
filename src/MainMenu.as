@@ -105,6 +105,8 @@ package
 		private function checkGameOver(e:Event):void { 
 			if (e.target.IsGameRunning == false) 
 			{
+				removeChild(e.target as Sprite);
+				
 				if (e.target.IsWin == true) {
 					win();
 				}
