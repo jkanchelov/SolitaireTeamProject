@@ -70,14 +70,14 @@ package Games.Prison
 			menuContainer.addChild(helpMenu);
 			
 			var startButton:MenuButton = new MenuButton("start.png");
-			startButton.addEventListener(MouseEvent.CLICK, startGame);
+			startButton.addEventListener(MouseEvent.CLICK, startGame,false,0,true);
 			startButton.x = 150;
 			startButton.y = helpMenu.height + 20;
 			startButton.buttonMode = true;
 			menuContainer.addChild(startButton);
 			
 			var scoreButton:MenuButton = new MenuButton("score.png");
-			scoreButton.addEventListener(MouseEvent.CLICK, showScore);
+			scoreButton.addEventListener(MouseEvent.CLICK, showScore,false,0,true);
 			scoreButton.x = 150;
 			scoreButton.y = helpMenu.height + 90;
 			scoreButton.buttonMode = true;
@@ -507,8 +507,8 @@ package Games.Prison
 					cardUrl = i + cardColor;
 					
 					var card:Card = new Card(cardUrl, i, cardsSkin);
-					card.addEventListener(MouseEvent.MOUSE_DOWN, startDraging);
-					card.addEventListener(MouseEvent.MOUSE_UP, stopDraging);
+					card.addEventListener(MouseEvent.MOUSE_DOWN, startDraging,false,0,true);
+					card.addEventListener(MouseEvent.MOUSE_UP, stopDraging,false,0,true);
 					card.buttonMode = true;
 					cards.push(card);
 				}
