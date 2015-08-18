@@ -234,19 +234,21 @@ package Games.GrandFather
 					break;
 					}
 				// if there is cards in side pile
-					if (currentSidePile.StartValue == 1 && this.takenCard.CardSign == currentSidePile.Sign && this.takenCard.CardValue == (currentSidePile.TopCard.CardValue + 1))
-					{
-						isAllowed = true;
-						this.generalContainer.removeChild(this.takenCard);
-						currentSidePile.pushCard(this.takenCard);
-						break;
-					}
-					if (currentSidePile.StartValue == 13 && this.takenCard.CardSign == currentSidePile.Sign && this.takenCard.CardValue == (currentSidePile.TopCard.CardValue - 1))
-					{
-						isAllowed = true;
-						this.generalContainer.removeChild(this.takenCard);
-						currentSidePile.pushCard(this.takenCard);
-						break;
+					if(currentSidePile.TopCard!=null){
+						if (currentSidePile.StartValue == 1 && this.takenCard.CardSign == currentSidePile.Sign && this.takenCard.CardValue == (currentSidePile.TopCard.CardValue + 1))
+						{
+							isAllowed = true;
+							this.generalContainer.removeChild(this.takenCard);
+							currentSidePile.pushCard(this.takenCard);
+							break;
+						}
+						if (currentSidePile.StartValue == 13 && this.takenCard.CardSign == currentSidePile.Sign && this.takenCard.CardValue == (currentSidePile.TopCard.CardValue - 1))
+						{
+							isAllowed = true;
+							this.generalContainer.removeChild(this.takenCard);
+							currentSidePile.pushCard(this.takenCard);
+							break;
+						}
 					}
 				}
 			}

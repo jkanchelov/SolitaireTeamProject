@@ -25,7 +25,10 @@ package Games.GrandFather
 		private var cardSkinPath:String;
 		
 		private var buttonRules:GameButton;
-		private var buttonScore:GameButton;
+		private var buttonScore:GameButton;		
+		private var buttonPlay:GameButton;
+		private var buttonNewGame:GameButton;
+		private var buttonBackToLobby:GameButton;
 		
 		private var isWin:Boolean = false;
 		private var isGameRunning:Boolean = true;
@@ -46,12 +49,25 @@ package Games.GrandFather
 		}
 		
 		private function loadGameButtons():void {
-			this.buttonRules = new GameButton("How to play...");
-			
-			this.addChild(this.buttonRules);
-			
+			this.buttonRules = new GameButton("How To Play");			
+			this.addChild(this.buttonRules);			
 			this.buttonRules.x = 0;
-			this.buttonRules.y = 600 - this.buttonRules.height
+			this.buttonRules.y = 600 - this.buttonRules.height;			
+			
+			this.buttonPlay = new GameButton('Play');
+			this.addChild(buttonPlay);
+			this.buttonPlay.x = this.buttonRules.x + this.buttonRules.width - 40;
+			this.buttonPlay.y = 600 - this.buttonPlay.height;
+			
+			this.buttonNewGame = new GameButton('New Game');
+			this.addChild(buttonNewGame);
+			this.buttonNewGame.x = this.buttonPlay.x + this.buttonPlay.width - 80;
+			this.buttonNewGame.y = 600 - this.buttonNewGame.height;
+			
+			this.buttonBackToLobby = new GameButton('Back To Lobby');
+			this.addChild(buttonBackToLobby);
+			this.buttonBackToLobby.x = this.buttonNewGame.x + this.buttonNewGame.width - 50;
+			this.buttonBackToLobby.y = 600 - this.buttonBackToLobby.height;
 		}
 		
 		private function loadDeck():void {
