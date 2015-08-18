@@ -51,6 +51,11 @@ package SharedClasses
 			timer.start();
 		}
 		
+			
+		public function get GetTime():String {
+			return tField.text;
+		}
+		
 		private function clock(evt:TimerEvent):void
 		{
 			tHours = (hours < 10) ? "0" + hours.toString() : hours.toString();
@@ -66,5 +71,6 @@ package SharedClasses
 			}
 			tField.text = String(tHours + ":" + tMinutes + ":" + tSeconds);
 		}
+	
 	}
 }
