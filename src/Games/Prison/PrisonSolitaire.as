@@ -29,12 +29,13 @@ package Games.Prison
 		
 		private var cardsSkin:String;
 
+		private var score:int = 0;
+		
 		private var cards:Vector.<Card> = new Vector.<Card>();
 		private var isWin:Boolean = false;
 		private var isGameRunning:Boolean = true;
 		private var counterPlacedCards:int = 0;
 
-		
 		private var movCardCurrentSprite:Sprite;
 		private var movCardNewSprite:Sprite;
 		private var movingCardObject:Sprite;
@@ -95,6 +96,7 @@ package Games.Prison
 			menuContainer = null;
 			
 			showSurrenderButton();
+			
 			DealSolitaire();
 		}
 		
@@ -110,15 +112,27 @@ package Games.Prison
 			time.y = 60;
 			
 			buttonsContainer.x = STAGE_WIDTH - buttonWidth;
-			buttonsContainer.addChild(surrenderButton);
 			buttonsContainer.addChild(time);
+			buttonsContainer.addChild(surrenderButton);
 
 			addChild(buttonsContainer);
 		}
 		
 		private function showScore(e:MouseEvent):void
 		{
-			//TODO: 
+			menuContainer.removeChildAt(0);
+			//TODO: menuContainer.addChildAt(0) score menu 
+			
+			
+		}
+		
+		private function saveScore():void {
+			//get time 
+			var object:TimerCounter = buttonsContainer.getChildAt(0) as TimerCounter;
+			
+			//TODO: Save time
+			var time:String = object.GetTime;
+			//TODO: Save score
 		}
 		
 		private function DealSolitaire():void
@@ -472,6 +486,7 @@ package Games.Prison
 		
 		private function gameOver():void
 		{
+			saveScore();
 			isGameRunning = false;
 		}
 		
