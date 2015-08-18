@@ -1,12 +1,11 @@
 package
 {
-	import com.greensock.events.LoaderEvent;
-	import Games.GrandFather.Grandfather;
-	import Games.Prison.PrisonSolitaire;
-	import SharedClasses.*;
 	import flash.display.*;
 	import flash.events.*;
 	import flash.net.*;
+	import SharedClasses.*;
+	import Games.GrandFather.Grandfather;
+	import Games.Prison.PrisonSolitaire;
 	import Games.TopsyTurvyQueens.TopsyTurvyQueens;
 	
 	/**
@@ -97,14 +96,15 @@ package
 			cash -= bet;
 			
 			var selectedGame = new game();
-			selectedGame.addEventListener(Event.ENTER_FRAME, checkGameOver);
+			selectedGame.addEventListener(Event.ENTER_FRAME, checkGameOver,false,0,true);
 			
 			addChild(selectedGame);
 		}
 		
 		private function checkGameOver(e:Event):void { 
 			if (e.target.IsGameRunning == false) 
-			{
+			{	
+				e.target.removeEventListener(Event.ENTER_FRAME, checkGameOver);
 				removeChild(e.target as Sprite);
 				
 				if (e.target.IsWin == true) {
