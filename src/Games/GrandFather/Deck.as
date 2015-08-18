@@ -13,7 +13,7 @@ package Games.GrandFather
 	public class Deck extends Sprite
 	{
 		private var deck:Array = [];
-		private var leftCards:int;
+		private var cardsCount:int;
 		private var reloadTimesLeft:int = 1;
 		
 		private var deckSkinPath:String;
@@ -21,7 +21,7 @@ package Games.GrandFather
 		public function Deck(deckSkinPathPar:String)
 		{
 			this.deckSkinPath = deckSkinPathPar;
-			fillContainerWithImg(this , "/Data/images/Cards/Skin1/0Back.png", 65, 100);
+			Assistant.fillContainerWithImg(this , "/Data/images/Cards/Skin1/0Back.png", 65, 100);
 			loadDeck();
 			loadDeck();
 		}
@@ -48,7 +48,6 @@ package Games.GrandFather
 						cardColor = "Back";
 						cardUrl = i + cardColor;
 						
-						//var card:Card = new Card(cardUrl, i);
 						this.deck.push(card);
 						
 						break;
@@ -96,30 +95,21 @@ package Games.GrandFather
 		
 		public function ReloadDeck(deckPileCards:Array):void
 		{
-		//TODO
+			var deckPileTopCard:Card;
+			while(deckPileCards.length>0){
+				deckPileTopCard = deckPileCards.pop();
+				this.deck.push(deckPileTopCard);
+			}
+			this.reloadTimesLeft--;
 		}
 		
-		private function fillContainerWithImg(container:Sprite, path:String, imgWidth:int, imgHeight:int):void
-		{			
-			var img:Loader = new Loader();
-			img.load(new URLRequest(path));
-			img.contentLoaderInfo.addEventListener(Event.COMPLETE, function():void
-			{
-				onLoaderComplete(container, img, imgWidth, imgHeight)
-			});
+		public function get CardsCount():int {
+			return this.deck.length;	
 		}
 		
-		private function onLoaderComplete(container:Sprite, img:Loader, imgWidth:int, imgHeight:int):void
-		{
-			var bmp:Bitmap = new Bitmap();
-			bmp = img.content as Bitmap;
-			bmp.width = imgWidth;
-			bmp.height = imgHeight;
-			container.addChildAt(bmp, 0);
-			bmp.x = 0;
-			bmp.y = 0;
+		public function get ReloadedTimesLeft():int {
+			return this.reloadTimesLeft;	
 		}
-	
 	}
 
 }

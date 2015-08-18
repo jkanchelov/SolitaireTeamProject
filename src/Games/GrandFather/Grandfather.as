@@ -24,11 +24,17 @@ package Games.GrandFather
 		
 		private var cardSkinPath:String;
 		
+		private var buttonRules:GameButton;
+		private var buttonScore:GameButton;
+		
+		private var isWin:Boolean = false;
+		private var isGameRunning:Boolean = true;
+		
 		public function Grandfather(cardSkingPathPar:String = "Data/images/Cards/Skin1/0Back.png") 
 		{
 			this.cardSkinPath = cardSkingPathPar;
 			loadInitialComponents();
-			gameEngine = new Engine(this.deck,this.deckPile,this.fieldPiles,this.sidePiles,this as Sprite);
+			gameEngine = new Engine(this.deck,this.deckPile,this.fieldPiles,this.sidePiles,this as Sprite,this.IsGameRunning,this.isWin,this.buttonRules);
 		}
 		
 		private function loadInitialComponents():void {
@@ -36,20 +42,30 @@ package Games.GrandFather
 			loadDeckPile();
 			loadFieldPiles();
 			loadSidePiles();
+			loadGameButtons();
+		}
+		
+		private function loadGameButtons():void {
+			this.buttonRules = new GameButton("How to play...");
+			
+			this.addChild(this.buttonRules);
+			
+			this.buttonRules.x = 0;
+			this.buttonRules.y = 600 - this.buttonRules.height
 		}
 		
 		private function loadDeck():void {
 			this.deck = new Deck(this.cardSkinPath);
 			this.addChild(this.deck);
 			this.deck.x = 20;
-			this.deck.y = 20;
+			this.deck.y = 140;
 		}
 		
 		private function loadDeckPile():void {
 			this.deckPile = new DeckPile();
 			this.addChild(this.deckPile);
 			this.deckPile.x = 20;
-			this.deckPile.y = 140;
+			this.deckPile.y = 260;
 		}
 		
 		private function loadFieldPiles():void {
@@ -86,6 +102,14 @@ package Games.GrandFather
 						this.sidePiles.push(sidePile);
 					}	
 			}
+		}
+		
+		public function get IsWin():Boolean {
+			return this.isWin;	
+		}
+		
+		public function get IsGameRunning():Boolean {
+			return this.isGameRunning;	
 		}
 	}
 
