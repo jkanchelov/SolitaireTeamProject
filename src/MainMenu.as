@@ -8,6 +8,8 @@ package
 	import Games.GrandFather.Grandfather;
 	import Games.Prison.PrisonSolitaire;
 	import Games.TopsyTurvyQueens.TopsyTurvyQueens;
+	import com.greensock.*;
+	import com.greensock.easing.*;
 	
 	/**
 	 * ...
@@ -23,15 +25,16 @@ package
 		private const BUTTON_WIDTH:int = 200;
 		private const BUTTON_HEIGHT:int = 60;
 		private const BUTTON_SPACING:int = 5;
-		
+		private var winMessagePath:String = "winButton.png";
+		private var loseMessagePath:String = "loseImage.png";
 		private var backgroundPath:String = "background1.jpg";
 		private var cash:int = 1000;
 		private var bet:int = 0;
 		
 		private var backgroundContainer:Sprite = new Sprite();
 		private var musicButtonContainer:Sprite = new Sprite();
-		private var messageContainer:Sprite = new Sprite ();
-
+		private var messageContainer:Sprite = new Sprite();
+		
 		private var menuContainer:Sprite = new Sprite();
 		
 		public function MainMenu()
@@ -89,7 +92,7 @@ package
 		
 		private function topsyTurvyQueens(e:Event):void
 		{
-			startGame(TopsyTurvyQueens);	
+			startGame(TopsyTurvyQueens);
 		}
 		
 		private function startGame(game:Object)
@@ -124,28 +127,49 @@ package
 		
 		private function win():void
 		{
-			
-			trace("win");
 			cash += bet * 2;
+			addChild(messageContainer);
+			var winMessageURL:URLRequest = new URLRequest("Data/images/Buttons/" + winMessagePath);
+			var loader:Loader = new Loader();
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderCompleate);
+			loader.load(winMessageURL);
+			var winMessage:Bitmap;
+			function loaderCompleate():void
+			{
+				var bmp:Bitmap = loader.content as Bitmap;
+				winMessage = new Bitmap(bmp.bitmapData);
+				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loaderCompleate);
+				messageContainer.addChild(winMessage);
 			
-			//TODO:
+			}
 			
-			setTimeout(clearMessage,2000)
+			setTimeout(clearMessage, 4000);
 		}
 		
 		private function lose():void
 		{
-			trace("lose");
 			addChild(messageContainer);
+			var loseMessageURL:URLRequest = new URLRequest("Data/images/Buttons/" + loseMessagePath);
+			var loader:Loader = new Loader();
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderCompleate);
+			loader.load(loseMessageURL);
+			var loseMessage:Bitmap;
+			function loaderCompleate():void
+			{
+				var bmp:Bitmap = loader.content as Bitmap;
+				loseMessage = new Bitmap(bmp.bitmapData);
+				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loaderCompleate);
+				messageContainer.addChild(loseMessage);
+				messageContainer.x = -450;
+				messageContainer.y = 200;
+				TweenMax.to(messageContainer, 1, {x: 180, y: 200, ease: Bounce.easeOut});
+				TweenMax.to(messageContainer, 1, {x: 900, y: 200, autoAlpha: 0, delay: 2.5});
+			}
 			
-			
-			//TODO:
-
-			
-			setTimeout(clearMessage,2000)
+			setTimeout(clearMessage, 4000);
 		}
 		
-		private function clearMessage():void 
+		private function clearMessage():void
 		{
 			messageContainer.removeChildren();
 			removeChild(messageContainer);
