@@ -3,6 +3,7 @@ package
 	import flash.display.*;
 	import flash.events.*;
 	import flash.net.*;
+	import flash.utils.*
 	import SharedClasses.*;
 	import Games.GrandFather.Grandfather;
 	import Games.Prison.PrisonSolitaire;
@@ -29,7 +30,8 @@ package
 		
 		private var backgroundContainer:Sprite = new Sprite();
 		private var musicButtonContainer:Sprite = new Sprite();
-		
+		private var messageContainer:Sprite = new Sprite ();
+
 		private var menuContainer:Sprite = new Sprite();
 		
 		public function MainMenu()
@@ -87,12 +89,13 @@ package
 		
 		private function topsyTurvyQueens(e:Event):void
 		{
-			//startGame(TopsyTurvyQueens);	
+			startGame(TopsyTurvyQueens);	
 		}
 		
 		private function startGame(game:Object)
 		{
 			clearMainMenu();
+			
 			cash -= bet;
 			
 			var selectedGame = new game();
@@ -121,15 +124,33 @@ package
 		
 		private function win():void
 		{
-			//TODO
+			
 			trace("win");
 			cash += bet * 2;
+			
+			//TODO:
+			
+			setTimeout(clearMessage,2000)
 		}
 		
 		private function lose():void
 		{
-			//TODO
 			trace("lose");
+			addChild(messageContainer);
+			
+			
+			//TODO:
+
+			
+			setTimeout(clearMessage,2000)
+		}
+		
+		private function clearMessage():void 
+		{
+			messageContainer.removeChildren();
+			removeChild(messageContainer);
+			
+			showMainMenu();
 		}
 		
 		private function loadMusic():void
