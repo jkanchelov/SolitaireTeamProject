@@ -27,10 +27,13 @@ package Games.Prison
 		private const CONTAINER_WIDTH_SPACING:int = 10;
 		private const CARDS_Y_SPACING:int = 35;
 		
+		private var cardsSkin:String;
+
 		private var cards:Vector.<Card> = new Vector.<Card>();
-		private var isGameRunning:Boolean = true;
 		private var isWin:Boolean = false;
+		private var isGameRunning:Boolean = true;
 		private var counterPlacedCards:int = 0;
+
 		
 		private var movCardCurrentSprite:Sprite;
 		private var movCardNewSprite:Sprite;
@@ -44,14 +47,19 @@ package Games.Prison
 		private var reservesContainer:Sprite;
 		private var taublePilesContainer:Sprite;
 		
-		public function PrisonSolitaire()
+		public function PrisonSolitaire(cardsSkin:String = "skin1/")
 		{
+			this.cardsSkin = cardsSkin
 			showMenu()
 		}
 		
 		public function get IsGameRunning():Boolean
 		{
 			return this.isGameRunning;
+		}
+		
+		public function get IsWin():Boolean {
+			return this.isWin;
 		}
 		
 		private function showMenu():void
@@ -498,7 +506,7 @@ package Games.Prison
 					
 					cardUrl = i + cardColor;
 					
-					var card:Card = new Card(cardUrl, i);
+					var card:Card = new Card(cardUrl, i, cardsSkin);
 					card.addEventListener(MouseEvent.MOUSE_DOWN, startDraging);
 					card.addEventListener(MouseEvent.MOUSE_UP, stopDraging);
 					card.buttonMode = true;

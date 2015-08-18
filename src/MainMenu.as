@@ -26,6 +26,7 @@ package
 		
 		private var backgroundPath:String = "background1.jpg";
 		private var cash:int = 1000;
+		private var bet:int = 0;
 		
 		private var backgroundContainer:Sprite = new Sprite();
 		private var musicButtonContainer:Sprite = new Sprite();
@@ -87,15 +88,39 @@ package
 		
 		private function topsyTurvyQueens(e:Event):void
 		{
-			startGame(TopsyTurvyQueens);
-			
+			startGame(TopsyTurvyQueens);	
 		}
 		
 		private function startGame(game:Object)
 		{
 			clearMainMenu();
+			cash -= bet;
 			
-			addChild(new game());
+			var selectedGame = new game();
+			selectedGame.addEventListener(Event.ENTER_FRAME, checkGameOver);
+			
+			addChild(selectedGame);
+		}
+		
+		private function checkGameOver(e:Event):void { 
+			if (e.target.IsGameRunning == false) 
+			{
+				if (e.target.IsWin == true) {
+					win();
+				}
+				else {
+					lose();
+				}
+			}
+		}
+		
+		private function win():void {
+			//TODO
+			cash += bet * 2;
+		}
+		
+		private function lose():void {
+			//TODO
 		}
 		
 		private function loadMusic():void
