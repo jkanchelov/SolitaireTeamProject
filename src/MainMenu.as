@@ -25,8 +25,7 @@ package
 		private const BUTTON_WIDTH:int = 200;
 		private const BUTTON_HEIGHT:int = 60;
 		private const BUTTON_SPACING:int = 5;
-		private var winMessagePath:String = "winButton.png";
-		private var loseMessagePath:String = "loseImage.png";
+
 		private var backgroundPath:String = "background1.jpg";
 		private var cash:int = 1000;
 		private var bet:int = 0;
@@ -128,6 +127,9 @@ package
 		private function win():void
 		{
 			cash += bet * 2;
+			
+			var winMessagePath:String = "winButton.png";
+		
 			addChild(messageContainer);
 			var winMessageURL:URLRequest = new URLRequest("Data/images/Buttons/" + winMessagePath);
 			var loader:Loader = new Loader();
@@ -148,6 +150,8 @@ package
 		
 		private function lose():void
 		{
+			var loseMessagePath:String = "loseImage.png";
+			
 			addChild(messageContainer);
 			var loseMessageURL:URLRequest = new URLRequest("Data/images/Buttons/" + loseMessagePath);
 			var loader:Loader = new Loader();
