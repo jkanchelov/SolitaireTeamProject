@@ -26,12 +26,10 @@ package Games.GrandFather
 		
 		private var isThereEmpties:Boolean = true;//is field var for use object as reference
 		
-		private var rules:Rules = new Rules();
-		
 		private var isGameRunning:Boolean;
 		private var isWin:Boolean;
 		
-		public function Engine(deckPar:Deck, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Sprite,isGameRunningPar:Boolean,isWinPar:Boolean,buttonRulesPar:GameButton)
+		public function Engine(deckPar:Deck, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Sprite,isGameRunningPar:Boolean,isWinPar:Boolean)
 		{
 			this.deck = deckPar;
 			this.deckPile = deckPilePar;
@@ -40,7 +38,6 @@ package Games.GrandFather
 			this.generalContainer = generalContainerPar;
 			this.isGameRunning = isGameRunningPar;
 			this.isWin = isWinPar;
-			this.buttonRules = buttonRulesPar;
 			dealing();
 			makeInteraction();
 		}
@@ -88,26 +85,6 @@ package Games.GrandFather
 			makeDeckInteractive();
 			makeDeckPileInteractive();
 			makeInteractiveFieldPiles();
-			makeButtonRulesInteractive();
-		}
-		
-		/// BUTTONS INTERACTION - > DOESN WORK CLASS RULES
-		private function makeButtonRulesInteractive():void {
-			Assistant.addEventListenerTo(this.buttonRules, MouseEvent.CLICK, showHideRules);
-		}
-		
-		private function showHideRules(e:MouseEvent):void {
-			if (this.isRulesHidden) {
-				//todo: MOTION Rules are Appear
-				this.generalContainer.addChild(rules);
-				this.isRulesHidden = false;
-			}
-			
-			else 
-			{
-				this.generalContainer.removeChild(rules);
-				this.isRulesHidden = true;
-			}
 		}
 		
 		
