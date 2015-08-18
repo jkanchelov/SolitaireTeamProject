@@ -18,9 +18,9 @@ package SharedClasses
 		private var minutes:Number;
 		private var hours:Number;
 		private var tField:TextField;
-		private var _timerTxtColor:int;
+		private var _timerTxtColor:uint;
 		
-		public function TimerCounter(timerTxtColor:int = 0x000000)
+		public function TimerCounter(timerTxtColor:uint = 0)
 		{
 			_timerTxtColor = timerTxtColor;
 			loadTimer();
@@ -40,10 +40,6 @@ package SharedClasses
 			var timer:Timer = new Timer(1000);
 			
 			tField = new TextField();
-			tField.y = 1;
-			tField.height = 30;
-			tField.width = 200;
-			tField.x = 355;
 			
 			var txtFormat:TextFormat = new TextFormat('Comic Sans MS', 15, _timerTxtColor, true);
 			txtFormat.align = "center";
