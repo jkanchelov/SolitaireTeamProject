@@ -87,7 +87,7 @@ package
 		
 		private function topsyTurvyQueens(e:Event):void
 		{
-			startGame(TopsyTurvyQueens);	
+			//startGame(TopsyTurvyQueens);	
 		}
 		
 		private function startGame(game:Object)
@@ -96,33 +96,40 @@ package
 			cash -= bet;
 			
 			var selectedGame = new game();
-			selectedGame.addEventListener(Event.ENTER_FRAME, checkGameOver,false,0,true);
+			selectedGame.addEventListener(Event.ENTER_FRAME, checkGameOver, false, 0, true);
 			
 			addChild(selectedGame);
 		}
 		
-		private function checkGameOver(e:Event):void { 
-			if (e.target.IsGameRunning == false) 
-			{	
+		private function checkGameOver(e:Event):void
+		{
+			if (e.target.IsGameRunning == false)
+			{
 				e.target.removeEventListener(Event.ENTER_FRAME, checkGameOver);
 				removeChild(e.target as Sprite);
 				
-				if (e.target.IsWin == true) {
+				if (e.target.IsWin == true)
+				{
 					win();
 				}
-				else {
+				else
+				{
 					lose();
 				}
 			}
 		}
 		
-		private function win():void {
+		private function win():void
+		{
 			//TODO
+			trace("win");
 			cash += bet * 2;
 		}
 		
-		private function lose():void {
+		private function lose():void
+		{
 			//TODO
+			trace("lose");
 		}
 		
 		private function loadMusic():void
