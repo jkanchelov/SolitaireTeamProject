@@ -247,6 +247,8 @@ package Games.Prison
 						movingCardObject.buttonMode = false;
 						movingCardObject.removeEventListener(MouseEvent.MOUSE_DOWN, startDraging);
 						movingCardObject.removeEventListener(MouseEvent.MOUSE_UP, stopDraging);
+						
+						score += 100;
 					}
 					else
 					{
