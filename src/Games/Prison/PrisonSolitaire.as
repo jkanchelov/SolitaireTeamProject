@@ -43,6 +43,7 @@ package Games.Prison
 		private var movingCardY:int;
 		
 		private var menuContainer:Sprite;
+		private var buttonsContainer:Sprite;
 		private var foundationContainer:Sprite;
 		private var reservesContainer:Sprite;
 		private var taublePilesContainer:Sprite;
@@ -61,6 +62,7 @@ package Games.Prison
 		public function get IsWin():Boolean {
 			return this.isWin;
 		}
+		
 		
 		private function showMenu():void
 		{
@@ -92,7 +94,26 @@ package Games.Prison
 			removeChild(menuContainer);
 			menuContainer = null;
 			
+			showSurrenderButton();
 			DealSolitaire();
+		}
+		
+		private function showSurrenderButton():void { 
+			buttonsContainer = new Sprite();
+			
+			var buttonWidth:int = 100;
+			
+			var surrenderButton:Button = new Button(buttonWidth, "  Surrender", true);
+			surrenderButton.addEventListener(MouseEvent.CLICK, surrender, false, 0, true);
+		
+			var time:TimerCounter = new TimerCounter();
+			time.y = 60;
+			
+			buttonsContainer.x = STAGE_WIDTH - buttonWidth;
+			buttonsContainer.addChild(surrenderButton);
+			buttonsContainer.addChild(time);
+
+			addChild(buttonsContainer);
 		}
 		
 		private function showScore(e:MouseEvent):void
@@ -443,6 +464,10 @@ package Games.Prison
 			{
 				gameOver();
 			}
+		}
+		
+		private function surrender(e:MouseEvent):void {
+			gameOver();
 		}
 		
 		private function gameOver():void
