@@ -101,7 +101,9 @@ package
 				startGame(PrisonSolitaire);
 			}
 			else {
-			//todo button bet alarm	
+			//todo button bet alarm
+			TweenMax.to(betStatus, 1.25, {glowFilter:{color:0xff0000, alpha:1, blurX:30, blurY:30, strength:5}});
+			TweenMax.to(betStatus, 1.25, {glowFilter:{color:0xff0000, alpha:1, blurX:30, blurY:30, strength:5,remove:true}});
 			}
 		}
 		
