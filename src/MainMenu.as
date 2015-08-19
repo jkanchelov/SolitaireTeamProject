@@ -37,13 +37,20 @@ package
 		private var backgroundContainer:Sprite = new Sprite();
 		private var musicButtonContainer:Sprite = new Sprite();
 		private var messageContainer:Sprite = new Sprite();
+		private var buttonsContainer:Sprite = new Sprite();
 		
 		private var menuContainer:Sprite = new Sprite();
+		
+		private var moneyStatus:Button;
+		private var betStatus:Button;
+		private var ingame:Boolean = false; 						// if you bet ingame = true;
+		private var standClicked:Boolean = false;
 		
 		public function MainMenu()
 		{
 			loadBackground();
 			loadMenuButtons();
+			loadBetButtons();
 			loadMusic();
 		}
 		
@@ -98,8 +105,7 @@ package
 		private function startGame(game:Object)
 		{
 			clearMainMenu();
-			
-			cash -= bet;
+			clearBetButtons();			
 			
 			var selectedGame = new game();
 			selectedGame.addEventListener(Event.ENTER_FRAME, checkGameOver, false, 0, true);
@@ -116,10 +122,14 @@ package
 				
 				if (e.target.IsWin == true)
 				{
+					cash += bet * 2;
+					bet = 0;
 					win();
 				}
 				else
 				{
+					bet = 0;
+					resetStatusBar();
 					lose();
 				}
 			}
@@ -127,8 +137,6 @@ package
 		
 		private function win():void
 		{
-			cash += bet * 2;
-			
 			var winMessagePath:String = "winButton.png";
 		
 			addChild(messageContainer);
@@ -180,6 +188,7 @@ package
 			removeChild(messageContainer);
 			
 			showMainMenu();
+			showBetButtons();
 		}
 		
 		private function loadMusic():void
@@ -203,6 +212,16 @@ package
 			addChild(menuContainer);
 		}
 		
+		private function showBetButtons():void
+		{
+			addChild(buttonsContainer);
+		}
+		
+		private function clearBetButtons():void
+		{
+			removeChild(buttonsContainer)
+		}
+		
 		private function clearMainMenu():void
 		{
 			removeChild(menuContainer);
@@ -224,6 +243,100 @@ package
 				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loaderCompleate);
 				backgroundContainer.addChild(background);
 			}
+		}
+		
+		private function loadBetButtons():void
+		{
+			addChild(buttonsContainer);
+			var buttonWidth:int = 65;
+			
+			moneyStatus = new Button(120, "Credits: ", false)
+			addChild(moneyStatus);
+			moneyStatus.height = 25;
+			moneyStatus.x = 150;
+			moneyStatus.y = 575;
+			
+			betStatus = new Button(120, "Bet: ", false);
+			addChild(betStatus);
+			betStatus.height = 25;
+			betStatus.x = 300;
+			betStatus.y = 575;
+			
+			var bet1:Button = new Button(buttonWidth, "Bet 1");
+			bet1.name = String(1);
+			bet1.addEventListener(MouseEvent.CLICK, addBet);
+			buttonsContainer.addChild(bet1);
+			bet1.x = 40;
+			bet1.y = 300;
+			
+			var bet5:Button = new Button(buttonWidth, "Bet 5");
+			bet5.name = String(5);
+			bet5.addEventListener(MouseEvent.CLICK, addBet);
+			buttonsContainer.addChild(bet5);
+			bet5.x = 115;
+			bet5.y = 300;
+			
+			var bet10:Button = new Button(buttonWidth, "Bet 10");
+			bet10.name = String(10);
+			bet10.addEventListener(MouseEvent.CLICK, addBet);
+			buttonsContainer.addChild(bet10);
+			bet10.x = 190;
+			bet10.y = 300;
+			
+			var bet25:Button = new Button(buttonWidth, "Bet 25");
+			bet25.name = String(25);
+			bet25.addEventListener(MouseEvent.CLICK, addBet);
+			buttonsContainer.addChild(bet25);
+			bet25.x = 80;
+			bet25.y = 350;
+			
+			var bet100:Button = new Button(buttonWidth, "Bet 100");
+			bet100.name = String(100);
+			bet100.addEventListener(MouseEvent.CLICK, addBet);
+			buttonsContainer.addChild(bet100);
+			bet100.x = 150;
+			bet100.y = 350;
+			
+			var bet250:Button = new Button(buttonWidth, "Bet 250");
+			bet250.name = String(250);
+			bet250.addEventListener(MouseEvent.CLICK, addBet);
+			buttonsContainer.addChild(bet250);
+			bet250.x = 115;
+			bet250.y = 400;
+		
+		}
+		
+		private function addBet(e:Event):void
+		{
+			var betString:String = e.currentTarget.name;
+			var currentBet:int = int(betString);
+			
+			if (currentBet <= cash && !ingame)
+			{
+				bet += int(currentBet);
+				cash -= int(currentBet);
+				
+				trace(currentBet);
+				trace(cash);
+				resetStatusBar();
+			}
+		}
+		
+		private function resetStatusBar():void
+		{
+			removeChild(moneyStatus);
+			moneyStatus = new Button(120, "Credits: " + cash.toString(), false);
+			addChild(moneyStatus);
+			moneyStatus.height = 25;
+			moneyStatus.x = 150;
+			moneyStatus.y = 575;
+			
+			removeChild(betStatus);
+			betStatus = new Button(120, "Bet: " + bet.toString(), false);
+			addChild(betStatus);
+			betStatus.height = 25;
+			betStatus.x = 300;
+			betStatus.y = 575;
 		}
 	}
 }
