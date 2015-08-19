@@ -4,12 +4,15 @@ package
 	import flash.events.*;
 	import flash.net.*;
 	import flash.utils.*
+	import com.greensock.*;
+	import com.greensock.easing.*;
+	
 	import SharedClasses.*;
 	import Games.GrandFather.Grandfather;
 	import Games.Prison.PrisonSolitaire;
+	import Games.Alternations.AlternationSolitaire
 	import Games.TopsyTurvyQueens.TopsyTurvyQueens;
-	import com.greensock.*;
-	import com.greensock.easing.*;
+
 	
 	/**
 	 * ...
@@ -85,8 +88,7 @@ package
 		
 		private function alternations(e:Event):void
 		{
-			//TODO:
-			//startGame(alternations)
+			startGame(AlternationSolitaire)
 		}
 		
 		private function topsyTurvyQueens(e:Event):void
@@ -183,7 +185,13 @@ package
 		
 		private function loadMusic():void
 		{
+			var musicButtonWidth:int = 40;
+			var musicButtonHeight:int = 40;
+			var spacePadding:int = 10;
+			
 			addChild(musicButtonContainer);
+			musicButtonContainer.y = STAGE_HEIGHT - musicButtonHeight - spacePadding;
+			musicButtonContainer.x = STAGE_WIDTH - musicButtonWidth - spacePadding;
 			
 			var music:Music = new Music();
 			music.showButton();
