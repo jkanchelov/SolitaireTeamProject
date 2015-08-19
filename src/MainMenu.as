@@ -13,7 +13,7 @@ package
 	import Games.EightOff.EightOff;
 	import Games.Prison.PrisonSolitaire;
 	import Games.Alternations.AlternationSolitaire
-	import Games.TopsyTurvyQueens.TopsyTurvyQueens;
+	import Games.TopsyTurvyQueens.*
 
 	
 	/**
@@ -140,7 +140,7 @@ package
 		private function topsyTurvyQueens(e:Event):void
 		{
 			if(this.bet > 0){
-				startGame(TopsyTurvyQueens);
+				startGame(TopsyTurvyQueensMenu);
 			}
 			else {
 			//todo button bet alarm	
