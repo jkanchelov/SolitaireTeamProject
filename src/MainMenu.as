@@ -319,9 +319,6 @@ package
 			{
 				bet += int(currentBet);
 				cash -= int(currentBet);
-				
-				trace(currentBet);
-				trace(cash);
 				resetStatusBar();
 			}
 		}
