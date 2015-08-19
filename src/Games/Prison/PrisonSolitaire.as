@@ -51,8 +51,7 @@ package Games.Prison
 		public function PrisonSolitaire(cardsSkin:String = "skin1/")
 		{
 			this.cardsSkin = cardsSkin
-			//showMenu()
-			DealSolitaire();
+			showMenu()
 		}
 		
 		public function get IsGameRunning():Boolean
@@ -530,7 +529,7 @@ package Games.Prison
 						cardColor = "Back";
 						cardUrl = i + cardColor;
 						
-						var card:Card = new Card(cardUrl, i);
+						var card:Card = new Card(cardUrl, i,cardsSkin);
 						cards.push(card);
 						
 						break;
