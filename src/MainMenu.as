@@ -254,7 +254,7 @@ package
 			addChild(buttonsContainer);
 			var buttonWidth:int = 65;
 			
-			moneyStatus = new Button(120, "Credits: ", false)
+			moneyStatus = new Button(120, "Credits: " + cash.toString(), false);
 			addChild(moneyStatus);
 			moneyStatus.height = 25;
 			moneyStatus.x = 150;
