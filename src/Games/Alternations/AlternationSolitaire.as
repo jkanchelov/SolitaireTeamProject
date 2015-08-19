@@ -28,13 +28,15 @@ package Games.Alternations
 		private const CARDS_Y_SPACING:int = 35;
 		
 		private var cardsSkin:String;
-		
 		private var score:int = 0;
 		
 		private var cards:Vector.<Card> = new Vector.<Card>();
 		private var isWin:Boolean = false;
 		private var isGameRunning:Boolean = true;
 		private var counterPlacedCards:int = 0;
+		
+		private var moveMultiple:Boolean = false;
+		private var multipleStartIndex:int;
 		
 		private var movCardCurrentSprite:Sprite;
 		private var movCardNewSprite:Sprite;
@@ -74,14 +76,14 @@ package Games.Alternations
 			menuContainer.addChild(helpMenu);
 			
 			var startButton:MenuButton = new MenuButton("start.png");
-			startButton.addEventListener(MouseEvent.CLICK, startGame,false,0,true);
+			startButton.addEventListener(MouseEvent.CLICK, startGame, false, 0, true);
 			startButton.x = 150;
 			startButton.y = helpMenu.height + 20;
 			startButton.buttonMode = true;
 			menuContainer.addChild(startButton);
 			
 			var scoreButton:MenuButton = new MenuButton("score.png");
-			scoreButton.addEventListener(MouseEvent.CLICK, showScore,false,0,true);
+			scoreButton.addEventListener(MouseEvent.CLICK, showScore, false, 0, true);
 			scoreButton.x = 150;
 			scoreButton.y = helpMenu.height + 90;
 			scoreButton.buttonMode = true;
@@ -186,7 +188,7 @@ package Games.Alternations
 		private function loadCardDeck():void
 		{
 			var deck:Sprite = deckContainer.getChildAt(0) as Sprite;
-			deck.buttonMode = true ;
+			deck.buttonMode = true;
 			
 			var cardColor:String = "Back";
 			var cardUrl:String = 0 + cardColor;
@@ -195,7 +197,7 @@ package Games.Alternations
 			{
 				var card:Card = new Card(cardUrl, i, cardsSkin);
 				card.name = "back";
-				card.addEventListener(MouseEvent.CLICK, dealDeckCard,false,0,true);
+				card.addEventListener(MouseEvent.CLICK, dealDeckCard, false, 0, true);
 				
 				deck.addChild(card);
 			}
@@ -212,15 +214,16 @@ package Games.Alternations
 				{
 					var pileContainer:Sprite = taublePilesContainer.getChildAt(pile) as Sprite;
 					var cardY = (pileContainer.numChildren - 1) * CARDS_Y_SPACING;
-					if (card % 2 == 0) {
-							
-							dealRandomCard(pileContainer, cardY);
+					if (card % 2 == 0)
+					{
+						
+						dealRandomCard(pileContainer, cardY);
 					}
-					else 
+					else
 					{
 						dealBackCard(pileContainer);
 					}
-				
+					
 				}
 			}
 		}
@@ -236,27 +239,28 @@ package Games.Alternations
 			dealRandomCard(dealPile);
 		}
 		
-		private function dealBackCard(dealAt:Sprite):void {
+		private function dealBackCard(dealAt:Sprite):void
+		{
 			var cardColor:String = "Back";
-			var cardUrl:String = 0 + cardColor; 
+			var cardUrl:String = 0 + cardColor;
 			
 			var card:Card = new Card(cardUrl, 0, cardsSkin);
-				card.name = "back";
-				card.addEventListener(MouseEvent.CLICK, flipCard, false, 0, true);
-				card.y = (dealAt.numChildren - 1) * CARDS_Y_SPACING
-				
+			card.name = "back";
+			card.y = (dealAt.numChildren - 1) * CARDS_Y_SPACING
+			
 			dealAt.addChild(card);
 		}
 		
-		private function flipCard(e:MouseEvent):void {
-			var backCard:Card = e.target as Card;
+		private function flipCard(card:Card):void
+		{
+			var backCard:Card = card;
 			var parentContainer:Sprite = backCard.parent as Sprite;
 			
-			if (isLastCardOfPile(backCard,parentContainer))
+			if (isLastCardOfPile(backCard, parentContainer))
 			{
-				var cardY =  (parentContainer.numChildren - 2) * CARDS_Y_SPACING
+				var cardY = (parentContainer.numChildren - 2) * CARDS_Y_SPACING
 				parentContainer.removeChild(backCard);
-				dealRandomCard(parentContainer,cardY);
+				dealRandomCard(parentContainer, cardY);
 			}
 		}
 		
@@ -275,7 +279,7 @@ package Games.Alternations
 			var buttonWidth:int = 100;
 			
 			var surrenderButton:Button = new Button(buttonWidth, "  Surrender", true);
-			surrenderButton.x = - 125
+			surrenderButton.x = -125
 			surrenderButton.addEventListener(MouseEvent.CLICK, surrender, false, 0, true);
 			
 			var time:TimerCounter = new TimerCounter();
@@ -293,11 +297,13 @@ package Games.Alternations
 			gameOver();
 		}
 		
-		private function showScore(e:MouseEvent):void { 
+		private function showScore(e:MouseEvent):void
+		{
 			//TODO:
 		}
 		
-		private function saveScore():void {
+		private function saveScore():void
+		{
 			//TODO:
 		}
 		
@@ -367,11 +373,42 @@ package Games.Alternations
 			}
 		}
 		
+		private function canBeDragged(cardContainer:Sprite, cardIndex:int):Boolean
+		{
+			var cardOne:Card;
+			var cardTwo:Card
+			
+			for (var i:int = cardIndex; i < cardContainer.numChildren - 1; i++)
+			{
+				cardOne = cardContainer.getChildAt(i) as Card;
+				cardTwo = cardContainer.getChildAt(i + 1) as Card;
+				if (cardOne.name == "back" || cardTwo.name == "back")
+				{
+					multipleStartIndex = null;
+					moveMultiple = false;
+					return false;
+				}
+				else if (cardOne.CardValue != cardTwo.CardValue + 1)
+				{
+					multipleStartIndex = null;
+					moveMultiple = false;
+					return false;
+				}
+				
+				multipleStartIndex = cardIndex;
+				moveMultiple = true;
+			}
+			
+			return true
+		}
+		
 		private function startDraging(e:MouseEvent):void
 		{
 			var cardContainer:Sprite = e.target.parent as Sprite;
+			var card:Card = e.target as Card;
+			var cardIndex:int = cardContainer.getChildIndex(card);
 			
-			if (isLastCardOfPile(e.target as Card, cardContainer))
+			if (canBeDragged(cardContainer, cardIndex))
 			{
 				movingCardObject = e.target as Sprite;
 				
@@ -398,26 +435,57 @@ package Games.Alternations
 				
 				if (canBeMoved(movingCard))
 				{
-					removeChild(movingCardObject);
-					movingCardObject.x = 0;
 					
-					if (movCardToFoundation)
+					if (moveMultiple)
 					{
-						movingCardObject.y = 0;
-						movingCardObject.buttonMode = false;
-						movingCardObject.removeEventListener(MouseEvent.MOUSE_DOWN, startDraging);
-						movingCardObject.removeEventListener(MouseEvent.MOUSE_UP, stopDraging);
+						movingCardObject.y = (movCardNewSprite.numChildren - 1) * CARDS_Y_SPACING
+						movingCardObject.x = 0;
+						movCardNewSprite.addChild(movingCardObject);
 						
-						score += 100;
+						var numChildren:int = movCardCurrentSprite.numChildren;
+						
+						for (var startIndex:int = multipleStartIndex;startIndex - 1 < numChildren; startIndex++)
+						{
+							try
+							{
+								var card:Card = movCardCurrentSprite.getChildAt(multipleStartIndex) as Card;
+								movCardCurrentSprite.removeChild(card);
+								card.x = 0;
+								card.y = (movCardNewSprite.numChildren - 1) * CARDS_Y_SPACING
+								
+								movCardNewSprite.addChild(card);
+							}
+							catch (err:Error)
+							{
+								
+							}
+						}
 					}
 					else
 					{
-						movingCardObject.y = (movCardNewSprite.numChildren - 1) * CARDS_Y_SPACING
+						removeChild(movingCardObject);
+						movingCardObject.x = 0;
+						
+						if (movCardToFoundation)
+						{
+							movingCardObject.y = 0;
+							movingCardObject.buttonMode = false;
+							movingCardObject.removeEventListener(MouseEvent.MOUSE_DOWN, startDraging);
+							movingCardObject.removeEventListener(MouseEvent.MOUSE_UP, stopDraging);
+							
+							score += 100;
+						}
+						else
+						{
+							movingCardObject.y = (movCardNewSprite.numChildren - 1) * CARDS_Y_SPACING
+						}
+						
+						movCardNewSprite.addChild(movingCardObject);
 					}
 					
-					movCardNewSprite.addChild(movingCardObject);
 					checkWin();
 					
+					checkFlipCard(movCardCurrentSprite);
 					resetMovCardVariables();
 				}
 				else // if can't be moved 
@@ -426,19 +494,45 @@ package Games.Alternations
 					
 					e.target.x = 0
 					
-					if (movCardCurrentSprite == deckContainer.getChildAt(1))
+					if (moveMultiple)
 					{
-						movingCardObject.y = 0;
+						movingCardObject.y = (multipleStartIndex - 1) * CARDS_Y_SPACING
+						movCardCurrentSprite.addChildAt(movingCardObject, multipleStartIndex);
 					}
 					else
 					{
-						e.target.y = (movCardCurrentSprite.numChildren - 1) * CARDS_Y_SPACING
+						if (movCardCurrentSprite == deckContainer.getChildAt(1))
+						{
+							movingCardObject.y = 0;
+						}
+						else
+						{
+							e.target.y = (movCardCurrentSprite.numChildren - 1) * CARDS_Y_SPACING
+						}
+						movCardCurrentSprite.addChild(movingCardObject);
 					}
-					movCardCurrentSprite.addChild(movingCardObject);
 					
 					resetMovCardVariables();
 				}
 			}
+		}
+		
+		private function checkFlipCard(givenSprite:Sprite):void
+		{
+			try
+			{
+				var lastCard:Card = givenSprite.getChildAt(givenSprite.numChildren - 1) as Card;
+				
+				if (lastCard.name == "back")
+				{
+					flipCard(lastCard);
+				}
+			}
+			catch (err:Error)
+			{
+				
+			}
+		
 		}
 		
 		private function canBeMoved(givenCard:Card):Boolean
@@ -467,7 +561,7 @@ package Games.Alternations
 						if (pileContainer.numChildren == 1 && givenCard.CardValue == 1)
 						{
 							movCardNewSprite = pileContainer as Sprite;
-							movCardToFoundation = true ;
+							movCardToFoundation = true;
 							return true;
 						}
 						else if (lastCard != null)
@@ -475,7 +569,7 @@ package Games.Alternations
 							if (givenCard.CardValue == lastCard.CardValue + 1 && givenCard.CardSign == lastCard.CardSign)
 							{
 								movCardNewSprite = pileContainer as Sprite;
-								movCardToFoundation = true ;
+								movCardToFoundation = true;
 								return true;
 							}
 						}
@@ -516,6 +610,8 @@ package Games.Alternations
 		
 		private function resetMovCardVariables():void
 		{
+			moveMultiple = false;
+			multipleStartIndex = null;
 			movCardNewSprite = null;
 			movCardToFoundation = false;
 			movingCardObject = null;

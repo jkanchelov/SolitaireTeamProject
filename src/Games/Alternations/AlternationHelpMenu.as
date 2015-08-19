@@ -28,7 +28,7 @@ package Games.Alternations
 			addChild(backGround);
 			backGround.alpha = 0.2;
 			backGround.graphics.beginFill(0x000000);
-			backGround.graphics.drawRect(0, 0, 500, 300);
+			backGround.graphics.drawRect(0, 0, 500, 350);
 			backGround.graphics.endFill();
 		}
 		
@@ -37,13 +37,13 @@ package Games.Alternations
 			var TxtBoxTextFormat:TextFormat = new TextFormat();
 			TxtBox.setTextFormat(TxtBoxTextFormat);
 			TxtBox.defaultTextFormat = new TextFormat('Comic Sans MS', 20, 0xFFFFFF, 'bold');
-			TxtBox.text = "The top cards of tablau piles and cards from cells are available to play. You may build tableau piles down in suit. Only one card at a time can be moved. The top card of any tableau pile can also be moved to any cell. Each cell may contain only one card. Cards in the cells can be moved to the foundation piles or back to the tableau piles, if possible.";
+			TxtBox.text = "All top cards of tableau piles are available to play.You can move cards from one tableau pile to another one.You may build tableau piles down regardless of suit.You can move either a single card or a set of cards.When one of the piles becomes empty you can fill the space with any available single card or set of cards.If, during play, any of closed becomes the top card of a pile, it is automatically turned over. ";
 			TxtBox.x = 50;
 			TxtBox.wordWrap = true;
 			TxtBox.mouseEnabled = false;
 			TxtBox.selectable = false;
 			TxtBox.textColor = 0X000000;
-			TxtBox.height = 300;
+			TxtBox.height = 350;
 			TxtBox.width = 400;
 			TxtBox.border = false;
 			TxtBox.borderColor = 0X000000;
