@@ -6,6 +6,7 @@ package
 	import flash.utils.*
 	import com.greensock.*;
 	import com.greensock.easing.*;
+	import Games.GrandFather.Assistant;
 	
 	import SharedClasses.*;
 	import Games.GrandFather.Grandfather;
@@ -36,6 +37,7 @@ package
 		
 		private var backgroundContainer:Sprite = new Sprite();
 		private var musicButtonContainer:Sprite = new Sprite();
+		private var settingsButtonContainer:Sprite = new Sprite();
 		private var messageContainer:Sprite = new Sprite();
 		private var buttonsContainer:Sprite = new Sprite();
 		
@@ -51,7 +53,23 @@ package
 			loadBackground();
 			loadMenuButtons();
 			loadBetButtons();
+			loadSettingsButton();
 			loadMusic();
+		}
+
+		private function loadSettingsButton():void {
+			Assistant.fillContainerWithImg(this.settingsButtonContainer, "Data/images/Buttons/settingIcon.png", 40, 40);	
+			this.addChild(this.settingsButtonContainer);
+			this.settingsButtonContainer.x = STAGE_WIDTH - 110;
+			this.settingsButtonContainer.y = STAGE_HEIGHT - 50;
+		}
+		
+		private function clearSettingsButton():void {
+			this.removeChild(this.settingsButtonContainer);	
+		}
+		
+		private function showSettingsButton():void {
+			this.addChild(this.settingsButtonContainer);	
 		}
 		
 		private function loadMenuButtons():void
@@ -79,34 +97,59 @@ package
 		
 		private function prison(e:Event):void
 		{
-			startGame(PrisonSolitaire);
+			if(this.bet > 0){
+				startGame(PrisonSolitaire);
+			}
+			else {
+			//todo button bet alarm	
+			}
 		}
 		
 		private function eightOff(e:Event):void
 		{
-			startGame(EightOff);
+			if(this.bet > 0){
+				startGame(EightOff);
+			}
+			else {
+			//todo button bet alarm	
+			}
 		}
 		
 		private function grandFather(e:Event):void
 		{
-			startGame(Grandfather)
+			if(this.bet > 0){
+				startGame(Grandfather)
+			}
+			else {
+				//todo button bet alarm
+			}
 		}
 		
 		private function alternations(e:Event):void
 		{
-			startGame(AlternationSolitaire)
+			if(this.bet > 0){
+				startGame(AlternationSolitaire)
+			}
+			else {
+				//todo button bet alarm
+			}
 		}
 		
 		private function topsyTurvyQueens(e:Event):void
 		{
-			startGame(TopsyTurvyQueens);
+			if(this.bet > 0){
+				startGame(TopsyTurvyQueens);
+			}
+			else {
+			//todo button bet alarm	
+			}
 		}
 		
 		private function startGame(game:Object)
 		{
 			clearMainMenu();
-			clearBetButtons();			
-			
+			clearBetButtons();	
+			clearSettingsButton();
 			var selectedGame = new game();
 			selectedGame.addEventListener(Event.ENTER_FRAME, checkGameOver, false, 0, true);
 			
@@ -151,7 +194,6 @@ package
 				winMessage = new Bitmap(bmp.bitmapData);
 				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loaderCompleate);
 				messageContainer.addChild(winMessage);
-			
 			}
 			
 			setTimeout(clearMessage, 4000);
@@ -193,6 +235,7 @@ package
 			
 			showMainMenu();
 			showBetButtons();
+			showSettingsButton();
 		}
 		
 		private function loadMusic():void

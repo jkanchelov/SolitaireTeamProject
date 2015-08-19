@@ -119,6 +119,46 @@ package Games.GrandFather
 				}
 			}
 			
+			for (var sidePileIndex:int = 0; sidePileIndex < this.sidePiles.length; sidePileIndex++)
+			{
+				var currentSidePile:SidePile = sidePiles[sidePileIndex];
+				if (this.takenCard.hitTestObject(currentSidePile))
+				{
+				// if no cards in side pile
+					if (this.takenCard.CardValue == 1 && this.takenCard.CardSign == currentSidePile.Sign && currentSidePile.TopCard == null && currentSidePile.StartValue == 1)
+					{
+						isAllowed = true;
+						this.generalContainer.removeChild(this.takenCard);
+						currentSidePile.pushCard(this.takenCard);
+					break;
+					}
+					if (this.takenCard.CardValue == 13 && this.takenCard.CardSign == currentSidePile.Sign && currentSidePile.TopCard == null && currentSidePile.StartValue == 13)
+					{
+						isAllowed = true;
+						this.generalContainer.removeChild(this.takenCard);
+						currentSidePile.pushCard(this.takenCard);
+					break;
+					}
+				// if there is cards in side pile
+					if(currentSidePile.TopCard!=null){
+						if (currentSidePile.StartValue == 1 && this.takenCard.CardSign == currentSidePile.Sign && this.takenCard.CardValue == (currentSidePile.TopCard.CardValue + 1))
+						{
+							isAllowed = true;
+							this.generalContainer.removeChild(this.takenCard);
+							currentSidePile.pushCard(this.takenCard);
+							break;
+						}
+						if (currentSidePile.StartValue == 13 && this.takenCard.CardSign == currentSidePile.Sign && this.takenCard.CardValue == (currentSidePile.TopCard.CardValue - 1))
+						{
+							isAllowed = true;
+							this.generalContainer.removeChild(this.takenCard);
+							currentSidePile.pushCard(this.takenCard);
+							break;
+						}
+					}
+				}
+			}
+			
 			
 			
 			if (!isAllowed)
