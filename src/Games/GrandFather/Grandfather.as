@@ -55,7 +55,8 @@ package Games.GrandFather
 		}
 		
 		private function loadTimer():void {
-			this.timer = new TimerCounter();
+			this.timer = new TimerCounter(0,10);
+			this.timer.alpha = 0.4;
 			this.addChild(timer);
 		}
 		
