@@ -46,9 +46,9 @@ package Games.EightOff
 		
 		public function EightOff()
 		{
-			loadPiles();
-			loadButtons();
 			loadTimer();
+			loadButtons();
+			loadPiles();
 			gameEngine = new Engine(this as Sprite, this.extraPiles, this.fieldPiles, this.sidePiles, this.deck, this.isGameRunning, this.isWin);
 		}
 		

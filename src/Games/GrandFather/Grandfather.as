@@ -46,12 +46,12 @@ package Games.GrandFather
 		}
 		
 		private function loadInitialComponents():void {
+			loadButtons();
+			loadTimer();
 			loadDeck();
 			loadDeckPile();
 			loadFieldPiles();
 			loadSidePiles();
-			loadButtons();
-			loadTimer();
 		}
 		
 		private function loadTimer():void {

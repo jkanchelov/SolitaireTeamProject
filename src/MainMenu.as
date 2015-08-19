@@ -167,23 +167,27 @@ package
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderCompleate);
 			loader.load(loseMessageURL);
 			var loseMessage:Bitmap;
+			
 			function loaderCompleate():void
 			{
 				var bmp:Bitmap = loader.content as Bitmap;
 				loseMessage = new Bitmap(bmp.bitmapData);
 				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loaderCompleate);
 				messageContainer.addChild(loseMessage);
-				messageContainer.x = -450;
+				messageContainer.x =-450;
 				messageContainer.y = 200;
-				TweenMax.to(messageContainer, 1, {x: 180, y: 200, ease: Bounce.easeOut});
-				TweenMax.to(messageContainer, 1, {x: 900, y: 200, autoAlpha: 0, delay: 2.5});
 			}
-			
+			TweenMax.to(messageContainer, 1, {x: 180, y: 200, ease: Bounce.easeOut});
+			TweenMax.to(messageContainer, 1, {x: 900, y: 200, autoAlpha: 0, delay: 2.5});
+		
 			setTimeout(clearMessage, 4000);
 		}
 		
+		
 		private function clearMessage():void
 		{
+			messageContainer.x = -450;
+			messageContainer.y = 200;
 			messageContainer.removeChildren();
 			removeChild(messageContainer);
 			
