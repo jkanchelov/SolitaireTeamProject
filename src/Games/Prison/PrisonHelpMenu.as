@@ -1,4 +1,4 @@
-package Games.Prison.Objects
+package Games.Prison
 {
 	import flash.display.Sprite;
 	import flash.events.Event;

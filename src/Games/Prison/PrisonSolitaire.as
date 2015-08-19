@@ -4,7 +4,6 @@ package Games.Prison
 	import flash.display.*;
 	import flash.geom.*;
 	import flash.net.URLRequest;
-	import Games.Prison.Objects.PrisonHelpMenu;
 	import SharedClasses.*
 	
 	/**
@@ -189,7 +188,7 @@ package Games.Prison
 			for (var i:int = 0; i < reservedPiles; i++)
 			{
 				var reservedPile:Sprite = reservesContainer.getChildAt(i) as Sprite;
-				drawRandomCard(reservedPile);
+				dealRandomCard(reservedPile);
 			}
 		}
 		
@@ -204,7 +203,7 @@ package Games.Prison
 				{
 					var pileContainer:Sprite = taublePilesContainer.getChildAt(pile) as Sprite;
 					var cardY = (pileContainer.numChildren - 1) * CARDS_Y_SPACING;
-					drawRandomCard(pileContainer, cardY);
+					dealRandomCard(pileContainer, cardY);
 				}
 			}
 		}
@@ -492,10 +491,10 @@ package Games.Prison
 			isGameRunning = false;
 		}
 		
-		private function drawRandomCard(drawAt:Sprite, y:int = 0):void
+		private function dealRandomCard(dealAt:Sprite, y:int = 0):void
 		{
 			var rndCardNumber:int = randomRange(0, 51 - counterPlacedCards);
-			drawAt.addChild(cards[rndCardNumber]).y = y;
+			dealAt.addChild(cards[rndCardNumber]).y = y;
 			counterPlacedCards++;
 			cards.splice(rndCardNumber, 1);
 		}
