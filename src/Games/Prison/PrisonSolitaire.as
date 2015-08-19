@@ -51,7 +51,8 @@ package Games.Prison
 		public function PrisonSolitaire(cardsSkin:String = "skin1/")
 		{
 			this.cardsSkin = cardsSkin
-			showMenu()
+			//showMenu()
+			DealSolitaire();
 		}
 		
 		public function get IsGameRunning():Boolean
@@ -178,6 +179,14 @@ package Games.Prison
 					}
 					counter++;
 				}
+			}
+			
+			
+			//TODO: find the logic bug sometimes not filling foundation piles 
+			//hard coded bug fix 
+			var foundationPile:Sprite = foundationContainer.getChildAt(0) as Sprite
+			if (foundationPile.numChildren < 2) {
+				loadCardsFoundation();
 			}
 		}
 		
