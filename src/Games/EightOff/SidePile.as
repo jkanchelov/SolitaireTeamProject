@@ -2,6 +2,7 @@ package Games.EightOff
 {
 	import flash.display.Sprite;
 	import flash.display.Shape;
+	import Games.GrandFather.Assistant;
 	import SharedClasses.Card;
 	/**
 	 * ...
@@ -20,6 +21,16 @@ package Games.EightOff
 		{
 			this.suit = suitPar;
 			drawBorder();
+			drawSign();
+		}
+		
+		private function drawSign():void {
+			var signContainer:Sprite = new Sprite();
+			var path:String = "Data/images/Suit/" + this.suit + ".png";
+			Assistant.fillContainerWithImg(signContainer, path, 20, 20);
+			this.addChild(signContainer);
+			signContainer.x = 23;//in the middle
+			signContainer.y = 35 ;
 		}
 		
 		private function drawBorder():void {

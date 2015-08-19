@@ -7,6 +7,8 @@ package Games.EightOff
 	import Games.GrandFather.Assistant;
 	import Games.GrandFather.GameButton;
 	import Games.GrandFather.Rules;
+	import SharedClasses.Button;
+	import SharedClasses.TimerCounter;
 	
 	/**
 	 * ...
@@ -23,7 +25,7 @@ package Games.EightOff
 		
 		private var suits:Array = ["D", "H", "C", "S"];
 		
-		private const StartPointExtraPiles:Point = new Point(30, 20);
+		private const StartPointExtraPiles:Point = new Point(30, 30);
 		private const StartPointFieldPiles:Point = new Point(30, 150);
 		private const StartPointSidePiles:Point = new Point(680, 20);
 		private const CARD_WIDTH:int = 65;
@@ -34,9 +36,11 @@ package Games.EightOff
 		private var isGameRunning:Boolean = true;
 		private var isWin:Boolean = false;
 		
-		private var buttonRules:GameButton = new GameButton("How To Play...");
+		private var buttonRules:Button = new Button(120,"How To Play...");
 		private var rules:Rules;
 		private var isRulesHidden:Boolean = true;
+		
+		private var timer:TimerCounter;
 		
 		private var buttonSurrender:GameButton = new GameButton("Surrender");
 		
@@ -44,7 +48,14 @@ package Games.EightOff
 		{
 			loadPiles();
 			loadButtons();
+			loadTimer();
 			gameEngine = new Engine(this as Sprite, this.extraPiles, this.fieldPiles, this.sidePiles, this.deck, this.isGameRunning, this.isWin);
+		}
+		
+		private function loadTimer():void {
+			this.timer = new TimerCounter();
+			this.addChild(timer);
+			timer.x = 0;
 		}
 		
 		private function loadButtons():void
@@ -55,8 +66,8 @@ package Games.EightOff
 		
 		private function loadButtonSurrender():void {
 			this.addChild(this.buttonSurrender);
-			this.buttonSurrender.x = 200;
-			this.buttonSurrender.y = 560;
+			this.buttonSurrender.x = 720;
+			this.buttonSurrender.y = 0;
 			Assistant.addEventListenerTo(this.buttonSurrender, MouseEvent.CLICK, surrender)
 		}
 		
@@ -68,8 +79,8 @@ package Games.EightOff
 		private function loadButtonRules():void
 		{
 			this.addChild(buttonRules);
-			this.buttonRules.x = 20;
-			this.buttonRules.y = 560;
+			this.buttonRules.x = 0;
+			this.buttonRules.y = 559;
 			Assistant.addEventListenerTo(this.buttonRules, MouseEvent.CLICK, showHideRules);
 			this.rules = new Rules(rulesText);
 		}

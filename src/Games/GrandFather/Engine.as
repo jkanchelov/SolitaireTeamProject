@@ -21,9 +21,6 @@ package Games.GrandFather
 		private var takenCardFieldPile:FieldPile;
 		private var takenCardDeckPile:DeckPile;
 		
-		private var buttonRules:GameButton;
-		private var isRulesHidden:Boolean= true;
-		
 		private var isThereEmpties:Boolean = true;//is field var for use object as reference
 		
 		private var isGameRunning:Boolean;

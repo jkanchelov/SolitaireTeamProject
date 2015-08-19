@@ -65,6 +65,25 @@ package Games.EightOff
 			return cardsForGive;
 		}
 		
+		public function isSequenceFrom(card:Card):Boolean {
+			var isSequence:Boolean = true;	
+			var indexOfCardCard:int = this.cards.indexOf(card);
+			var value:int = card.CardValue;
+			
+			for (var cardIndex:int = indexOfCardCard; cardIndex < this.cards.length; cardIndex++) {
+				
+				var currentCard:Card = this.cards[cardIndex];
+				
+				if (!(currentCard.CardValue == value && currentCard.CardSign == card.CardSign)) {
+					
+					isSequence = false;
+					break;
+				}
+				value--;
+			}
+			return isSequence;
+		}
+		
 		private function determineTopCard():void {
 			this.topCard = this.cards[this.cards.length - 1];	
 		}

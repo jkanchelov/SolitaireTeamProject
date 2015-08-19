@@ -9,6 +9,7 @@ package
 	
 	import SharedClasses.*;
 	import Games.GrandFather.Grandfather;
+	import Games.EightOff.EightOff;
 	import Games.Prison.PrisonSolitaire;
 	import Games.Alternations.AlternationSolitaire
 	import Games.TopsyTurvyQueens.TopsyTurvyQueens;
@@ -76,13 +77,11 @@ package
 		
 		private function eightOff(e:Event):void
 		{
-			//TODO:
-			trace("eightOff");
+			startGame(EightOff);
 		}
 		
 		private function grandFather(e:Event):void
 		{
-			//var grandfather:Grandfather = new Grandfather();
 			startGame(Grandfather)
 		}
 		

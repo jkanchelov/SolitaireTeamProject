@@ -28,7 +28,7 @@ package Games.EightOff
 		private var isGameRunning:Boolean = true;
 		private var isWin:Boolean = false;
 		
-		public function Engine(generalPar:Sprite, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:Deck, isGameRunningPar:Boolean,isWinPar:Boolean)
+		public function Engine(generalPar:Sprite, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:Deck, isGameRunningPar:Boolean, isWinPar:Boolean)
 		{
 			initFields(generalPar, extraPilesPar, fieldPilesPar, sidePilesPar, deckPar, isGameRunningPar, isWinPar);
 			dealing.initialDealing();
@@ -87,7 +87,7 @@ package Games.EightOff
 					var fieldPile:FieldPile = this.fieldPiles[fieldPileIndex];
 					if (fieldPile.hitTestPoint(this.general.mouseX, this.general.mouseY))
 					{
-						if (fieldPile.TopCard.CardValue - 1 == this.tempPile.FirstCard.CardValue && fieldPile.TopCard.CardSign == this.tempPile.FirstCard.CardSign)
+						if (fieldPile.CardsCount != 0 && fieldPile.TopCard.CardValue - 1 == this.tempPile.FirstCard.CardValue && fieldPile.TopCard.CardSign == this.tempPile.FirstCard.CardSign || fieldPile.CardsCount == 0 && tempPile.FirstCard.CardValue == 13)
 						{
 							this.cardForMoving = this.tempPile.giveCard();
 							fieldPile.pushCard(this.cardForMoving);
@@ -114,7 +114,8 @@ package Games.EightOff
 						}
 					}
 				}
-				if (isThereWin()) {
+				if (isThereWin())
+				{
 					this.isWin = true;
 					this.isGameRunning = false;
 				}
@@ -150,12 +151,15 @@ package Games.EightOff
 					choosenStartCard = card;
 				}
 			}
-			
-			this.cardsForMoving = this.pressedFieldPile.giveCards(choosenStartCard);
-			invokeTempPileToMouse();
-			this.tempPile.pushCards(this.cardsForMoving);
-			this.tempPile.startDrag();
-			Assistant.addEventListenerTo(this.tempPile, MouseEvent.MOUSE_UP, dropTakenCardsFromFieldPile);
+			if (pressedFieldPile.isSequenceFrom(choosenStartCard))
+			{
+				
+				this.cardsForMoving = this.pressedFieldPile.giveCards(choosenStartCard);
+				invokeTempPileToMouse();
+				this.tempPile.pushCards(this.cardsForMoving);
+				this.tempPile.startDrag();
+				Assistant.addEventListenerTo(this.tempPile, MouseEvent.MOUSE_UP, dropTakenCardsFromFieldPile);
+			}
 		}
 		
 		private function dropTakenCardsFromFieldPile(e:MouseEvent):void
@@ -163,6 +167,7 @@ package Games.EightOff
 			var isAllowedToDrop:Boolean = false;
 			if (this.tempPile.CardsCount == 1)
 			{
+				//check extra piles for collision
 				for (var extraPileIndex:int = 0; extraPileIndex < extraPiles.length; extraPileIndex++)
 				{
 					var extraPile:ExtraPile = this.extraPiles[extraPileIndex];
@@ -177,12 +182,15 @@ package Games.EightOff
 						}
 					}
 				}
-				if(!isAllowedToDrop){
-					for (var fieldPileIndex:int = 0; fieldPileIndex < this.fieldPiles.length; fieldPileIndex++) {
+				if (!isAllowedToDrop)
+				{
+					//check field piles for collision	
+					for (var fieldPileIndex:int = 0; fieldPileIndex < this.fieldPiles.length; fieldPileIndex++)
+					{
 						var fieldPile:FieldPile = this.fieldPiles[fieldPileIndex];
 						if (fieldPile.hitTestPoint(this.general.mouseX, this.general.mouseY))
 						{
-							if (fieldPile.TopCard!=null&&fieldPile.TopCard.CardValue - 1 == this.tempPile.FirstCard.CardValue && fieldPile.TopCard.CardSign == this.tempPile.FirstCard.CardSign||(fieldPile.CardsCount == 0))
+							if (fieldPile.CardsCount != 0 && fieldPile.TopCard.CardValue - 1 == this.tempPile.FirstCard.CardValue && fieldPile.TopCard.CardSign == this.tempPile.FirstCard.CardSign || (fieldPile.CardsCount == 0 && this.tempPile.FirstCard.CardValue == 13))
 							{
 								this.cardForMoving = this.tempPile.giveCard();
 								fieldPile.pushCard(this.cardForMoving);
@@ -191,16 +199,19 @@ package Games.EightOff
 							}
 						}
 					}
-					if (isThereWin()) {
+					if (isThereWin())
+					{
 						this.isGameRunning = false;
 						this.isWin = true;
 					}
 				}
-				if(!isAllowedToDrop){
+				if (!isAllowedToDrop)
+				{
 					for (var sidePileIndex:int = 0; sidePileIndex < this.sidePiles.length; sidePileIndex++)
 					{
+						//check side piles for collision
 						var sidePile:SidePile = this.sidePiles[sidePileIndex];
-						if (sidePile.hitTestObject(this.tempPile)&&this.tempPile.CardsCount==1)
+						if (sidePile.hitTestObject(this.tempPile) && this.tempPile.CardsCount == 1)
 						{
 							if ((sidePile.TopCard == null && this.tempPile.FirstCard.CardValue == 1 && sidePile.Suit == this.tempPile.FirstCard.CardSign) || (sidePile.TopCard != null && sidePile.TopCard.CardValue == this.tempPile.FirstCard.CardValue - 1 && sidePile.Suit == tempPile.FirstCard.CardSign))
 							{
@@ -218,11 +229,10 @@ package Games.EightOff
 				for (fieldPileIndex = 0; fieldPileIndex < this.fieldPiles.length; fieldPileIndex++)
 				{
 					fieldPile = this.fieldPiles[fieldPileIndex];
-					if (fieldPile.hitTestPoint(this.general.mouseX, this.general.mouseY)) {
-						if (
-						((fieldPile.CardsCount>0)&&(fieldPile.TopCard.CardValue==this.tempPile.FirstCard.CardValue+1)&&(fieldPile.TopCard.CardSign==this.tempPile.FirstCard.CardSign))
-						||
-						(fieldPile.CardsCount == 0)) {
+					if (fieldPile.hitTestPoint(this.general.mouseX, this.general.mouseY))
+					{
+						if (((fieldPile.CardsCount > 0) && (fieldPile.TopCard.CardValue == this.tempPile.FirstCard.CardValue + 1) && (fieldPile.TopCard.CardSign == this.tempPile.FirstCard.CardSign)) || (fieldPile.CardsCount == 0))
+						{
 							this.cardsForMoving = this.tempPile.giveCards();
 							fieldPile.pushCards(this.cardsForMoving);
 							isAllowedToDrop = true;
@@ -240,7 +250,7 @@ package Games.EightOff
 		}
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		private function initFields(generalPar:Sprite, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:Deck,isGameRunningPar:Boolean,isWinPar:Boolean):void
+		private function initFields(generalPar:Sprite, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:Deck, isGameRunningPar:Boolean, isWinPar:Boolean):void
 		{
 			this.general = generalPar;
 			this.extraPiles = extraPilesPar;
@@ -273,18 +283,21 @@ package Games.EightOff
 		{
 			this.pressedFieldPile.pushCards(this.cardsForMoving);
 		}
-	
-		private function isThereWin():Boolean {
+		
+		private function isThereWin():Boolean
+		{
 			var win:Boolean = false;
-			for (var sidePileIndex:int = 0; sidePileIndex < this.sidePiles.length; sidePileIndex++) {
+			for (var sidePileIndex:int = 0; sidePileIndex < this.sidePiles.length; sidePileIndex++)
+			{
 				var currentSidePile:SidePile = this.sidePiles[sidePileIndex];
-				if (currentSidePile.CardsCount == 13) {
+				if (currentSidePile.CardsCount == 13)
+				{
 					win = true;
 				}
 			}
-			return win;	
+			return win;
 		}
-		
+	
 	}
 
 }

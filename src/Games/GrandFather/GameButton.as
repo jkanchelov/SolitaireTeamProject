@@ -35,22 +35,17 @@ package Games.GrandFather
 			matrix.createGradientBox(boxWidth, boxHeight, boxRotation, tx, ty);
 			
 			this.graphics.beginGradientFill(gradientType, gradientColors, gradientAlphas, gradientRatios, matrix, graeientSpreadMethod, colorInterpolation, focalPointRatio);
-			this.graphics.drawRoundRect(0, 0, 150, 35, 20, 20);			
+			this.graphics.drawRoundRect(0, 0, 80, 15, 20, 20);			
 			var buttonTxtFiled:TextField = new TextField();
-			buttonTxtFiled.defaultTextFormat = new TextFormat('Comic Sans MS', 20,0x80FF00, 'bold');
+			buttonTxtFiled.defaultTextFormat = new TextFormat('Comic Sans MS', 10,0x80FF00, 'bold');
 			buttonTxtFiled.text = this.buttonText;
 			this.addChild(buttonTxtFiled);
-			buttonTxtFiled.x = this.x + (this.width / 2) - (buttonTxtFiled.textWidth / 2);
+			buttonTxtFiled.x = 13; //this.x + (this.width / 2) - (buttonTxtFiled.textWidth / 2);
+			buttonTxtFiled.y = -2;
 			buttonTxtFiled.mouseEnabled = true;
 			buttonTxtFiled.height = 50;
 			buttonTxtFiled.width = 200;
 			buttonTxtFiled.selectable = false;
-			
-			
-			
-			
-			
-			
 		}
 		
 	}

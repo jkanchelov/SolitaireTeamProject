@@ -3,6 +3,8 @@ package Games.GrandFather
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.events.MouseEvent;
+	import SharedClasses.Button;
+	import SharedClasses.TimerCounter;
 	/**
 	 * ...
 	 * @author Kolarov
@@ -26,13 +28,15 @@ package Games.GrandFather
 		
 		private var cardSkinPath:String;
 		
-		private var buttonRules:GameButton = new GameButton("How To Play...");
+		private var buttonRules:Button;
 		private var rules:Rules;
 		private var isRulesHidden:Boolean = true;
-		private var buttonSurrender:GameButton = new GameButton("Surrender");		
+		private var buttonSurrender:GameButton;		
 		
 		private var isWin:Boolean = false;
 		private var isGameRunning:Boolean = true;
+		
+		private var timer:TimerCounter;
 		
 		public function Grandfather(cardSkingPathPar:String = "Data/images/Cards/Skin1/0Back.png") 
 		{
@@ -47,6 +51,12 @@ package Games.GrandFather
 			loadFieldPiles();
 			loadSidePiles();
 			loadButtons();
+			loadTimer();
+		}
+		
+		private function loadTimer():void {
+			this.timer = new TimerCounter();
+			this.addChild(timer);
 		}
 		
 		private function loadButtons():void
@@ -56,9 +66,10 @@ package Games.GrandFather
 		}
 		
 		private function loadButtonSurrender():void {
+			this.buttonSurrender = new GameButton("Surrender");
 			this.addChild(this.buttonSurrender);
-			this.buttonSurrender.x = 200;
-			this.buttonSurrender.y = 560;
+			this.buttonSurrender.x = 720;
+			this.buttonSurrender.y = 0;
 			Assistant.addEventListenerTo(this.buttonSurrender, MouseEvent.CLICK, surrender)
 		}
 		
@@ -69,9 +80,10 @@ package Games.GrandFather
 		
 		private function loadButtonRules():void
 		{
+			this.buttonRules = new Button(120,"How To Play...");
 			this.addChild(buttonRules);
-			this.buttonRules.x = 20;
-			this.buttonRules.y = 560;
+			this.buttonRules.x = 0;
+			this.buttonRules.y = 559;
 			Assistant.addEventListenerTo(this.buttonRules, MouseEvent.CLICK, showHideRules);
 			this.rules = new Rules(rulesText);
 		}
