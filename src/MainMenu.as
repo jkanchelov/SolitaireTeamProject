@@ -403,6 +403,7 @@ package
 			var bet1:Button = new Button(buttonWidth, "Bet 1");
 			bet1.name = String(1);
 			bet1.addEventListener(MouseEvent.CLICK, addBet);
+			bet1.addEventListener(MouseEvent.RIGHT_CLICK, removeBet);
 			buttonsContainer.addChild(bet1);
 			bet1.x = 40;
 			bet1.y = 300;
@@ -410,6 +411,7 @@ package
 			var bet5:Button = new Button(buttonWidth, "Bet 5");
 			bet5.name = String(5);
 			bet5.addEventListener(MouseEvent.CLICK, addBet);
+			bet5.addEventListener(MouseEvent.RIGHT_CLICK, removeBet);
 			buttonsContainer.addChild(bet5);
 			bet5.x = 115;
 			bet5.y = 300;
@@ -417,6 +419,7 @@ package
 			var bet10:Button = new Button(buttonWidth, "Bet 10");
 			bet10.name = String(10);
 			bet10.addEventListener(MouseEvent.CLICK, addBet);
+			bet10.addEventListener(MouseEvent.RIGHT_CLICK, removeBet);
 			buttonsContainer.addChild(bet10);
 			bet10.x = 190;
 			bet10.y = 300;
@@ -424,6 +427,7 @@ package
 			var bet25:Button = new Button(buttonWidth, "Bet 25");
 			bet25.name = String(25);
 			bet25.addEventListener(MouseEvent.CLICK, addBet);
+			bet25.addEventListener(MouseEvent.RIGHT_CLICK, removeBet);
 			buttonsContainer.addChild(bet25);
 			bet25.x = 80;
 			bet25.y = 350;
@@ -431,6 +435,7 @@ package
 			var bet100:Button = new Button(buttonWidth, "Bet 100");
 			bet100.name = String(100);
 			bet100.addEventListener(MouseEvent.CLICK, addBet);
+			bet100.addEventListener(MouseEvent.RIGHT_CLICK, removeBet);
 			buttonsContainer.addChild(bet100);
 			bet100.x = 150;
 			bet100.y = 350;
@@ -438,6 +443,7 @@ package
 			var bet250:Button = new Button(buttonWidth, "Bet 250");
 			bet250.name = String(250);
 			bet250.addEventListener(MouseEvent.CLICK, addBet);
+			bet250.addEventListener(MouseEvent.RIGHT_CLICK, removeBet);
 			buttonsContainer.addChild(bet250);
 			bet250.x = 115;
 			bet250.y = 400;
@@ -471,6 +477,20 @@ package
 				updateStatusBar();
 			}
 		}
+		
+		private function removeBet(e:Event):void
+		{
+			var betString:String = e.currentTarget.name;
+			var currentBet:int = int(betString);
+			
+			if (currentBet <= bet)
+			{
+				bet -= int(currentBet);
+				cash += int(currentBet);
+				updateStatusBar();
+			}
+		}
+		
 		
 		private function updateStatusBar():void
 		{
