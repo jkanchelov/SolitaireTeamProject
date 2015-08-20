@@ -151,7 +151,7 @@ package
 				else
 				{
 					bet = 0;
-					resetStatusBar();
+					updateStatusBar();
 					lose();
 				}
 			}
@@ -214,6 +214,7 @@ package
 			showMainMenu();
 			showBetButtons();
 			showSettingsButton();
+			updateStatusBar();
 		}
 		
 		private function loadMusic():void
@@ -348,11 +349,11 @@ package
 			{
 				bet += int(currentBet);
 				cash -= int(currentBet);
-				resetStatusBar();
+				updateStatusBar();
 			}
 		}
 		
-		private function resetStatusBar():void
+		private function updateStatusBar():void
 		{
 			removeChild(moneyStatus);
 			moneyStatus = new Button(120, "Credits: " + cash.toString(), false);
