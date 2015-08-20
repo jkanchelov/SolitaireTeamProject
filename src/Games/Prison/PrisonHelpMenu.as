@@ -42,7 +42,7 @@ package Games.Prison
 			TxtBox.wordWrap = true;
 			TxtBox.mouseEnabled = false;
 			TxtBox.selectable = false;
-			TxtBox.textColor = 0X000000;
+			TxtBox.textColor = 0Xffffff;
 			TxtBox.height = 300;
 			TxtBox.width = 400;
 			TxtBox.border = false;

@@ -98,7 +98,7 @@ package Games.Alternations
 			removeChild(menuContainer);
 			menuContainer = null;
 			
-			showSurrenderButton();
+			showSurrenderAndTimer();
 			
 			DealSolitaire();
 		}
@@ -272,7 +272,7 @@ package Games.Alternations
 			cards.splice(rndCardNumber, 1);
 		}
 		
-		private function showSurrenderButton():void
+		private function showSurrenderAndTimer():void
 		{
 			buttonsContainer = new Sprite();
 			
@@ -282,7 +282,7 @@ package Games.Alternations
 			surrenderButton.x = -125
 			surrenderButton.addEventListener(MouseEvent.CLICK, surrender, false, 0, true);
 			
-			var time:TimerCounter = new TimerCounter();
+			var time:TimerCounter = new TimerCounter(0xffffff);
 			time.y = 10;
 			
 			buttonsContainer.x = STAGE_WIDTH - buttonWidth;

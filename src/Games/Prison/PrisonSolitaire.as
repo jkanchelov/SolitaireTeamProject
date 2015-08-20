@@ -94,12 +94,12 @@ package Games.Prison
 			removeChild(menuContainer);
 			menuContainer = null;
 			
-			showSurrenderButton();
+			showSurrenderAndTimer();
 			
 			DealSolitaire();
 		}
 		
-		private function showSurrenderButton():void { 
+		private function showSurrenderAndTimer():void { 
 			buttonsContainer = new Sprite();
 			
 			var buttonWidth:int = 100;
@@ -107,7 +107,7 @@ package Games.Prison
 			var surrenderButton:Button = new Button(buttonWidth, "  Surrender", true);
 			surrenderButton.addEventListener(MouseEvent.CLICK, surrender, false, 0, true);
 		
-			var time:TimerCounter = new TimerCounter();
+			var time:TimerCounter = new TimerCounter(0xffffff);
 			time.y = 60;
 			
 			buttonsContainer.x = STAGE_WIDTH - buttonWidth;

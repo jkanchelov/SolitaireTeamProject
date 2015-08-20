@@ -42,7 +42,7 @@ package Games.Alternations
 			TxtBox.wordWrap = true;
 			TxtBox.mouseEnabled = false;
 			TxtBox.selectable = false;
-			TxtBox.textColor = 0X000000;
+			TxtBox.textColor = 0xFFFFFF;
 			TxtBox.height = 350;
 			TxtBox.width = 400;
 			TxtBox.border = false;
