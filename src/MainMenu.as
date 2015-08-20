@@ -32,7 +32,7 @@ package
 		private const BUTTON_SPACING:int = 5;
 		
 		private var backgroundPath:String = "background1.jpg";
-		private var cardPath:String = "skin1/";
+		private var cardPath:String = "Skin1/";
 		private var cash:int = 1000;
 		private var bet:int = 0;
 		
@@ -45,15 +45,12 @@ package
 		private var menuContainer:Sprite = new Sprite();
 		
 		private var settingsContainer:Sprite = new Sprite();
-		private var buttonTableBackground1:Sprite = new Sprite();
-		private var buttonTableBackground2:Sprite = new Sprite();
-		private var buttonCardBackSkin1:Sprite = new Sprite();
-		private var buttonCardBackSkin2:Sprite = new Sprite();
 		
 		private var moneyStatus:Button;
 		private var betStatus:Button;
 		private var ingame:Boolean = false;
 		private var standClicked:Boolean = false;
+		private var inSettings:Boolean = false;
 		
 		public function MainMenu()
 		{
@@ -130,7 +127,7 @@ package
 				clearMainMenu();
 				clearBetButtons();
 				clearSettingsButton();
-				var selectedGame = new game();
+				var selectedGame = new game(cardPath);
 				selectedGame.addEventListener(Event.ENTER_FRAME, checkGameOver, false, 0, true);
 				
 				addChild(selectedGame);
@@ -220,9 +217,6 @@ package
 			removeChild(messageContainer);
 			
 			showMainMenu();
-			showBetButtons();
-			showSettingsButton();
-			updateStatusBar();
 		}
 		
 		private function loadMusic():void
@@ -244,83 +238,134 @@ package
 		private function loadSettingsButton():void
 		{
 			Assistant.fillContainerWithImg(this.settingsButtonContainer, "Data/images/Buttons/settingIcon.png", 40, 40);
-			addChild(this.settingsButtonContainer);
+			addChild(settingsButtonContainer);
 			settingsButtonContainer.x = STAGE_WIDTH - 110;
 			settingsButtonContainer.y = STAGE_HEIGHT - 50;
-			this.settingsButtonContainer.addEventListener(MouseEvent.CLICK, loadSettingsMenu);
+			settingsButtonContainer.addEventListener(MouseEvent.CLICK, settings);
+			
+			loadSettingsMenu();
 		}
 		
-		private function loadSettingsMenu(e:Event):void 
+		private function settings(E:Event):void
 		{
-			clearMainMenu();
-			clearBetButtons();
-			Assistant.fillContainerWithImg(this.settingsContainer, "Data/images/Background/background1.png", 700, 500); 
-			this.addChild(this.settingsContainer);
-			this.settingsContainer.x = 40;
+			
+			if (!inSettings)
+			{
+				inSettings = !inSettings;
+				clearMainMenu();
+				clearBetButtons();
+				addChild(settingsContainer);
+			}
+			else
+			{
+				inSettings = !inSettings;
+				removeChild(settingsContainer);
+				showMainMenu();
+			}
+		}
+		
+		private function loadSettingsMenu():void
+		{
+			Assistant.fillContainerWithImg(this.settingsContainer, "Data/images/Background/background1.png", 700, 500);
+			this.settingsContainer.x = 50;
 			this.settingsContainer.y = 40;
 			
+			var buttonTableBackground1:Sprite = new Sprite();
+			var buttonTableBackground2:Sprite = new Sprite();
+			var buttonCardBackSkin1:Sprite = new Sprite();
+			var buttonCardBackSkin2:Sprite = new Sprite();
 			
 			var buttonTxtFiled:TextField = new TextField();
-			buttonTxtFiled.defaultTextFormat = new TextFormat('Comic Sans MS', 20,0x000000, 'bold');
+			buttonTxtFiled.defaultTextFormat = new TextFormat('Comic Sans MS', 20, 0x000000, 'bold');
 			buttonTxtFiled.text = "Choose table background:";
-			this.settingsContainer.addChild(buttonTxtFiled);
-			buttonTxtFiled.x = 40; //this.x + (this.width / 2) - (buttonTxtFiled.textWidth / 2);
+			buttonTxtFiled.x = 40;
 			buttonTxtFiled.y = 30;
 			buttonTxtFiled.mouseEnabled = true;
 			buttonTxtFiled.height = 50;
 			buttonTxtFiled.width = 400;
 			buttonTxtFiled.selectable = false;
-			
+			settingsContainer.addChild(buttonTxtFiled);
 			
 			var buttonTxtFiled2:TextField = new TextField();
-			buttonTxtFiled2.defaultTextFormat = new TextFormat('Comic Sans MS', 20,0x000000, 'bold');
+			buttonTxtFiled2.defaultTextFormat = new TextFormat('Comic Sans MS', 20, 0x000000, 'bold');
 			buttonTxtFiled2.text = "Choose card skin:";
-			this.settingsContainer.addChild(buttonTxtFiled2);
-			buttonTxtFiled2.x = 40; //this.x + (this.width / 2) - (buttonTxtFiled.textWidth / 2);
+			buttonTxtFiled2.x = 40;
 			buttonTxtFiled2.y = 220;
 			buttonTxtFiled2.mouseEnabled = true;
 			buttonTxtFiled2.height = 50;
 			buttonTxtFiled2.width = 400;
 			buttonTxtFiled2.selectable = false;
+			settingsContainer.addChild(buttonTxtFiled2);
 			
-			
-			Assistant.fillContainerWithImg(this.buttonTableBackground1, "Data/images/Background/background4.jpg", 160, 100); 
+			Assistant.fillContainerWithImg(buttonTableBackground1, "Data/images/Background/background1.jpg", 160, 100);
+			buttonTableBackground1.name = "Data/images/Background/background1.jpg";
+			buttonTableBackground1.x = 40;
+			buttonTableBackground1.y = 90;
+			buttonTableBackground1.buttonMode = true;
+			buttonTableBackground1.addEventListener(MouseEvent.CLICK, function()
+			{
+				if (backgroundPath != "background1.jpg") {
+					backgroundPath = "background1.jpg";
+					updateBackground();
+				}
+			});
 			settingsContainer.addChild(buttonTableBackground1);
-			this.settingsButtonContainer.addEventListener(MouseEvent.CLICK, loadSettingsMenu);
-			buttonTableBackground1.name = "Data/images/Background/background4.jpg";
-			this.buttonTableBackground1.x = 40;
-			this.buttonTableBackground1.y = 90;
 			
-			Assistant.fillContainerWithImg(this.buttonTableBackground2, "Data/images/Background/background3.jpg", 160, 100); 
+			Assistant.fillContainerWithImg(buttonTableBackground2, "Data/images/Background/background2.jpg", 160, 100);
+			buttonTableBackground2.name = "Data/images/Background/background2.jpg";
+			buttonTableBackground2.x = 280;
+			buttonTableBackground2.y = 90;
+			buttonTableBackground2.buttonMode = true;
+			buttonTableBackground2.addEventListener(MouseEvent.CLICK, function()
+			{
+				if (backgroundPath != "background2.jpg") {
+					backgroundPath = "background2.jpg";
+					updateBackground();
+				}
+			});
 			settingsContainer.addChild(buttonTableBackground2);
-			buttonTableBackground2.name = "Data/images/Background/background3.jpg";
-			this.buttonTableBackground2.x = 280;
-			this.buttonTableBackground2.y = 90;
 			
-			Assistant.fillContainerWithImg(this.buttonCardBackSkin1, "Data/images/Cards/Skin1/0Back.png", 80, 120); 
-			buttonCardBackSkin1.name = "Data/images/Cards/Skin1/0Back.png";
-			this.settingsContainer.addChild(this.buttonCardBackSkin1);
-			this.buttonCardBackSkin1.x = 40;
-			this.buttonCardBackSkin1.y = 300;
+			Assistant.fillContainerWithImg(buttonCardBackSkin1, "Data/images/Cards/Skin1/0Back.png", 80, 120);
+			buttonCardBackSkin1.x = 40;
+			buttonCardBackSkin1.y = 300;
+			buttonCardBackSkin1.buttonMode = true;
+			buttonCardBackSkin1.addEventListener(MouseEvent.CLICK, function()
+			{
+				cardPath = "skin1/"
+			});
+			settingsContainer.addChild(buttonCardBackSkin1);
 			
-			Assistant.fillContainerWithImg(this.buttonCardBackSkin2, "Data/images/Cards/Skin2/0Back.jpg", 80, 120); 			
-			buttonCardBackSkin2.name = "Data/images/Cards/Skin2/0Back.jpg";
-			this.settingsContainer.addChild(buttonCardBackSkin2);
-			this.buttonCardBackSkin2.x = 200;
-			this.buttonCardBackSkin2.y = 300;
+			Assistant.fillContainerWithImg(buttonCardBackSkin2, "Data/images/Cards/Skin2/0Back.png", 80, 120);
+			buttonCardBackSkin2.x = 200;
+			buttonCardBackSkin2.y = 300;
+			buttonCardBackSkin2.buttonMode = true;
+			buttonCardBackSkin2.addEventListener(MouseEvent.CLICK, function()
+			{
+				cardPath = "skin2/";
+			});
+			settingsContainer.addChild(buttonCardBackSkin2);
+		
+		}
+		
+		private function updateBackground():void
+		{
+			backgroundContainer.removeChildren();
+			removeChild(backgroundContainer);
 			
-			// TODO needs to be added listeners for changing table backgound and card back skin
-			
+			loadBackground();
 		}
 		
 		private function showMainMenu():void
 		{
 			addChild(menuContainer);
+			showBetButtons();
+			showSettingsButton();
+			updateStatusBar();
 		}
 		
 		private function loadBackground():void
 		{
-			addChild(backgroundContainer);
+			addChildAt(backgroundContainer, 0);
 			
 			var backgroundUrl:URLRequest = new URLRequest("Data/images/Background/" + backgroundPath);
 			var loader:Loader = new Loader();
