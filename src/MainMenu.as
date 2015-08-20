@@ -7,6 +7,7 @@ package
 	import com.greensock.*;
 	import com.greensock.easing.*;
 	import Games.GrandFather.Assistant;
+	import flash.text.*;
 	
 	import SharedClasses.*;
 	import Games.GrandFather.Grandfather;
@@ -31,6 +32,7 @@ package
 		private const BUTTON_SPACING:int = 5;
 		
 		private var backgroundPath:String = "background1.jpg";
+		private var cardPath:String = "skin1/";
 		private var cash:int = 1000;
 		private var bet:int = 0;
 		
@@ -41,6 +43,12 @@ package
 		private var buttonsContainer:Sprite = new Sprite();
 		
 		private var menuContainer:Sprite = new Sprite();
+		
+		private var settingsContainer:Sprite = new Sprite();
+		private var buttonTableBackground1:Sprite = new Sprite();
+		private var buttonTableBackground2:Sprite = new Sprite();
+		private var buttonCardBackSkin1:Sprite = new Sprite();
+		private var buttonCardBackSkin2:Sprite = new Sprite();
 		
 		private var moneyStatus:Button;
 		private var betStatus:Button;
@@ -239,6 +247,70 @@ package
 			addChild(this.settingsButtonContainer);
 			settingsButtonContainer.x = STAGE_WIDTH - 110;
 			settingsButtonContainer.y = STAGE_HEIGHT - 50;
+			this.settingsButtonContainer.addEventListener(MouseEvent.CLICK, loadSettingsMenu);
+		}
+		
+		private function loadSettingsMenu(e:Event):void 
+		{
+			clearMainMenu();
+			clearBetButtons();
+			Assistant.fillContainerWithImg(this.settingsContainer, "Data/images/Background/background1.png", 700, 500); 
+			this.addChild(this.settingsContainer);
+			this.settingsContainer.x = 40;
+			this.settingsContainer.y = 40;
+			
+			
+			var buttonTxtFiled:TextField = new TextField();
+			buttonTxtFiled.defaultTextFormat = new TextFormat('Comic Sans MS', 20,0x000000, 'bold');
+			buttonTxtFiled.text = "Choose table background:";
+			this.settingsContainer.addChild(buttonTxtFiled);
+			buttonTxtFiled.x = 40; //this.x + (this.width / 2) - (buttonTxtFiled.textWidth / 2);
+			buttonTxtFiled.y = 30;
+			buttonTxtFiled.mouseEnabled = true;
+			buttonTxtFiled.height = 50;
+			buttonTxtFiled.width = 400;
+			buttonTxtFiled.selectable = false;
+			
+			
+			var buttonTxtFiled2:TextField = new TextField();
+			buttonTxtFiled2.defaultTextFormat = new TextFormat('Comic Sans MS', 20,0x000000, 'bold');
+			buttonTxtFiled2.text = "Choose card skin:";
+			this.settingsContainer.addChild(buttonTxtFiled2);
+			buttonTxtFiled2.x = 40; //this.x + (this.width / 2) - (buttonTxtFiled.textWidth / 2);
+			buttonTxtFiled2.y = 220;
+			buttonTxtFiled2.mouseEnabled = true;
+			buttonTxtFiled2.height = 50;
+			buttonTxtFiled2.width = 400;
+			buttonTxtFiled2.selectable = false;
+			
+			
+			Assistant.fillContainerWithImg(this.buttonTableBackground1, "Data/images/Background/background4.jpg", 160, 100); 
+			settingsContainer.addChild(buttonTableBackground1);
+			this.settingsButtonContainer.addEventListener(MouseEvent.CLICK, loadSettingsMenu);
+			buttonTableBackground1.name = "Data/images/Background/background4.jpg";
+			this.buttonTableBackground1.x = 40;
+			this.buttonTableBackground1.y = 90;
+			
+			Assistant.fillContainerWithImg(this.buttonTableBackground2, "Data/images/Background/background3.jpg", 160, 100); 
+			settingsContainer.addChild(buttonTableBackground2);
+			buttonTableBackground2.name = "Data/images/Background/background3.jpg";
+			this.buttonTableBackground2.x = 280;
+			this.buttonTableBackground2.y = 90;
+			
+			Assistant.fillContainerWithImg(this.buttonCardBackSkin1, "Data/images/Cards/Skin1/0Back.png", 80, 120); 
+			buttonCardBackSkin1.name = "Data/images/Cards/Skin1/0Back.png";
+			this.settingsContainer.addChild(this.buttonCardBackSkin1);
+			this.buttonCardBackSkin1.x = 40;
+			this.buttonCardBackSkin1.y = 300;
+			
+			Assistant.fillContainerWithImg(this.buttonCardBackSkin2, "Data/images/Cards/Skin2/0Back.jpg", 80, 120); 			
+			buttonCardBackSkin2.name = "Data/images/Cards/Skin2/0Back.jpg";
+			this.settingsContainer.addChild(buttonCardBackSkin2);
+			this.buttonCardBackSkin2.x = 200;
+			this.buttonCardBackSkin2.y = 300;
+			
+			// TODO needs to be added listeners for changing table backgound and card back skin
+			
 		}
 		
 		private function showMainMenu():void
