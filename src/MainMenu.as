@@ -275,7 +275,7 @@ package
 			moneyStatus.x = 150;
 			moneyStatus.y = 575;
 			
-			betStatus = new Button(120, "Bet: ", false);
+			betStatus = new Button(120, "Bet: " + bet.toString(), false);
 			addChild(betStatus);
 			betStatus.height = 25;
 			betStatus.x = 300;
