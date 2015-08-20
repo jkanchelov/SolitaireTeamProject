@@ -304,7 +304,8 @@ package
 			buttonTableBackground1.buttonMode = true;
 			buttonTableBackground1.addEventListener(MouseEvent.CLICK, function()
 			{
-				if (backgroundPath != "background1.jpg") {
+				if (backgroundPath != "background1.jpg")
+				{
 					backgroundPath = "background1.jpg";
 					updateBackground();
 				}
@@ -318,7 +319,8 @@ package
 			buttonTableBackground2.buttonMode = true;
 			buttonTableBackground2.addEventListener(MouseEvent.CLICK, function()
 			{
-				if (backgroundPath != "background2.jpg") {
+				if (backgroundPath != "background2.jpg")
+				{
 					backgroundPath = "background2.jpg";
 					updateBackground();
 				}
