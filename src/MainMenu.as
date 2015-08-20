@@ -14,7 +14,6 @@ package
 	import Games.Prison.PrisonSolitaire;
 	import Games.Alternations.AlternationSolitaire
 	import Games.TopsyTurvyQueens.*
-
 	
 	/**
 	 * ...
@@ -30,7 +29,7 @@ package
 		private const BUTTON_WIDTH:int = 200;
 		private const BUTTON_HEIGHT:int = 60;
 		private const BUTTON_SPACING:int = 5;
-
+		
 		private var backgroundPath:String = "background1.jpg";
 		private var cash:int = 1000;
 		private var bet:int = 0;
@@ -45,7 +44,7 @@ package
 		
 		private var moneyStatus:Button;
 		private var betStatus:Button;
-		private var ingame:Boolean = false; 						// if you bet ingame = true;
+		private var ingame:Boolean = false;
 		private var standClicked:Boolean = false;
 		
 		public function MainMenu()
@@ -55,21 +54,6 @@ package
 			loadBetButtons();
 			loadSettingsButton();
 			loadMusic();
-		}
-
-		private function loadSettingsButton():void {
-			Assistant.fillContainerWithImg(this.settingsButtonContainer, "Data/images/Buttons/settingIcon.png", 40, 40);	
-			this.addChild(this.settingsButtonContainer);
-			this.settingsButtonContainer.x = STAGE_WIDTH - 110;
-			this.settingsButtonContainer.y = STAGE_HEIGHT - 50;
-		}
-		
-		private function clearSettingsButton():void {
-			this.removeChild(this.settingsButtonContainer);	
-		}
-		
-		private function showSettingsButton():void {
-			this.addChild(this.settingsButtonContainer);	
 		}
 		
 		private function loadMenuButtons():void
@@ -97,65 +81,58 @@ package
 		
 		private function prison(e:Event):void
 		{
-			if(this.bet > 0){
-				startGame(PrisonSolitaire);
-			}
-			else {
-			//todo button bet alarm
-			TweenMax.to(betStatus, 1.25, {glowFilter:{color:0xff0000, alpha:1, blurX:30, blurY:30, strength:5}});
-			TweenMax.to(betStatus, 1.25, {glowFilter:{color:0xff0000, alpha:1, blurX:30, blurY:30, strength:5,remove:true}});
-			}
+			startGame(PrisonSolitaire);
 		}
 		
 		private function eightOff(e:Event):void
 		{
-			if(this.bet > 0){
-				startGame(EightOff);
-			}
-			else {
-			//todo button bet alarm	
-			}
+			startGame(EightOff);
 		}
 		
 		private function grandFather(e:Event):void
 		{
-			if(this.bet > 0){
-				startGame(Grandfather)
-			}
-			else {
-				//todo button bet alarm
-			}
+			
+			startGame(Grandfather)
 		}
 		
 		private function alternations(e:Event):void
 		{
-			if(this.bet > 0){
-				startGame(AlternationSolitaire)
-			}
-			else {
-				//todo button bet alarm
-			}
+			startGame(AlternationSolitaire)
 		}
 		
 		private function topsyTurvyQueens(e:Event):void
 		{
-			if(this.bet > 0){
-				startGame(TopsyTurvyQueensMenu);
-			}
-			else {
-			//todo button bet alarm	
-			}
+			startGame(TopsyTurvyQueensMenu);
+		}
+		
+		private function clearSettingsButton():void
+		{
+			removeChild(settingsButtonContainer);
+		}
+		
+		private function showSettingsButton():void
+		{
+			addChild(settingsButtonContainer);
 		}
 		
 		private function startGame(game:Object)
 		{
-			clearMainMenu();
-			clearBetButtons();	
-			clearSettingsButton();
-			var selectedGame = new game();
-			selectedGame.addEventListener(Event.ENTER_FRAME, checkGameOver, false, 0, true);
-			
-			addChild(selectedGame);
+			if (this.bet > 0)
+			{
+				clearMainMenu();
+				clearBetButtons();
+				clearSettingsButton();
+				var selectedGame = new game();
+				selectedGame.addEventListener(Event.ENTER_FRAME, checkGameOver, false, 0, true);
+				
+				addChild(selectedGame);
+			}
+			else
+			{
+				//todo button bet alarm
+				TweenMax.to(betStatus, 1.25, {glowFilter: {color: 0xff0000, alpha: 1, blurX: 30, blurY: 30, strength: 5}});
+				TweenMax.to(betStatus, 1.25, {glowFilter: {color: 0xff0000, alpha: 1, blurX: 30, blurY: 30, strength: 5, remove: true}});
+			}
 		}
 		
 		private function checkGameOver(e:Event):void
@@ -183,7 +160,7 @@ package
 		private function win():void
 		{
 			var winMessagePath:String = "winButton.png";
-		
+			
 			addChild(messageContainer);
 			var winMessageURL:URLRequest = new URLRequest("Data/images/Buttons/" + winMessagePath);
 			var loader:Loader = new Loader();
@@ -218,15 +195,14 @@ package
 				loseMessage = new Bitmap(bmp.bitmapData);
 				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loaderCompleate);
 				messageContainer.addChild(loseMessage);
-				messageContainer.x =-450;
+				messageContainer.x = -450;
 				messageContainer.y = 200;
 			}
 			TweenMax.to(messageContainer, 1, {x: 180, y: 200, ease: Bounce.easeOut});
 			TweenMax.to(messageContainer, 1, {x: 900, y: 200, autoAlpha: 0, delay: 2.5});
-		
+			
 			setTimeout(clearMessage, 4000);
 		}
-		
 		
 		private function clearMessage():void
 		{
@@ -256,24 +232,17 @@ package
 			musicButtonContainer.addChild(music);
 		}
 		
+		private function loadSettingsButton():void
+		{
+			Assistant.fillContainerWithImg(this.settingsButtonContainer, "Data/images/Buttons/settingIcon.png", 40, 40);
+			addChild(this.settingsButtonContainer);
+			settingsButtonContainer.x = STAGE_WIDTH - 110;
+			settingsButtonContainer.y = STAGE_HEIGHT - 50;
+		}
+		
 		private function showMainMenu():void
 		{
 			addChild(menuContainer);
-		}
-		
-		private function showBetButtons():void
-		{
-			addChild(buttonsContainer);
-		}
-		
-		private function clearBetButtons():void
-		{
-			removeChild(buttonsContainer)
-		}
-		
-		private function clearMainMenu():void
-		{
-			removeChild(menuContainer);
 		}
 		
 		private function loadBackground():void
@@ -353,6 +322,21 @@ package
 			bet250.x = 115;
 			bet250.y = 400;
 		
+		}
+		
+		private function showBetButtons():void
+		{
+			addChild(buttonsContainer);
+		}
+		
+		private function clearBetButtons():void
+		{
+			removeChild(buttonsContainer)
+		}
+		
+		private function clearMainMenu():void
+		{
+			removeChild(menuContainer);
 		}
 		
 		private function addBet(e:Event):void
