@@ -45,6 +45,7 @@ package Games.Alternations
 		private var movingCardX:int;
 		private var movingCardY:int;
 		private var followingCards:Vector.<Card> = new Vector.<Card>();
+		private var isDragging:Boolean = false;
 		
 		private var menuContainer:Sprite;
 		private var buttonsContainer:Sprite;
@@ -405,50 +406,51 @@ package Games.Alternations
 		
 		private function startDraging(e:MouseEvent):void
 		{
-			var cardContainer:Sprite = e.target.parent as Sprite;
-			var card:Card = e.target as Card;
-			var cardIndex:int = cardContainer.getChildIndex(card);
-			
-			if (canBeDragged(cardContainer, cardIndex))
+			if (!isDragging)
 			{
-				movingCardObject = e.target as Sprite;
-				movCardCurrentSprite = movingCardObject.parent as Sprite;
+				isDragging = true ;
 				
-				if (moveMultiple)
+				var cardContainer:Sprite = e.target.parent as Sprite;
+				var card:Card = e.target as Card;
+				var cardIndex:int = cardContainer.getChildIndex(card);
+				
+				if (canBeDragged(cardContainer, cardIndex))
 				{
-					var cardsNum:int = movCardCurrentSprite.numChildren;
-					var removedOnce:Boolean = true
-					for (var i:int = cardIndex + 1; i < cardsNum; i++)
+					movingCardObject = e.target as Sprite;
+					movCardCurrentSprite = movingCardObject.parent as Sprite;
+					
+					if (moveMultiple)
 					{
-						var currentCard:Card = movCardCurrentSprite.getChildAt(i) as Card;
-						currentCard.addEventListener(Event.ENTER_FRAME, followCard);
-						followingCards.push(currentCard);
+						var cardsNum:int = movCardCurrentSprite.numChildren;
 						
-						movCardCurrentSprite.removeChild(currentCard);
-						cardsNum--;
-						i--;
-						
-						if (removedOnce) {
-							addChildAt(currentCard, this.numChildren);
-							removedOnce = false
-						}
-						else 
+						for (var i:int = cardIndex + 1; i < cardsNum; i++)
 						{
-							addChildAt(currentCard,this.numChildren);
+							var currentCard:Card = movCardCurrentSprite.getChildAt(i) as Card;
+							currentCard.addEventListener(Event.ENTER_FRAME, followCard);
+							followingCards.push(currentCard);
+							
+							movCardCurrentSprite.removeChild(currentCard);
+							cardsNum--;
+							i--;
+							
+							addChildAt(currentCard, this.numChildren);
 						}
 					}
+					
+					movingCardObject.parent.removeChild(movingCardObject);
+					addChildAt(movingCardObject, this.numChildren - followingCards.length);
+					
+					movingCardObject.x = mouseX - movingCardObject.width / 2;
+					movingCardObject.y = mouseY - movingCardObject.height / 2;
+					
+					movingCardX = mouseX;
+					movingCardY = mouseY;
+					
+					e.target.startDrag();
 				}
-				
-				movingCardObject.parent.removeChild(movingCardObject);
-				addChild(movingCardObject);
-				
-				movingCardObject.x = mouseX - movingCardObject.width / 2;
-				movingCardObject.y = mouseY - movingCardObject.height / 2;
-				
-				movingCardX = mouseX;
-				movingCardY = mouseY;
-				
-				e.target.startDrag();
+				else {
+					resetMovCardVariables();
+				}
 			}
 		}
 		
@@ -561,6 +563,7 @@ package Games.Alternations
 					if (moveMultiple)
 					{
 						movingCardObject.y = (multipleStartIndex - 1) * CARDS_Y_SPACING
+						movingCardObject.x = 0;
 						movCardCurrentSprite.addChildAt(movingCardObject, multipleStartIndex);
 					}
 					else
@@ -674,12 +677,14 @@ package Games.Alternations
 		
 		private function resetMovCardVariables():void
 		{
+			isDragging = false;
 			moveMultiple = false;
 			multipleStartIndex = null;
 			movCardNewSprite = null;
 			movCardToFoundation = false;
 			movingCardObject = null;
 			movCardCurrentSprite = null;
+			followingCards = new Vector.<Card>();
 		}
 		
 		private function isLastCardOfPile(givenCard:Card, spriteContainer):Boolean
