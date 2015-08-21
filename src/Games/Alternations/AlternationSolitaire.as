@@ -16,11 +16,11 @@ package Games.Alternations
 		private const STAGE_HEIGHT = 600;
 		
 		private const DECK_CONTAINER_X = 25;
-		private const DECK_CONTAINER_Y = 60;
+		private const DECK_CONTAINER_Y = 50;
 		private const FOUNDATION_CONTAINER_X:int = 175;
-		private const FOUNDATION_CONTAINER_Y:int = 60;
+		private const FOUNDATION_CONTAINER_Y:int = 50;
 		private const TAUBLE_CONTAINER_X:int = 250;
-		private const TAUBLE_CONTAINER_Y:int = 185;
+		private const TAUBLE_CONTAINER_Y:int = 175;
 		
 		private const CONTAINER_WIDTH:int = 65;
 		private const CONTAINER_HEIGHT:int = 100;
@@ -38,13 +38,13 @@ package Games.Alternations
 		private var moveMultiple:Boolean = false;
 		private var multipleStartIndex:int;
 		
-		private var isCardMoving:Boolean = false;
 		private var movCardCurrentSprite:Sprite;
 		private var movCardNewSprite:Sprite;
 		private var movingCardObject:Sprite;
 		private var movCardToFoundation:Boolean = false;
 		private var movingCardX:int;
 		private var movingCardY:int;
+		private var followingCards:Vector.<Card> = new Vector.<Card>();
 		
 		private var menuContainer:Sprite;
 		private var buttonsContainer:Sprite;
@@ -405,28 +405,71 @@ package Games.Alternations
 		
 		private function startDraging(e:MouseEvent):void
 		{
-			if (!isCardMoving)
+			var cardContainer:Sprite = e.target.parent as Sprite;
+			var card:Card = e.target as Card;
+			var cardIndex:int = cardContainer.getChildIndex(card);
+			
+			if (canBeDragged(cardContainer, cardIndex))
 			{
-				var cardContainer:Sprite = e.target.parent as Sprite;
-				var card:Card = e.target as Card;
-				var cardIndex:int = cardContainer.getChildIndex(card);
+				movingCardObject = e.target as Sprite;
+				movCardCurrentSprite = movingCardObject.parent as Sprite;
 				
-				if (canBeDragged(cardContainer, cardIndex))
+				if (moveMultiple)
 				{
-					movingCardObject = e.target as Sprite;
-					
-					movCardCurrentSprite = movingCardObject.parent as Sprite;
-					movingCardObject.parent.removeChild(movingCardObject);
-					
-					addChild(movingCardObject);
-					movingCardObject.x = mouseX - movingCardObject.width / 2;
-					movingCardObject.y = mouseY - movingCardObject.height / 2;
-					
-					movingCardX = mouseX;
-					movingCardY = mouseY;
-					
-					e.target.startDrag();
-					isCardMoving = true;
+					var cardsNum:int = movCardCurrentSprite.numChildren;
+					var removedOnce:Boolean = true
+					for (var i:int = cardIndex + 1; i < cardsNum; i++)
+					{
+						var currentCard:Card = movCardCurrentSprite.getChildAt(i) as Card;
+						currentCard.addEventListener(Event.ENTER_FRAME, followCard);
+						followingCards.push(currentCard);
+						
+						movCardCurrentSprite.removeChild(currentCard);
+						cardsNum--;
+						i--;
+						
+						if (removedOnce) {
+							addChildAt(currentCard, this.numChildren);
+							removedOnce = false
+						}
+						else 
+						{
+							addChildAt(currentCard,this.numChildren);
+						}
+					}
+				}
+				
+				movingCardObject.parent.removeChild(movingCardObject);
+				addChild(movingCardObject);
+				
+				movingCardObject.x = mouseX - movingCardObject.width / 2;
+				movingCardObject.y = mouseY - movingCardObject.height / 2;
+				
+				movingCardX = mouseX;
+				movingCardY = mouseY;
+				
+				e.target.startDrag();
+			}
+		}
+		
+		private function followCard(e:Event):void
+		{
+			var counter:int = 1;
+			for (var i:int = 0; i < followingCards.length; i++)
+			{
+				try
+				{
+					if (e.target as Card == followingCards[i])
+					{
+						e.target.x = movingCardObject.x;
+						e.target.y = movingCardObject.y + counter * CARDS_Y_SPACING;
+					}
+					counter++;
+				}
+				catch (err:Error)
+				{
+					e.target.removeEventListener(Event.ENTER_FRAME, followCard);
+					e.target.x = 0;
 				}
 			}
 		}
@@ -435,12 +478,28 @@ package Games.Alternations
 		{
 			if (movingCardObject != null)
 			{
+				if (followingCards.length > 0)
+				{
+					for (var i:int = 0; i < followingCards.length; i++)
+					{
+						var followingCard:Card = followingCards[i];
+						followingCards.splice(i, 1);
+						
+						removeChild(followingCard);
+						movCardCurrentSprite.addChild(followingCard);
+						followingCard.x = 0;
+						followingCard.y = (movCardCurrentSprite.numChildren - 1) * CARDS_Y_SPACING
+						followingCard.removeEventListener(Event.ENTER_FRAME, followCard);
+						
+						i--;
+					}
+				}
+				
 				movingCardObject.stopDrag();
 				var movingCard:Card = movingCardObject as Card;
 				
 				if (canBeMoved(movingCard))
 				{
-					
 					if (moveMultiple)
 					{
 						movingCardObject.y = (movCardNewSprite.numChildren - 1) * CARDS_Y_SPACING
@@ -615,7 +674,6 @@ package Games.Alternations
 		
 		private function resetMovCardVariables():void
 		{
-			isCardMoving = false;
 			moveMultiple = false;
 			multipleStartIndex = null;
 			movCardNewSprite = null;
