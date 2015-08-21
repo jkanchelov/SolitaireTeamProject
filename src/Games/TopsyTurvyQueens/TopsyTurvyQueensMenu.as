@@ -31,7 +31,7 @@ package Games.TopsyTurvyQueens
 		private var buttonsSoundChannel:SoundChannel = new SoundChannel();
 		private var buttonSound:Sound = new Sound();
 		
-		public function TopsyTurvyQueensMenu()
+		public function TopsyTurvyQueensMenu(skinPath:String = "")
 		{
 			
 			loadMenuButtons();
