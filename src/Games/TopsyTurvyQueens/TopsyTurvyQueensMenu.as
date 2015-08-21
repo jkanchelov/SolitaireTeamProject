@@ -13,7 +13,6 @@ package Games.TopsyTurvyQueens
 	import SharedClasses.*;
 	import flash.html.HTMLLoader;
 	
-	
 	/**
 	 * ...
 	 * @author SS
@@ -29,6 +28,8 @@ package Games.TopsyTurvyQueens
 		private var html:HTMLLoader;
 		private var isWin:Boolean = false;
 		private var isGameRunning:Boolean = true;
+		private var buttonsSoundChannel:SoundChannel = new SoundChannel();
+		private var buttonSound:Sound = new Sound();
 		
 		public function TopsyTurvyQueensMenu()
 		{
@@ -42,12 +43,14 @@ package Games.TopsyTurvyQueens
 			time.y = 2;
 		
 		}
+		
 		public function get IsGameRunning():Boolean
 		{
 			return this.isGameRunning;
 		}
 		
-		public function get IsWin():Boolean {
+		public function get IsWin():Boolean
+		{
 			return this.isWin;
 		}
 		
@@ -59,31 +62,37 @@ package Games.TopsyTurvyQueens
 			newGameButton.y = 5;
 			buttonsContainer.addChild(newGameButton);
 			newGameButton.addEventListener(MouseEvent.CLICK, surrender, false, 0, true);
-			
+			newGameButton.addEventListener(MouseEvent.CLICK, buttonsSound);
 			var statisticsButton:TopsyMenuButton = new TopsyMenuButton(100, 20, 30, 30, "Statistics", true, 0, 0.5, -3);
 			statisticsButton.x = 202;
 			statisticsButton.y = 5;
 			buttonsContainer.addChild(statisticsButton);
-			
+			statisticsButton.addEventListener(MouseEvent.CLICK, buttonsSound);
 			rulesButton = new TopsyMenuButton(100, 20, 30, 30, "Rules", true, 0, 0.5, -3);
 			rulesButton.x = 304;
 			rulesButton.y = 5;
 			buttonsContainer.addChild(rulesButton);
 			rulesButton.addEventListener(MouseEvent.CLICK, showRules, false, 0, true);
-			
+			rulesButton.addEventListener(MouseEvent.CLICK, buttonsSound);
 			var timerButton:TopsyMenuButton = new TopsyMenuButton(100, 20, 30, 30, "", false, 0, 0.5, -3);
 			timerButton.x = 406;
 			timerButton.y = 5;
 			buttonsContainer.addChild(timerButton);
+		    
+			buttonSound.load(new URLRequest("Data/sound/Blop.mp3"));
+			
+		}
 		
+		private function buttonsSound(e:MouseEvent):void 
+		{
+			buttonsSoundChannel = buttonSound.play();
 		}
 		
 		private function surrender(e:MouseEvent):void
 		{
 			gameOver();
-			
-		}
 		
+		}
 		
 		private function gameOver():void
 		{
@@ -117,13 +126,14 @@ package Games.TopsyTurvyQueens
 		{
 			howToPlay();
 			rulesButton.removeEventListener(MouseEvent.CLICK, showRules);
-		
+			TweenMax.to(rulesButton, 0.5, {y: -25});
 		}
 		
 		private function closeRules(e:MouseEvent):void
 		{
 			rulesButton.addEventListener(MouseEvent.CLICK, showRules, false, 0, true);
 			TweenMax.to(rules, 0.5, {x: 750, y: 0});
+			TweenMax.to(rulesButton, 0.5, {x: 304, y: 5});
 			setTimeout(dropChild, 500);
 		
 		}

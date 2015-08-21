@@ -178,7 +178,8 @@ package
 				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loaderCompleate);
 				messageContainer.addChild(winMessage);
 			}
-			
+			TweenMax.to(messageContainer, 1, {x: 180, y: 200, ease: Bounce.easeOut});
+			TweenMax.to(messageContainer, 1, {x: 900, y: 200, autoAlpha: 0, delay: 2.5});
 			setTimeout(clearMessage, 4000);
 		}
 		
