@@ -1,4 +1,4 @@
-package Games.GrandFather 
+package Games.GrandFather
 {
 	import SharedClasses.Card;
 	import flash.events.*
@@ -9,35 +9,42 @@ package Games.GrandFather
 	 * ...
 	 * @author Kolarov
 	 */
-	public class Assistant 
+	public class Assistant
 	{
 		
-		public function Assistant() 
+		public function Assistant()
 		{
-			
+		
 		}
 		
-		public static function dealing(deck:Deck,fieldPiles:Array):void {
-			for (var pileIndex:int = 0; pileIndex < fieldPiles.length; pileIndex++) {
+		public static function dealing(deck:Deck, fieldPiles:Array):void
+		{
+			for (var pileIndex:int = 0; pileIndex < fieldPiles.length; pileIndex++)
+			{
 				var currentPile:FieldPile = fieldPiles[pileIndex];
-				var dealtCard:Card = deck.giveTopCard();	
+				var dealtCard:Card = deck.giveTopCard();
 				currentPile.pushCard(dealtCard);
 			}
 		}
 		
-		public static function addEventListenerTo(obj:Object,eventConst:String,functionToTrigger:Function):void {
+		public static function addEventListenerTo(obj:Object, eventConst:String, functionToTrigger:Function):void
+		{
 			obj.addEventListener(eventConst, functionToTrigger);
 		}
 		
-		public static function removeEventListenerTo(obj:Object,eventConst:String,functionToTrigger:Function):void {
+		public static function removeEventListenerTo(obj:Object, eventConst:String, functionToTrigger:Function):void
+		{
 			obj.removeEventListener(eventConst, functionToTrigger);
 		}
 		
-		public static function isThereWin(sidePiles:Array):Boolean {
+		public static function isThereWin(sidePiles:Array):Boolean
+		{
 			var win:Boolean = false;
-			for (var sidePileIndex:int = 0; sidePileIndex < sidePiles.length; sidePileIndex++) {
+			for (var sidePileIndex:int = 0; sidePileIndex < sidePiles.length; sidePileIndex++)
+			{
 				var currentSidePile:SidePile = sidePiles[sidePileIndex];
-				if (currentSidePile.CardsCount == 13) {
+				if (currentSidePile.CardsCount == 13)
+				{
 					win = true;
 				}
 			}
@@ -45,7 +52,7 @@ package Games.GrandFather
 		}
 		
 		public static function fillContainerWithImg(container:Sprite, path:String, imgWidth:int, imgHeight:int):void
-		{			
+		{
 			var img:Loader = new Loader();
 			img.load(new URLRequest(path));
 			img.contentLoaderInfo.addEventListener(Event.COMPLETE, function():void

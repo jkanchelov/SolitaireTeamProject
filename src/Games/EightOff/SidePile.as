@@ -1,9 +1,10 @@
-package Games.EightOff 
+package Games.EightOff
 {
 	import flash.display.Sprite;
 	import flash.display.Shape;
 	import Games.GrandFather.Assistant;
 	import SharedClasses.Card;
+	
 	/**
 	 * ...
 	 * @author Kolarov
@@ -17,23 +18,25 @@ package Games.EightOff
 		private const CARD_WIDTH:int = 65;
 		private const CARD_HEIGHT:int = 100;
 		
-		public function SidePile(suitPar:String) 
+		public function SidePile(suitPar:String)
 		{
 			this.suit = suitPar;
 			drawBorder();
 			drawSign();
 		}
 		
-		private function drawSign():void {
+		private function drawSign():void
+		{
 			var signContainer:Sprite = new Sprite();
 			var path:String = "Data/images/Suit/" + this.suit + ".png";
 			Assistant.fillContainerWithImg(signContainer, path, 20, 20);
 			this.addChild(signContainer);
 			signContainer.x = 23;//in the middle
-			signContainer.y = 35 ;
+			signContainer.y = 35;
 		}
 		
-		private function drawBorder():void {
+		private function drawBorder():void
+		{
 			var line:Shape = new Shape();
 			line.graphics.lineStyle(1, 0x0);
 			line.graphics.moveTo(0, 0);
@@ -44,26 +47,33 @@ package Games.EightOff
 			this.addChild(line);
 		}
 		
-		public function pushCard(card:Card):void {
+		public function pushCard(card:Card):void
+		{
 			this.addChild(card);
+			card.x = 0;
+			card.y = 0;
 			this.cards.push(card);
 			determineTopCard();
 		}
 		
-		private function determineTopCard():void {
-			this.topCard = this.cards[this.cards.length - 1];	
+		private function determineTopCard():void
+		{
+			this.topCard = this.cards[this.cards.length - 1];
 		}
 		
-		public function get TopCard():Card {
-			return this.topCard;	
+		public function get TopCard():Card
+		{
+			return this.topCard;
 		}
 		
-		public function get Suit():String {
-			return this.suit;	
+		public function get Suit():String
+		{
+			return this.suit;
 		}
 		
-		public function get CardsCount():int {
-			return this.cards.length;	
+		public function get CardsCount():int
+		{
+			return this.cards.length;
 		}
 	}
 

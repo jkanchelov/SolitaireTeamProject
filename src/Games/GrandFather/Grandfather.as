@@ -1,10 +1,11 @@
-package Games.GrandFather 
+package Games.GrandFather
 {
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.events.MouseEvent;
 	import SharedClasses.Button;
 	import SharedClasses.TimerCounter;
+	
 	/**
 	 * ...
 	 * @author Kolarov
@@ -31,31 +32,33 @@ package Games.GrandFather
 		private var buttonRules:Button;
 		private var rules:Rules;
 		private var isRulesHidden:Boolean = true;
-		private var buttonSurrender:GameButton;		
+		private var buttonSurrender:GameButton;
 		
 		private var isWin:Boolean = false;
 		private var isGameRunning:Boolean = true;
 		
 		private var timer:TimerCounter;
+		private var cardSkin:String;
 		
-		public function Grandfather(cardSkingPathPar:String = "Data/images/Cards/Skin1/0Back.png") 
+		public function Grandfather(cardSkinPar:String)
 		{
-			this.cardSkinPath = cardSkingPathPar;
-			loadInitialComponents();
-			gameEngine = new Engine(this.deck,this.deckPile,this.fieldPiles,this.sidePiles,this as Sprite,this.IsGameRunning,this.isWin);
+			loadInitialComponents(cardSkinPar);
+			gameEngine = new Engine(this.deck, this.deckPile, this.fieldPiles, this.sidePiles, this as Sprite, this.IsGameRunning, this.isWin);
 		}
 		
-		private function loadInitialComponents():void {
+		private function loadInitialComponents(cardSkinPar:String):void
+		{
 			loadButtons();
 			loadTimer();
-			loadDeck();
+			loadDeck(cardSkinPar);
 			loadDeckPile();
 			loadFieldPiles();
 			loadSidePiles();
 		}
 		
-		private function loadTimer():void {
-			this.timer = new TimerCounter(0,10);
+		private function loadTimer():void
+		{
+			this.timer = new TimerCounter(0xC0C0C0, 10);
 			this.timer.alpha = 0.4;
 			this.addChild(timer);
 		}
@@ -66,7 +69,8 @@ package Games.GrandFather
 			loadButtonSurrender();
 		}
 		
-		private function loadButtonSurrender():void {
+		private function loadButtonSurrender():void
+		{
 			this.buttonSurrender = new GameButton("Surrender");
 			this.addChild(this.buttonSurrender);
 			this.buttonSurrender.x = 720;
@@ -74,14 +78,15 @@ package Games.GrandFather
 			Assistant.addEventListenerTo(this.buttonSurrender, MouseEvent.CLICK, surrender)
 		}
 		
-		private function surrender(e:MouseEvent):void {
+		private function surrender(e:MouseEvent):void
+		{
 			this.isWin = false;
 			this.isGameRunning = false;
 		}
 		
 		private function loadButtonRules():void
 		{
-			this.buttonRules = new Button(120,"How To Play...");
+			this.buttonRules = new Button(120, "How To Play...");
 			this.addChild(buttonRules);
 			this.buttonRules.x = 0;
 			this.buttonRules.y = 559;
@@ -104,62 +109,74 @@ package Games.GrandFather
 			}
 		}
 		
-		private function loadDeck():void {
-			this.deck = new Deck(this.cardSkinPath);
+		private function loadDeck(cardSkinPar:String):void
+		{
+			this.cardSkin = cardSkinPar;
+			this.deck = new Deck(this.cardSkin);
+			this.deck = new Deck(cardSkinPar);
 			this.addChild(this.deck);
 			this.deck.x = 20;
 			this.deck.y = 140;
 		}
 		
-		private function loadDeckPile():void {
+		private function loadDeckPile():void
+		{
 			this.deckPile = new DeckPile();
 			this.addChild(this.deckPile);
 			this.deckPile.x = 20;
 			this.deckPile.y = 260;
 		}
 		
-		private function loadFieldPiles():void {
+		private function loadFieldPiles():void
+		{
 			var pileIndex:int = 0;
 			var interval:int = 20;
 			
-			for (var row:int = 0; row < 4; row++) {
-				for (var col:int = 0; col < 5; col++) {
+			for (var row:int = 0; row < 4; row++)
+			{
+				for (var col:int = 0; col < 5; col++)
+				{
 					pileIndex++;
 					var fieldPile:FieldPile = new FieldPile(pileIndex);
 					this.addChild(fieldPile);
 					fieldPiles.push(fieldPile);
-					fieldPile.x = this.StartPointField.x + col * (interval+CardWidth);
-					fieldPile.y = this.StartPointField.y + row * (interval+CardHeight);
-				}	
+					fieldPile.x = this.StartPointField.x + col * (interval + CardWidth);
+					fieldPile.y = this.StartPointField.y + row * (interval + CardHeight);
+				}
 			}
 		}
 		
-		private function loadSidePiles():void {
+		private function loadSidePiles():void
+		{
 			var startValues:Array = [1, 13];
 			var suits:Array = ["D", "H", "C", "S"];
 			
 			var interval:int = 20;
 			
-			for (var row:int = 0; row < 4; row++) {
+			for (var row:int = 0; row < 4; row++)
+			{
 				var currentSuit:String = suits[row];
 				
-					for (var col:int = 0; col < 2; col++) {
-						var currentValue:int = startValues[col];
-						var sidePile:SidePile = new SidePile(currentValue, currentSuit);
-						this.addChild(sidePile);
-						sidePile.y = StartPointSide.y + (interval+100) * row;
-						sidePile.x = StartPointSide.x + (interval + 65) * col;
-						this.sidePiles.push(sidePile);
-					}	
+				for (var col:int = 0; col < 2; col++)
+				{
+					var currentValue:int = startValues[col];
+					var sidePile:SidePile = new SidePile(currentValue, currentSuit);
+					this.addChild(sidePile);
+					sidePile.y = StartPointSide.y + (interval + 100) * row;
+					sidePile.x = StartPointSide.x + (interval + 65) * col;
+					this.sidePiles.push(sidePile);
+				}
 			}
 		}
 		
-		public function get IsWin():Boolean {
-			return this.isWin;	
+		public function get IsWin():Boolean
+		{
+			return this.isWin;
 		}
 		
-		public function get IsGameRunning():Boolean {
-			return this.isGameRunning;	
+		public function get IsGameRunning():Boolean
+		{
+			return this.isGameRunning;
 		}
 	}
 

@@ -6,6 +6,7 @@ package Games.GrandFather
 	import flash.display.Loader;
 	import flash.events.*;
 	import flash.net.*;
+	
 	/**
 	 * ...
 	 * @author
@@ -16,17 +17,15 @@ package Games.GrandFather
 		private var cardsCount:int;
 		private var reloadTimesLeft:int = 1;
 		
-		private var deckSkinPath:String;
+		private var cardSkin:String;
 		
-		public function Deck(deckSkinPathPar:String)
+		public function Deck(cardSkinPar:String)
 		{
-			this.deckSkinPath = deckSkinPathPar;
-			Assistant.fillContainerWithImg(this , "/Data/images/Cards/Skin1/0Back.png", 65, 100);
+			this.cardSkin = cardSkinPar;
+			Assistant.fillContainerWithImg(this, "/Data/images/Cards/Skin1/0Back.png", 65, 100);
 			loadDeck();
 			loadDeck();
 		}
-		
-	
 		
 		private function loadDeck():void
 		{
@@ -75,7 +74,7 @@ package Games.GrandFather
 					
 					cardUrl = i + cardColor;
 					
-					var card:Card = new Card(cardUrl, i);
+					var card:Card = new Card(cardUrl, i, this.cardSkin);
 					this.deck.push(card);
 				}
 			}
@@ -98,19 +97,22 @@ package Games.GrandFather
 		public function ReloadDeck(deckPileCards:Array):void
 		{
 			var deckPileTopCard:Card;
-			while(deckPileCards.length>0){
+			while (deckPileCards.length > 0)
+			{
 				deckPileTopCard = deckPileCards.pop();
 				this.deck.push(deckPileTopCard);
 			}
 			this.reloadTimesLeft--;
 		}
 		
-		public function get CardsCount():int {
-			return this.deck.length;	
+		public function get CardsCount():int
+		{
+			return this.deck.length;
 		}
 		
-		public function get ReloadedTimesLeft():int {
-			return this.reloadTimesLeft;	
+		public function get ReloadedTimesLeft():int
+		{
+			return this.reloadTimesLeft;
 		}
 	}
 

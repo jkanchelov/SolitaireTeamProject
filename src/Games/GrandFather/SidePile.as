@@ -1,4 +1,4 @@
-package Games.GrandFather 
+package Games.GrandFather
 {
 	import flash.display.Sprite;
 	import flash.display.Shape;
@@ -7,6 +7,7 @@ package Games.GrandFather
 	import flash.net.URLRequest;
 	import flash.events.Event;
 	import SharedClasses.Card;
+	
 	/**
 	 * ...
 	 * @author Mitko
@@ -21,8 +22,8 @@ package Games.GrandFather
 		
 		private const CARD_WIDTH:int = 65;
 		private const CARD_HEIGHT:int = 100;
-				
-		public function SidePile(startValuePar:int, signPar:String) 
+		
+		public function SidePile(startValuePar:int, signPar:String)
 		{
 			this.startValue = startValuePar;
 			this.sign = signPar;
@@ -30,16 +31,18 @@ package Games.GrandFather
 			drawSign();
 		}
 		
-		private function drawSign():void {
+		private function drawSign():void
+		{
 			var signContainer:Sprite = new Sprite();
 			var path:String = "Data/images/Suit/" + this.sign + ".png";
 			fillContainerWithImg(signContainer, path, 20, 20);
 			this.addChild(signContainer);
 			signContainer.x = 23;//in the middle
-			signContainer.y = 35 ;
+			signContainer.y = 35;
 		}
 		
-		private function drawBorder():void {
+		private function drawBorder():void
+		{
 			var line:Shape = new Shape();
 			line.graphics.lineStyle(1, 0x0);
 			line.graphics.moveTo(0, 0);
@@ -50,14 +53,14 @@ package Games.GrandFather
 			this.addChild(line);
 		}
 		
-		public function pushCard (card:Card):void {
+		public function pushCard(card:Card):void
+		{
 			this.addChild(card);
 			card.x = 0;
 			card.y = 0;
 			this.sidePileCards.push(card);
-			this.topCard = card;	
+			this.topCard = card;
 		}
-		
 		
 		private function fillContainerWithImg(container:Sprite, path:String, imgWidth:int, imgHeight:int):void
 		{
@@ -78,31 +81,35 @@ package Games.GrandFather
 			container.addChildAt(bmp, 0);
 		}
 		
-		public function get TopCard():Card {
-			return this.topCard;	
+		public function get TopCard():Card
+		{
+			return this.topCard;
 		}
 		
-		public function get Cards():Array {
+		public function get Cards():Array
+		{
 			
-			return this.sidePileCards;							
+			return this.sidePileCards;
 		}
 		
-		public function get StartValue():int {
+		public function get StartValue():int
+		{
 			
 			return this.startValue;
 		}
 		
-		public function get Sign():String {
+		public function get Sign():String
+		{
 			
 			return this.sign;
 		}
 		
-		public function get CardsCount():int {
+		public function get CardsCount():int
+		{
 			
 			return this.sidePileCards.length;
 		}
-		
-		
+	
 	}
 
 }

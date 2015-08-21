@@ -1,8 +1,9 @@
-package Games.GrandFather 
+package Games.GrandFather
 {
 	import flash.display.Sprite;
 	import flash.display.Shape;
 	import SharedClasses.Card;
+	
 	/**
 	 * ...
 	 * @author Mitko
@@ -17,13 +18,14 @@ package Games.GrandFather
 		private const CARD_WIDTH:int = 65;
 		private const CARD_HEIGHT:int = 100;
 		
-		public function FieldPile(fieldPileIndexPar:int) 
+		public function FieldPile(fieldPileIndexPar:int)
 		{
 			drawBorder();
-			initIndex (fieldPileIndexPar);
+			initIndex(fieldPileIndexPar);
 		}
 		
-		private function drawBorder():void {
+		private function drawBorder():void
+		{
 			var line:Shape = new Shape();
 			line.graphics.lineStyle(1, 0x0);
 			line.graphics.moveTo(0, 0);
@@ -34,55 +36,65 @@ package Games.GrandFather
 			this.addChild(line);
 		}
 		
-		private function initIndex (fieldPileIndexPar:int):void {
+		private function initIndex(fieldPileIndexPar:int):void
+		{
 			this.fieldPileIndex = fieldPileIndexPar;
 		}
 		
-		public function pushCard (card:Card):void {	
+		public function pushCard(card:Card):void
+		{
 			this.topCard = card;
 			this.addChild(card);
 			
-			if (this.cardsInFieldPile.length == 0) {
+			if (this.cardsInFieldPile.length == 0)
+			{
 				card.x = 0;
 				card.y = 0;
 			}
 			
-			else if (this.cardsInFieldPile.length == 1) {
+			else if (this.cardsInFieldPile.length == 1)
+			{
 				card.x = 10;
 				card.y = 0;
 			}
 			this.cardsInFieldPile.push(card);
 		}
 		
-		public function giveTopCard():Card {
+		public function giveTopCard():Card
+		{
 			var currentTopCard:Card = this.topCard;
 			this.removeChild(this.topCard);
 			this.cardsInFieldPile.pop();
-			if (this.cardsInFieldPile.length == 1) {
+			if (this.cardsInFieldPile.length == 1)
+			{
 				var lastIndex:int = cardsInFieldPile.length - 1;
 				this.topCard = this.cardsInFieldPile[lastIndex];
 			}
-			if (this.cardsInFieldPile.length == 0) {
+			if (this.cardsInFieldPile.length == 0)
+			{
 				this.topCard = null;
 			}
 			return currentTopCard;
 		}
 		
-		public function get Index():int { 						// returns the index of field pile
+		public function get Index():int
+		{ 						// returns the index of field pile
 			
 			return this.fieldPileIndex;
 		}
-	
-		public function get TopCard():Card { 							// returns the top Card
+		
+		public function get TopCard():Card
+		{ 							// returns the top Card
 			
 			return this.topCard;
 		}
 		
-		public function get CardsCount():int { 			// returns lenght of the vector with cards
+		public function get CardsCount():int
+		{ 			// returns lenght of the vector with cards
 			var cardsInThisFieldPile:int = this.cardsInFieldPile.length;
-			return cardsInThisFieldPile;			
+			return cardsInThisFieldPile;
 		}
-		
+	
 	}
 
 }

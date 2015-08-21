@@ -7,12 +7,15 @@ package Games.EightOff
 	 * @author Kolarov
 	 */
 	import SharedClasses.Card
+	
 	public class Deck
 	{
 		private var deck:Array = [];
+		private var cardSkin:String;
 		
-		public function Deck()
+		public function Deck(cardSkinPar:String)
 		{
+			this.cardSkin = cardSkinPar;
 			loadDeck();
 		}
 		
@@ -63,7 +66,7 @@ package Games.EightOff
 					
 					cardUrl = i + cardColor;
 					
-					var card:Card = new Card(cardUrl, i);
+					var card:Card = new Card(cardUrl, i, this.cardSkin);
 					this.deck.push(card);
 				}
 			}

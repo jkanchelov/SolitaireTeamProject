@@ -1,8 +1,9 @@
-package Games.EightOff 
+package Games.EightOff
 {
 	import flash.display.Sprite;
 	import flash.display.Shape;
 	import SharedClasses.Card;
+	
 	/**
 	 * ...
 	 * @author Kolarov
@@ -14,13 +15,13 @@ package Games.EightOff
 		private const CARD_WIDTH:int = 65;
 		private const CARD_HEIGHT:int = 100;
 		
-		public function ExtraPile() 
+		public function ExtraPile()
 		{
-			//todo: drawBorder();
 			drawBorder();
 		}
 		
-		private function drawBorder():void {
+		private function drawBorder():void
+		{
 			var line:Shape = new Shape();
 			line.graphics.lineStyle(1, 0x0);
 			line.graphics.moveTo(0, 0);
@@ -31,27 +32,37 @@ package Games.EightOff
 			this.addChild(line);
 		}
 		
-		public function pushCard(card:Card):void {
+		public function pushCard(card:Card):void
+		{
 			this.card.push(card);
 			this.addChild(card);
 		}
 		
-		public function giveCard():Card {
+		public function giveCard():Card
+		{
 			var cardForGive:Card = card[0];
 			this.removeChild(cardForGive);
 			this.card.pop();
 			return cardForGive;
 		}
 		
-		public function get isEmpty():Boolean {
-			if (this.card.length == 0) {
+		public function get isEmpty():Boolean
+		{
+			if (this.card.length == 0)
+			{
 				return true;
-			}	
-			else {
-				return false;	
+			}
+			else
+			{
+				return false;
 			}
 		}
 		
+		public function get itsCard():Card
+		{
+			return this.card[0];
+		}
+	
 	}
 
 }

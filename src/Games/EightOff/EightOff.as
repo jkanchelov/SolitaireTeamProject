@@ -17,7 +17,7 @@ package Games.EightOff
 	public class EightOff extends Sprite
 	{
 		private var rulesText:String = "This solitaire uses 52 cards. 48 cards are dealt into 8 tableau piles. Eight cells (reserves) are placed above the tableau piles. At the start of the game 1 card is dealt to each of the 4 cells on the left. Four foundation piles are placed to the right of tableaus. Aces are moved to the foundations as they become available.The object of the game:To build the foundations up in suit to Kings.The rulesThe top cards of tableau piles and cards from cells are available to play. You may build tableau piles down in suit. Only one card at a time can be moved. The top card of any tableau pile can also be moved to any cell. Each cell may contain only one card. Cards in the cells can be moved to the foundation piles or back to the tableau piles, if possible.";
-		private var deck:Deck = new Deck();
+		private var deck:Deck;
 		
 		private var extraPiles:Array = [];//8
 		private var fieldPiles:Array = [];//8
@@ -36,24 +36,33 @@ package Games.EightOff
 		private var isGameRunning:Boolean = true;
 		private var isWin:Boolean = false;
 		
-		private var buttonRules:Button = new Button(120,"How To Play...");
+		private var buttonRules:Button;
 		private var rules:Rules;
 		private var isRulesHidden:Boolean = true;
 		
 		private var timer:TimerCounter;
 		
 		private var buttonSurrender:GameButton = new GameButton("Surrender");
+		private var cardSkin:String;
 		
-		public function EightOff()
+		public function EightOff(cardSkinPar:String)
 		{
+			loadDeck(cardSkinPar);
 			loadTimer();
 			loadPiles();
 			loadButtons();
 			gameEngine = new Engine(this as Sprite, this.extraPiles, this.fieldPiles, this.sidePiles, this.deck, this.isGameRunning, this.isWin);
 		}
 		
-		private function loadTimer():void {
-			this.timer = new TimerCounter(0,10);
+		private function loadDeck(cardSkinPar:String):void
+		{
+			this.cardSkin = cardSkinPar;
+			this.deck = new Deck(this.cardSkin);
+		}
+		
+		private function loadTimer():void
+		{
+			this.timer = new TimerCounter(0xC0C0C0, 10);
 			this.timer.alpha = 0.4;
 			this.addChild(timer);
 			timer.x = 0;
@@ -65,20 +74,23 @@ package Games.EightOff
 			loadButtonSurrender();
 		}
 		
-		private function loadButtonSurrender():void {
+		private function loadButtonSurrender():void
+		{
 			this.addChild(this.buttonSurrender);
 			this.buttonSurrender.x = 720;
 			this.buttonSurrender.y = 0;
 			Assistant.addEventListenerTo(this.buttonSurrender, MouseEvent.CLICK, surrender)
 		}
 		
-		private function surrender(e:MouseEvent):void {
+		private function surrender(e:MouseEvent):void
+		{
 			this.isWin = false;
 			this.isGameRunning = false;
 		}
 		
 		private function loadButtonRules():void
 		{
+			this.buttonRules = new Button(120, "How To Play...");
 			this.addChild(buttonRules);
 			this.buttonRules.x = 0;
 			this.buttonRules.y = 559;
