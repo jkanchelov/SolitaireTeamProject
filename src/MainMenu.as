@@ -134,7 +134,6 @@ package
 			}
 			else
 			{
-				//todo button bet alarm
 				TweenMax.to(betStatus, 1.25, {glowFilter: {color: 0xff0000, alpha: 1, blurX: 30, blurY: 30, strength: 5}});
 				TweenMax.to(betStatus, 1.25, {glowFilter: {color: 0xff0000, alpha: 1, blurX: 30, blurY: 30, strength: 5, remove: true}});
 			}
@@ -276,7 +275,7 @@ package
 			var buttonCardBackSkin2:Sprite = new Sprite();
 			
 			var buttonTxtFiled:TextField = new TextField();
-			buttonTxtFiled.defaultTextFormat = new TextFormat('Comic Sans MS', 20, 0x000000, 'bold');
+			buttonTxtFiled.defaultTextFormat = new TextFormat('Comic Sans MS', 20, 0xffffff, 'bold');
 			buttonTxtFiled.text = "Choose table background:";
 			buttonTxtFiled.x = 40;
 			buttonTxtFiled.y = 30;
@@ -287,7 +286,7 @@ package
 			settingsContainer.addChild(buttonTxtFiled);
 			
 			var buttonTxtFiled2:TextField = new TextField();
-			buttonTxtFiled2.defaultTextFormat = new TextFormat('Comic Sans MS', 20, 0x000000, 'bold');
+			buttonTxtFiled2.defaultTextFormat = new TextFormat('Comic Sans MS', 20, 0xffffff, 'bold');
 			buttonTxtFiled2.text = "Choose card skin:";
 			buttonTxtFiled2.x = 40;
 			buttonTxtFiled2.y = 220;
@@ -490,8 +489,7 @@ package
 				updateStatusBar();
 			}
 		}
-		
-		
+			
 		private function updateStatusBar():void
 		{
 			removeChild(moneyStatus);
