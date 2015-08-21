@@ -16,11 +16,11 @@ package Games.Alternations
 		private const STAGE_HEIGHT = 600;
 		
 		private const DECK_CONTAINER_X = 25;
-		private const DECK_CONTAINER_Y = 70;
+		private const DECK_CONTAINER_Y = 60;
 		private const FOUNDATION_CONTAINER_X:int = 175;
-		private const FOUNDATION_CONTAINER_Y:int = 70;
+		private const FOUNDATION_CONTAINER_Y:int = 60;
 		private const TAUBLE_CONTAINER_X:int = 250;
-		private const TAUBLE_CONTAINER_Y:int = 195;
+		private const TAUBLE_CONTAINER_Y:int = 185;
 		
 		private const CONTAINER_WIDTH:int = 65;
 		private const CONTAINER_HEIGHT:int = 100;
