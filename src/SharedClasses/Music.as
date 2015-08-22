@@ -46,7 +46,7 @@ package SharedClasses
 		{
 			while (buttonContainer.numChildren > 0)
 			{
-				var object:Sprite = buttonContainer.getChildAt(0);
+				var object:Sprite = buttonContainer.getChildAt(0) as Sprite;
 				object = null;
 				
 				buttonContainer.removeChildAt(0);
