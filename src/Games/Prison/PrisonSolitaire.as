@@ -12,8 +12,8 @@ package Games.Prison
 	 */
 	public class PrisonSolitaire extends Sprite
 	{
-		private const STAGE_WIDTH = 800;
-		private const STAGE_HEIGHT = 600;
+		private const STAGE_WIDTH:int = 800;
+		private const STAGE_HEIGHT:int = 600;
 		
 		private const FOUNDATION_CONTAINER_X:int = 250;
 		private const FOUNDATION_CONTAINER_Y:int = 70;
@@ -210,7 +210,7 @@ package Games.Prison
 				for (var card:int = 0; card < taubleCards; card++)
 				{
 					var pileContainer:Sprite = taublePilesContainer.getChildAt(pile) as Sprite;
-					var cardY = (pileContainer.numChildren - 1) * CARDS_Y_SPACING;
+					var cardY:int = (pileContainer.numChildren - 1) * CARDS_Y_SPACING;
 					dealRandomCard(pileContainer, cardY);
 				}
 			}
@@ -436,7 +436,7 @@ package Games.Prison
 				
 				for (var cardCount:int = 0; cardCount < 8; cardCount++)
 				{
-					var containerX = CONTAINER_WIDTH * cardCount + cardCount * CONTAINER_WIDTH_SPACING;
+					var containerX:int = CONTAINER_WIDTH * cardCount + cardCount * CONTAINER_WIDTH_SPACING;
 					reservesContainer.addChild(addCardContainer(containerX, "reserve" + cardCount));
 				}
 				

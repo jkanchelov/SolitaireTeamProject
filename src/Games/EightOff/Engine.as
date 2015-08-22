@@ -113,11 +113,12 @@ package Games.EightOff
 		{
 			this.pressedExtraPile = e.currentTarget as ExtraPile;
 			this.cardForMoving = this.pressedExtraPile.giveCard();
-			invokeTempPileToMouse();
+			this.invokeTempPileToMouse();
 			this.tempPile.pushCard(this.cardForMoving);
 			this.tempPile.startDrag();
 			Assistant.addEventListenerTo(this.tempPile, MouseEvent.MOUSE_UP, dropTakenCardFromExtraPile);
 		}
+		
 		
 		//// DROP CARD FROM EXTRA PILE
 		private function dropTakenCardFromExtraPile(e:MouseEvent):void
@@ -164,7 +165,6 @@ package Games.EightOff
 			var countOfChoosenCards:int = pressedFieldPile.countOfChoosenCards(choosenStartCard);
 			if (pressedFieldPile.isSequenceFrom(choosenStartCard)&&(countOfChoosenCards<=emptyExtraPiles()||countOfChoosenCards==1))
 			{
-				
 				this.cardsForMoving = this.pressedFieldPile.giveCards(choosenStartCard);
 				this.invokeTempPileToMouse();
 				this.tempPile.pushCards(this.cardsForMoving);
@@ -304,6 +304,8 @@ package Games.EightOff
 			this.interaction.makeExtraPilesInteractive();
 			this.interaction.makeFieldPilesInteractive();
 		}
+		
 	}
 
+	
 }

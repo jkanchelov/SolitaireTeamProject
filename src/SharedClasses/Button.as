@@ -34,7 +34,7 @@ package SharedClasses
 			btn.graphics.lineStyle(1);
 			btn.graphics.beginFill(0, _alpha);
 			btn.graphics.drawRect(0, 0, _width, 40);
-			btn.graphics.endFill;
+			btn.graphics.endFill();
 			addChild(btn);
 		}
 		
