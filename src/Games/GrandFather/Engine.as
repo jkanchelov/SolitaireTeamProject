@@ -286,7 +286,10 @@ package Games.GrandFather
 				{
 					if (this.deckPile.TopCard == null)
 					{
-						this.takenCard = deck.giveTopCard();
+						if (this.deck.CardsCount != 0)
+						{
+							this.takenCard = deck.giveTopCard();
+						}
 					}
 					else
 					{

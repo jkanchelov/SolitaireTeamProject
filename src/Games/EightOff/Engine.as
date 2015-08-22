@@ -286,16 +286,23 @@ package Games.EightOff
 		// CHECK FOR WIN
 		private function win():Boolean
 		{
-			var win:Boolean = false;
+			var filledSidePilesCount:int = 0;
 			for (var sidePileIndex:int = 0; sidePileIndex < this.sidePiles.length; sidePileIndex++)
 			{
 				var currentSidePile:SidePile = this.sidePiles[sidePileIndex];
 				if (currentSidePile.CardsCount == 13)
 				{
-					win = true;
+					filledSidePilesCount++;
 				}
 			}
-			return win;
+			if (filledSidePilesCount == 8) 
+			{
+				return true;	
+			}
+			else 
+			{
+				return false;
+			}
 		}
 		
 		// ADD EVENT LISTENERS TO PILES
