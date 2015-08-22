@@ -12,11 +12,11 @@ package Games.Alternations
 	 */
 	public class AlternationSolitaire extends Sprite
 	{
-		private const STAGE_WIDTH = 800;
-		private const STAGE_HEIGHT = 600;
+		private const STAGE_WIDTH:int = 800;
+		private const STAGE_HEIGHT:int = 600;
 		
-		private const DECK_CONTAINER_X = 25;
-		private const DECK_CONTAINER_Y = 50;
+		private const DECK_CONTAINER_X:int = 25;
+		private const DECK_CONTAINER_Y:int = 50;
 		private const FOUNDATION_CONTAINER_X:int = 175;
 		private const FOUNDATION_CONTAINER_Y:int = 50;
 		private const TAUBLE_CONTAINER_X:int = 250;
@@ -42,8 +42,7 @@ package Games.Alternations
 		private var movCardNewSprite:Sprite;
 		private var movingCardObject:Sprite;
 		private var movCardToFoundation:Boolean = false;
-		private var movingCardX:int;
-		private var movingCardY:int;
+
 		private var followingCards:Vector.<Card> = new Vector.<Card>();
 		private var isDragging:Boolean = false;
 		
@@ -260,7 +259,7 @@ package Games.Alternations
 			
 			if (isLastCardOfPile(backCard, parentContainer))
 			{
-				var cardY = (parentContainer.numChildren - 2) * CARDS_Y_SPACING
+				var cardY:int = (parentContainer.numChildren - 2) * CARDS_Y_SPACING
 				parentContainer.removeChild(backCard);
 				dealRandomCard(parentContainer, cardY);
 			}
@@ -442,9 +441,6 @@ package Games.Alternations
 					
 					movingCardObject.x = mouseX - movingCardObject.width / 2;
 					movingCardObject.y = mouseY - movingCardObject.height / 2;
-					
-					movingCardX = mouseX;
-					movingCardY = mouseY;
 					
 					e.target.startDrag();
 				}
@@ -687,7 +683,7 @@ package Games.Alternations
 			followingCards = new Vector.<Card>();
 		}
 		
-		private function isLastCardOfPile(givenCard:Card, spriteContainer):Boolean
+		private function isLastCardOfPile(givenCard:Card, spriteContainer:Sprite):Boolean
 		{
 			//checks in each container - reserved and container if the given object is equal to the last in the pile 
 			

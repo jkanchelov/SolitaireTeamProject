@@ -1,5 +1,6 @@
 package
 {
+	import air.desktop.URLFilePromise;
 	import flash.display.*;
 	import flash.events.*;
 	import flash.net.*;
@@ -120,14 +121,14 @@ package
 			addChild(settingsButtonContainer);
 		}
 		
-		private function startGame(game:Object)
+		private function startGame(game:Object):void
 		{
 			if (this.bet > 0)
 			{
 				clearMainMenu();
 				clearBetButtons();
 				clearSettingsButton();
-				var selectedGame = new game(cardPath);
+				var selectedGame:Sprite = new game(cardPath);
 				selectedGame.addEventListener(Event.ENTER_FRAME, checkGameOver, false, 0, true);
 				
 				addChild(selectedGame);
@@ -302,7 +303,7 @@ package
 			buttonTableBackground1.x = 40;
 			buttonTableBackground1.y = 90;
 			buttonTableBackground1.buttonMode = true;
-			buttonTableBackground1.addEventListener(MouseEvent.CLICK, function()
+			buttonTableBackground1.addEventListener(MouseEvent.CLICK, function():void
 			{
 				if (backgroundPath != "background1.jpg")
 				{
@@ -317,7 +318,7 @@ package
 			buttonTableBackground2.x = 280;
 			buttonTableBackground2.y = 90;
 			buttonTableBackground2.buttonMode = true;
-			buttonTableBackground2.addEventListener(MouseEvent.CLICK, function()
+			buttonTableBackground2.addEventListener(MouseEvent.CLICK, function():void
 			{
 				if (backgroundPath != "background2.jpg")
 				{
@@ -331,7 +332,7 @@ package
 			buttonCardBackSkin1.x = 40;
 			buttonCardBackSkin1.y = 300;
 			buttonCardBackSkin1.buttonMode = true;
-			buttonCardBackSkin1.addEventListener(MouseEvent.CLICK, function()
+			buttonCardBackSkin1.addEventListener(MouseEvent.CLICK, function():void
 			{
 				cardPath = "skin1/"
 			});
@@ -341,7 +342,7 @@ package
 			buttonCardBackSkin2.x = 200;
 			buttonCardBackSkin2.y = 300;
 			buttonCardBackSkin2.buttonMode = true;
-			buttonCardBackSkin2.addEventListener(MouseEvent.CLICK, function()
+			buttonCardBackSkin2.addEventListener(MouseEvent.CLICK, function():void
 			{
 				cardPath = "skin2/";
 			});
