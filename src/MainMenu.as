@@ -40,11 +40,11 @@ package
 		private var backgroundContainer:Sprite = new Sprite();
 		private var musicButtonContainer:Sprite = new Sprite();
 		private var settingsButtonContainer:Sprite = new Sprite();
-		private var messageContainer:Sprite = new Sprite();
+		private var winMessageContainer:Sprite = new Sprite();
+		private var loseMessageContainer:Sprite = new Sprite();
+		
 		private var buttonsContainer:Sprite = new Sprite();
-		
 		private var menuContainer:Sprite = new Sprite();
-		
 		private var settingsContainer:Sprite = new Sprite();
 		
 		private var moneyStatus:Button;
@@ -58,6 +58,7 @@ package
 			loadBackground();
 			loadMenuButtons();
 			loadBetButtons();
+			loadWinLoseSprites();
 			loadSettingsButton();
 			loadMusic();
 		}
@@ -151,72 +152,75 @@ package
 				{
 					cash += bet * 2;
 					bet = 0;
-					win();
+					updateStatusBar();
+					displayWin();
 				}
 				else
 				{
 					bet = 0;
 					updateStatusBar();
-					lose();
+					displayLose();
 				}
 			}
 		}
 		
-		private function win():void
-		{
-			var winMessagePath:String = "winButton.png";
+		private function loadWinLoseSprites():void {
+			var winMessagePath:String = "Data/images/Buttons/winImage.png";
+			var loseMessagePath:String = "Data/images/Buttons/loseImage.png";
 			
-			addChild(messageContainer);
-			var winMessageURL:URLRequest = new URLRequest("Data/images/Buttons/" + winMessagePath);
-			var loader:Loader = new Loader();
-			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderCompleate);
-			loader.load(winMessageURL);
-			var winMessage:Bitmap;
-			function loaderCompleate():void
-			{
-				var bmp:Bitmap = loader.content as Bitmap;
-				winMessage = new Bitmap(bmp.bitmapData);
-				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loaderCompleate);
-				messageContainer.addChild(winMessage);
-			}
-			TweenMax.to(messageContainer, 1, {x: 180, y: 200, ease: Bounce.easeOut});
-			TweenMax.to(messageContainer, 1, {x: 900, y: 200, autoAlpha: 0, delay: 2.5});
+			Assistant.fillContainerWithImg(winMessageContainer, winMessagePath,450,200);
+			Assistant.fillContainerWithImg(loseMessageContainer, loseMessagePath,450,200);
+		}
+		
+		private function displayWin():void
+		{
+			winMessageContainer.alpha = 1;
+			addChild(winMessageContainer);
+			TweenMax.to(winMessageContainer, 1, {x: 180, y: 200, ease: Bounce.easeOut});
+			TweenMax.to(winMessageContainer, 1, {x: 900, y: 200, autoAlpha: 0, delay: 2.5});
 			setTimeout(clearMessage, 4000);
 		}
 		
-		private function lose():void
+		private function displayLose():void
 		{
-			var loseMessagePath:String = "loseImage.png";
-			
-			addChild(messageContainer);
-			var loseMessageURL:URLRequest = new URLRequest("Data/images/Buttons/" + loseMessagePath);
-			var loader:Loader = new Loader();
-			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderCompleate);
-			loader.load(loseMessageURL);
-			var loseMessage:Bitmap;
-			
-			function loaderCompleate():void
-			{
-				var bmp:Bitmap = loader.content as Bitmap;
-				loseMessage = new Bitmap(bmp.bitmapData);
-				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loaderCompleate);
-				messageContainer.addChild(loseMessage);
-				messageContainer.x = -450;
-				messageContainer.y = 200;
-			}
-			TweenMax.to(messageContainer, 1, {x: 180, y: 200, ease: Bounce.easeOut});
-			TweenMax.to(messageContainer, 1, {x: 900, y: 200, autoAlpha: 0, delay: 2.5});
+			loseMessageContainer.alpha = 1;
+		
+			addChildAt(loseMessageContainer,this.numChildren);
+			TweenMax.to(loseMessageContainer, 1, {x: 180, y: 200, ease: Bounce.easeOut});
+			TweenMax.to(loseMessageContainer, 1, { x: 900, y: 200, delay: 2.5 } );
 			
 			setTimeout(clearMessage, 4000);
+		}
+		
+		private function resetWinLoseContainers():void { 
+			loseMessageContainer.alpha = 1;
+			
+			loseMessageContainer.x = 0;
+			loseMessageContainer.y = 0;
+			winMessageContainer.x = 0;
+			winMessageContainer.y = 0;
+			
+			try 
+			{
+				removeChild(loseMessageContainer);				
+			}
+			catch (err:Error)
+			{
+				
+			}
+			try 
+			{
+				removeChild(winMessageContainer);
+			}
+			catch (err:Error)
+			{
+				
+			}
 		}
 		
 		private function clearMessage():void
 		{
-			messageContainer.x = -450;
-			messageContainer.y = 200;
-			messageContainer.removeChildren();
-			removeChild(messageContainer);
-			
+			resetWinLoseContainers();
 			showMainMenu();
 		}
 		
