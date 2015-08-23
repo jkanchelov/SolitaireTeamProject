@@ -21,7 +21,7 @@ package SharedClasses
 		private var _timerTxtColor:uint;
 		private var textSize:int;
 		
-		public function TimerCounter(timerTxtColor:uint = 0,textSizePar:int = 15)
+		public function TimerCounter(timerTxtColor:uint = 0, textSizePar:int = 15)
 		{
 			_timerTxtColor = timerTxtColor;
 			this.textSize = textSizePar;
@@ -53,8 +53,8 @@ package SharedClasses
 			timer.start();
 		}
 		
-			
-		public function get GetTime():String {
+		public function get GetTime():String
+		{
 			return tField.text;
 		}
 		
@@ -73,6 +73,5 @@ package SharedClasses
 			}
 			tField.text = String(tHours + ":" + tMinutes + ":" + tSeconds);
 		}
-	
 	}
 }
