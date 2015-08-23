@@ -37,7 +37,7 @@ package Games.Prison
 			var TxtBoxTextFormat:TextFormat = new TextFormat();
 			TxtBox.setTextFormat(TxtBoxTextFormat);
 			TxtBox.defaultTextFormat = new TextFormat('Comic Sans MS', 20, 0xFFFFFF, 'bold');
-			TxtBox.text = "The top cards of tablau piles and cards from cells are available to play. You may build tableau piles down in suit. Only one card at a time can be moved. The top card of any tableau pile can also be moved to any cell. Each cell may contain only one card. Cards in the cells can be moved to the foundation piles or back to the tableau piles, if possible.";
+			TxtBox.text = "The top cards of tableau piles and cards from cells are available to play. You may build tableau piles down in suit. Only one card at a time can be moved. The top card of any tableau pile can also be moved to any cell. Each cell may contain only one card. Cards in the cells can be moved to the foundation piles or back to the tableau piles, if possible.";
 			TxtBox.x = 50;
 			TxtBox.wordWrap = true;
 			TxtBox.mouseEnabled = false;
