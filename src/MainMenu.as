@@ -5,10 +5,10 @@ package
 	import flash.events.*;
 	import flash.net.*;
 	import flash.utils.*
+	import flash.text.*;
 	import com.greensock.*;
 	import com.greensock.easing.*;
 	import Games.GrandFather.Assistant;
-	import flash.text.*;
 	
 	import SharedClasses.*;
 	import Games.GrandFather.Grandfather;
@@ -174,17 +174,14 @@ package
 		
 		private function displayWin():void
 		{
-			winMessageContainer.alpha = 1;
 			addChild(winMessageContainer);
 			TweenMax.to(winMessageContainer, 1, {x: 180, y: 200, ease: Bounce.easeOut});
-			TweenMax.to(winMessageContainer, 1, {x: 900, y: 200, autoAlpha: 0, delay: 2.5});
+			TweenMax.to(winMessageContainer, 1, {x: 900, y: 200, delay: 2.5});
 			setTimeout(clearMessage, 4000);
 		}
 		
 		private function displayLose():void
 		{
-			loseMessageContainer.alpha = 1;
-		
 			addChildAt(loseMessageContainer,this.numChildren);
 			TweenMax.to(loseMessageContainer, 1, {x: 180, y: 200, ease: Bounce.easeOut});
 			TweenMax.to(loseMessageContainer, 1, { x: 900, y: 200, delay: 2.5 } );
@@ -193,8 +190,6 @@ package
 		}
 		
 		private function resetWinLoseContainers():void { 
-			loseMessageContainer.alpha = 1;
-			
 			loseMessageContainer.x = 0;
 			loseMessageContainer.y = 0;
 			winMessageContainer.x = 0;
