@@ -29,7 +29,7 @@ package SharedClasses
 		
 		private function playSound():void
 		{
-			var channel:SoundChannel = sound.play();
+			channel = sound.play();
 			myTransform.volume = 0.5;
 			channel.soundTransform = myTransform;
 			channel.addEventListener(Event.SOUND_COMPLETE, onComplete);
