@@ -14,7 +14,7 @@ package
 	import Games.EightOff.Eightoff;
 	import Games.Prison.PrisonSolitaire;
 	import Games.Alternations.AlternationSolitaire
-	import Games.TopsyTurvyQueens.*
+	import Games.TopsyTurvyQueens.TopsyTurvyQueensMenu
 	
 	/**
 	 * ...
