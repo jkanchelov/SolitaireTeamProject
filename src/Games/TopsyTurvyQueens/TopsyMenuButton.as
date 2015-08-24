@@ -2,6 +2,9 @@ package Games.TopsyTurvyQueens
 {
 	import flash.display.Sprite;
 	import flash.text.*
+	import flash.events.*;
+	import com.greensock.*;
+	import com.greensock.easing.*;
 	
 	/**
 	 * ...
@@ -45,6 +48,8 @@ package Games.TopsyTurvyQueens
 			btn.graphics.drawRoundRect(0, 0,_width,_height,_elipseWidth,_elipseHeight);
 			btn.graphics.endFill();
 			addChild(btn);
+			btn.addEventListener(MouseEvent.MOUSE_OVER, addGlow, false, 0, true);
+			btn.addEventListener(MouseEvent.MOUSE_OUT, removeGlow, false, 0, true);
 		}
 		
 		private function drawText():void
@@ -59,10 +64,19 @@ package Games.TopsyTurvyQueens
 			tField.defaultTextFormat = txtFormat;
 			tField.mouseEnabled = false;
 			tField.text = buttonText;
-			
-			
 			addChild(tField);
+			tField.addEventListener(MouseEvent.MOUSE_OVER, addGlow, false, 0, true);
+			tField.addEventListener(MouseEvent.MOUSE_OUT, removeGlow, false, 0, true);
 		}
 	
+		private function addGlow(e:MouseEvent):void 
+		{
+			TweenMax.to(e.currentTarget,1,{glowFilter:{color:0xFFFFFF, alpha:1, blurX:50, blurY:50}});
+		}
+		private function removeGlow(e:MouseEvent):void 
+		{
+			TweenMax.to(e.currentTarget,1,{glowFilter: { alpha: 0 }});
+		}
+		
 	}
 }

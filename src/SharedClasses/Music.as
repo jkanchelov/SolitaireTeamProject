@@ -9,6 +9,7 @@ package SharedClasses
 	 * ...
 	 * @author Jordan
 	 */
+	
 	public class Music extends Sprite
 	{
 		private var sound:Sound = new Sound();
@@ -23,16 +24,14 @@ package SharedClasses
 		public function Music()
 		{
 			addChild(buttonContainer);
-			
 			sound.load(new URLRequest("Data/sound/soundtrack.mp3"));
-			channel = sound.play();
-			myTransform.volume = 0.5;
-			channel.soundTransform = myTransform;
+			playSound();
 		}
 		
 		private function playSound():void
 		{
-			var channel:SoundChannel = sound.play();
+			channel = sound.play();
+			channel.soundTransform = myTransform;
 			channel.addEventListener(Event.SOUND_COMPLETE, onComplete);
 		}
 		
@@ -97,13 +96,13 @@ package SharedClasses
 			channel.stop();
 		}
 		
-		public function onClickPlay(e:MouseEvent):void
+		public function onClickPlay(e:MouseEvent):void	
 		{
 			musicRunning = !musicRunning;
 			showButton();
 			
 			channel = sound.play(lastPosition);
-			channel.soundTransform = myTransform;
+			channel.addEventListener(Event.SOUND_COMPLETE, onComplete);
 		}
 	}
 }

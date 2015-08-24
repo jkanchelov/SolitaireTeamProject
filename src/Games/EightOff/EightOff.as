@@ -62,8 +62,8 @@ package Games.EightOff
 		
 		private function loadTimer():void
 		{
-			this.timer = new TimerCounter(0xC0C0C0, 10);
-			this.timer.alpha = 0.4;
+			this.timer = new TimerCounter(0xFFFFFF, 12);
+			this.timer.alpha = 1;
 			this.addChild(timer);
 			timer.x = 0;
 		}
