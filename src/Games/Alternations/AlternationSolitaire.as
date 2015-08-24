@@ -12,11 +12,11 @@ package Games.Alternations
 	 */
 	public class AlternationSolitaire extends Sprite
 	{
-		private const STAGE_WIDTH = 800;
-		private const STAGE_HEIGHT = 600;
+		private const STAGE_WIDTH:int = 800;
+		private const STAGE_HEIGHT:int = 600;
 		
-		private const DECK_CONTAINER_X = 25;
-		private const DECK_CONTAINER_Y = 50;
+		private const DECK_CONTAINER_X:int = 25;
+		private const DECK_CONTAINER_Y:int = 50;
 		private const FOUNDATION_CONTAINER_X:int = 175;
 		private const FOUNDATION_CONTAINER_Y:int = 50;
 		private const TAUBLE_CONTAINER_X:int = 250;
