@@ -34,8 +34,6 @@ package Games.EightOff
 		private var gameEngine:Engine;
 		
 		private var gameProcces:Object = new Object();
-		private var isGameRunning:Boolean = true;
-		private var isWin:Boolean = false;
 		
 		private var buttonRules:Button;
 		private var rules:Rules;
@@ -87,8 +85,8 @@ package Games.EightOff
 		
 		private function surrender(e:MouseEvent):void
 		{
-			this.isWin = false;
-			this.isGameRunning = false;
+			this.gameProcces.isWin = false;
+			this.gameProcces.isGameRunning = false;
 		}
 		
 		private function loadButtonRules():void
