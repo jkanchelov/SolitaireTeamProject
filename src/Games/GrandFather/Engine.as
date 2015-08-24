@@ -73,8 +73,11 @@ package Games.GrandFather
 		{
 			if(deck.CardsCount!=0){
 				var deckTopCard:Card = deck.giveTopCard();
-				this.deckPile.pushCard(deckTopCard);
-				autoFillEmptyFieldPiles();
+				if (deckTopCard != null)
+				{
+					this.deckPile.pushCard(deckTopCard);
+					autoFillEmptyFieldPiles();
+				}
 			}
 			if (deck.CardsCount == 0)
 			{
@@ -313,7 +316,8 @@ package Games.GrandFather
 		//// RETURN TO FIELD PILES
 		private function returnTakenCardToFieldPile():void
 		{
-			if(this.takenCard!=null){
+			if (this.takenCard != null)
+			{
 				this.takenCard.parent.removeChild(this.takenCard);
 				this.pressedFieldPile.pushCard(this.takenCard);
 			}

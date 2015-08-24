@@ -285,25 +285,19 @@ package Games.EightOff
 		
 		// CHECK FOR WIN
 		private function win():Boolean
-		{	
-			var emptyPilesCounter:int = 0;
-			
-			for (var extraPileIndex:int = 0; extraPileIndex < this.extraPiles.length; extraPileIndex++) {
-				var extraPile:ExtraPile = this.extraPiles[extraPileIndex];
-				if (extraPile.isEmpty) {
-					emptyPilesCounter++;	
+		{
+			var filledSidePilesCount:int = 0;
+			for (var sidePileIndex:int = 0; sidePileIndex < this.sidePiles.length; sidePileIndex++)
+			{
+				var currentSidePile:SidePile = this.sidePiles[sidePileIndex];
+				if (currentSidePile.CardsCount == 13)
+				{
+					filledSidePilesCount++;
 				}
 			}
-			
-			for (var fieldPileIndex:int = 0; fieldPileIndex < this.fieldPiles.length; fieldPileIndex++) {
-				var fieldPile:FieldPile = this.fieldPiles[fieldPileIndex];
-				if (fieldPile.CardsCount == 0) {
-					emptyPilesCounter++;
-				}
-			}
-			
-			if (emptyPilesCounter == 16) {
-				return true;
+			if (filledSidePilesCount == 8) 
+			{
+				return true;	
 			}
 			else 
 			{
