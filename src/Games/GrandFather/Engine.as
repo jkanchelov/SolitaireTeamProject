@@ -313,15 +313,20 @@ package Games.GrandFather
 		//// RETURN TO FIELD PILES
 		private function returnTakenCardToFieldPile():void
 		{
-			this.takenCard.parent.removeChild(this.takenCard);
-			this.pressedFieldPile.pushCard(this.takenCard);
+			if(this.takenCard!=null){
+				this.takenCard.parent.removeChild(this.takenCard);
+				this.pressedFieldPile.pushCard(this.takenCard);
+			}
 		}
 		
 		//// RETURN TO DECK PILE
 		private function returnTakenCardToDeckPile():void
 		{
-			this.takenCard.parent.removeChild(this.takenCard);
-			this.deckPile.pushCard(this.takenCard);
+			if (this.takenCard != null)
+			{
+				this.takenCard.parent.removeChild(this.takenCard);
+				this.deckPile.pushCard(this.takenCard);
+			}
 		}
 		
 		// INIT FIELDS
