@@ -30,6 +30,8 @@ package Games.GrandFather
 		
 		private var isAllowed:Boolean;
 		
+		private var score:int = 0;
+		
 		public function Engine(deckPar:Deck, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Sprite, isGameRunningPar:Boolean, isWinPar:Boolean)
 		{
 			initFields(deckPar, deckPilePar, fieldPilesPar, sidePilesPar, generalContainerPar, isGameRunningPar, isWinPar);
@@ -64,6 +66,10 @@ package Games.GrandFather
 			if (!isAllowed)
 			{
 				returnTakenCardToDeckPile();
+			}
+			else
+			{
+				this.score+= 100;
 			}
 			Assistant.removeEventListenerTo(takenCard, MouseEvent.MOUSE_UP, dropTakenCardFromDeckPile);
 		}
@@ -122,6 +128,7 @@ package Games.GrandFather
 			}
 			else
 			{
+				score+= 100;
 				autoFillEmptyFieldPiles();
 			}
 			if (Assistant.isThereWin(this.sidePiles))

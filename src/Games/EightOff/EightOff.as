@@ -33,6 +33,7 @@ package Games.EightOff
 		
 		private var gameEngine:Engine;
 		
+		private var gameProcces:Object = new Object();
 		private var isGameRunning:Boolean = true;
 		private var isWin:Boolean = false;
 		
@@ -47,11 +48,13 @@ package Games.EightOff
 		
 		public function EightOff(cardSkinPar:String)
 		{
+			this.gameProcces.isGameRunning = true;
+			this.gameProcces.isWin = false;
 			loadDeck(cardSkinPar);
 			loadTimer();
 			loadPiles();
 			loadButtons();
-			gameEngine = new Engine(this as Sprite, this.extraPiles, this.fieldPiles, this.sidePiles, this.deck, this.isGameRunning, this.isWin);
+			gameEngine = new Engine(this as Sprite, this.extraPiles, this.fieldPiles, this.sidePiles, this.deck, this.gameProcces.isGameRunning, this.gameProcces.isWin);
 		}
 		
 		private function loadDeck(cardSkinPar:String):void
@@ -162,12 +165,12 @@ package Games.EightOff
 		
 		public function get IsWin():Boolean
 		{
-			return this.isWin
+			return this.gameProcces.isWin
 		}
 		
 		public function get IsGameRunning():Boolean
 		{
-			return this.isGameRunning
+			return this.gameProcces.isGameRunning
 		}
 	
 	}
