@@ -18,6 +18,7 @@ package Games.TopsyTurvyQueens
 	 */
 	public class Cards extends Sprite
 	{
+		private var _whichArr:int;
 		private var _cardSuit:String;
 		private var _cardWidth:int;
 		private var _cardHeight:int;
@@ -79,7 +80,14 @@ package Games.TopsyTurvyQueens
 		{
 			return _cardHeight;
 		}
-		
+		public function get whichArr():int
+		{
+			return _whichArr;
+		}
+		public function set whichArr(value:int):void
+		{
+			_whichArr=value;
+		}
 		private function addGlow(e:MouseEvent):void
 		{
 			TweenMax.to(e.currentTarget, 1, {glowFilter: {color: 0xFFFFFF, alpha: 1, blurX: 30, blurY: 30}});
