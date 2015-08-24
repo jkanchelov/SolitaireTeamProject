@@ -11,7 +11,7 @@ package Games.EightOff
 	 */
 	public class Engine
 	{
-		private var general:Sprite;
+		private var general:Eightoff;
 		private var extraPiles:Array = [];//8
 		private var fieldPiles:Array = [];//8
 		private var sidePiles:Array = [];//4
@@ -24,17 +24,14 @@ package Games.EightOff
 		private var cardForMoving:Card;
 		private var cardsForMoving:Array;
 		
-		private var isGameRunning:Boolean = true;
-		private var isWin:Boolean = false;
-		
 		private var cardDropping:CardDropping;
 		private var interaction:Interaction;
 		
 		private var score:int = 0;
 		
-		public function Engine(generalPar:Sprite, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:Deck, isGameRunningPar:Boolean, isWinPar:Boolean)
+		public function Engine(generalPar:Eightoff, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:Deck)
 		{
-			this.initFields(generalPar, extraPilesPar, fieldPilesPar, sidePilesPar, deckPar, isGameRunningPar, isWinPar);
+			this.initFields(generalPar, extraPilesPar, fieldPilesPar, sidePilesPar, deckPar);
 			this.dealCards();
 			this.sendAcesToSidePiles();
 			this.makeInteraction();
@@ -223,15 +220,13 @@ package Games.EightOff
 		}
 		
 		// INIT FIELDS
-		private function initFields(generalPar:Sprite, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:Deck, isGameRunningPar:Boolean, isWinPar:Boolean):void
+		private function initFields(generalPar:Eightoff, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:Deck):void
 		{
 			this.general = generalPar;
 			this.extraPiles = extraPilesPar;
 			this.fieldPiles = fieldPilesPar;
 			this.sidePiles = sidePilesPar;
 			this.deck = deckPar;
-			this.isGameRunning = isGameRunningPar;
-			this.isWin = isWinPar;
 			this.cardDropping = new CardDropping(this.extraPiles, this.fieldPiles, this.sidePiles, this.cardForMoving, this.cardsForMoving, this.tempPile, this.general as Sprite);
 			this.interaction = new Interaction(this.extraPiles, this.fieldPiles, this.sidePiles, this.dragCardFromExtraPile, this.dragCardsFromFieldPile);
 		}
@@ -246,13 +241,13 @@ package Games.EightOff
 		// MAKE GAME OVER
 		private function makeGameOver():void
 		{
-			this.isGameRunning = false;
+			this.general.IsGameRunning = false;
 		}
 		
 		// MAKE WIN
 		private function makeWin():void
 		{
-			this.isWin = true;
+			this.general.IsWin = true;
 			this.makeGameOver();
 		}
 		
