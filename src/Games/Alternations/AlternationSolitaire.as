@@ -84,13 +84,6 @@ package Games.Alternations
 			startButton.buttonMode = true;
 			menuContainer.addChild(startButton);
 			
-			var scoreButton:MenuButton = new MenuButton("score.png");
-			scoreButton.addEventListener(MouseEvent.CLICK, showScore, false, 0, true);
-			scoreButton.x = 150;
-			scoreButton.y = helpMenu.height + 90;
-			scoreButton.buttonMode = true;
-			menuContainer.addChild(scoreButton);
-			
 			menuContainer.x = STAGE_WIDTH / 2 - menuContainer.width / 2;
 			addChild(menuContainer);
 		}
@@ -299,19 +292,8 @@ package Games.Alternations
 			gameOver();
 		}
 		
-		private function showScore(e:MouseEvent):void
-		{
-			//TODO:
-		}
-		
-		private function saveScore():void
-		{
-			//TODO:
-		}
-		
 		private function gameOver():void
 		{
-			saveScore();
 			isGameRunning = false;
 		}
 		

@@ -78,13 +78,6 @@ package Games.Prison
 			startButton.buttonMode = true;
 			menuContainer.addChild(startButton);
 			
-			var scoreButton:MenuButton = new MenuButton("score.png");
-			scoreButton.addEventListener(MouseEvent.CLICK, showScore,false,0,true);
-			scoreButton.x = 150;
-			scoreButton.y = helpMenu.height + 90;
-			scoreButton.buttonMode = true;
-			menuContainer.addChild(scoreButton);
-			
 			menuContainer.x = STAGE_WIDTH / 2 - menuContainer.width / 2;
 			addChild(menuContainer);
 		}
@@ -115,23 +108,6 @@ package Games.Prison
 			buttonsContainer.addChild(surrenderButton);
 
 			addChild(buttonsContainer);
-		}
-		
-		private function showScore(e:MouseEvent):void
-		{
-			menuContainer.removeChildAt(0);
-			//TODO: menuContainer.addChildAt(0) score menu 
-			
-			
-		}
-		
-		private function saveScore():void {
-			//get time 
-			var object:TimerCounter = buttonsContainer.getChildAt(0) as TimerCounter;
-			
-			//TODO: Save time
-			var time:String = object.GetTime;
-			//TODO: Save score
 		}
 		
 		private function DealSolitaire():void
@@ -495,7 +471,6 @@ package Games.Prison
 		
 		private function gameOver():void
 		{
-			saveScore();
 			isGameRunning = false;
 		}
 		
