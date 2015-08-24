@@ -18,7 +18,6 @@ package Games.GrandFather
 		private var startValue:int;
 		private var sign:String;
 		private var topCard:Card = null;
-		private var lengthOfCardsInSidePile:int;
 		
 		private const CARD_WIDTH:int = 65;
 		private const CARD_HEIGHT:int = 100;
