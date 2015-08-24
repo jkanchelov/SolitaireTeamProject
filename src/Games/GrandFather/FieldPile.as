@@ -78,19 +78,19 @@ package Games.GrandFather
 		}
 		
 		public function get Index():int
-		{ 						// returns the index of field pile
+		{ 			
 			
 			return this.fieldPileIndex;
 		}
 		
 		public function get TopCard():Card
-		{ 							// returns the top Card
+		{ 				
 			
 			return this.topCard;
 		}
 		
 		public function get CardsCount():int
-		{ 			// returns lenght of the vector with cards
+		{ 		
 			var cardsInThisFieldPile:int = this.cardsInFieldPile.length;
 			return cardsInThisFieldPile;
 		}
