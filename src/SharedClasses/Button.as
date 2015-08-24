@@ -48,7 +48,6 @@ package SharedClasses
 			tField.defaultTextFormat = new TextFormat('Arial', 15, 0xffffff);
 			tField.mouseEnabled = false;
 			tField.text = buttonText;
-			
 			addChild(tField);
 		}
 	}

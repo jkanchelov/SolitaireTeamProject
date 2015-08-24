@@ -7,6 +7,8 @@ package Games.GrandFather
 	import flash.display.Sprite;
 	import flash.events.*;
 	import SharedClasses.Card;
+	import com.greensock.*; 
+	import com.greensock.easing.*;
 	
 	public class Engine
 	{
@@ -40,12 +42,14 @@ package Games.GrandFather
 		private function dragTopCardFromDeckPile(e:MouseEvent):void
 		{
 			this.pressedDeckPile = e.currentTarget as DeckPile;
-			this.takenCard = this.pressedDeckPile.giveTopCard();
-			this.generalContainer.addChild(this.takenCard as Card);
-			this.takenCard.x = this.pressedDeckPile.x;
-			this.takenCard.y = this.pressedDeckPile.y;
-			this.takenCard.startDrag();
-			Assistant.addEventListenerTo(takenCard, MouseEvent.MOUSE_UP, dropTakenCardFromDeckPile);
+			if(this.pressedDeckPile.TopCard!=null){
+				this.takenCard = this.pressedDeckPile.giveTopCard();
+				this.generalContainer.addChild(this.takenCard as Card);
+				this.takenCard.x = this.pressedDeckPile.x;
+				this.takenCard.y = this.pressedDeckPile.y;
+				this.takenCard.startDrag();
+				Assistant.addEventListenerTo(takenCard, MouseEvent.MOUSE_UP, dropTakenCardFromDeckPile);
+			}
 		}
 		
 		// DROP CARD ON DECK PILE
@@ -67,10 +71,11 @@ package Games.GrandFather
 		// PUT CARD ON DECK PILE WHILE DECK IS PRESSED
 		private function putCardOnDeckPile(e:MouseEvent):void
 		{
-			//todo: motion from deck to deck pile
-			var deckTopCard:Card = deck.giveTopCard();
-			this.deckPile.pushCard(deckTopCard);
-			autoFillEmptyFieldPiles();
+			if(deck.CardsCount!=0){
+				var deckTopCard:Card = deck.giveTopCard();
+				this.deckPile.pushCard(deckTopCard);
+				autoFillEmptyFieldPiles();
+			}
 			if (deck.CardsCount == 0)
 			{
 				if (deck.ReloadedTimesLeft == 0)
@@ -89,12 +94,14 @@ package Games.GrandFather
 		private function dragTopCardFromFieldPile(e:MouseEvent):void
 		{
 			this.pressedFieldPile = e.currentTarget as FieldPile;
-			this.takenCard = pressedFieldPile.giveTopCard();
-			this.generalContainer.addChild(this.takenCard as Card);
-			this.takenCard.x = this.pressedFieldPile.x;
-			this.takenCard.y = this.pressedFieldPile.y;
-			this.takenCard.startDrag();
-			Assistant.addEventListenerTo(takenCard, MouseEvent.MOUSE_UP, dropTakenCardFromFieldPile);
+			if(this.pressedFieldPile.TopCard!=null){
+				this.takenCard = pressedFieldPile.giveTopCard();
+				this.generalContainer.addChild(this.takenCard as Card);
+				this.takenCard.x = this.pressedFieldPile.x;
+				this.takenCard.y = this.pressedFieldPile.y;
+				this.takenCard.startDrag();
+				Assistant.addEventListenerTo(takenCard, MouseEvent.MOUSE_UP, dropTakenCardFromFieldPile);
+			}
 		}
 		
 		//DROP CARD ON FIELD PILES
