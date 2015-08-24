@@ -165,7 +165,7 @@ package Games.GrandFather
 						currentSidePile.pushCard(this.takenCard);
 						break;
 					}
-					// if there  cards in side pile
+					// if there are cards in side pile
 					if (currentSidePile.TopCard != null)
 					{
 						if (currentSidePile.StartValue == 1 && this.takenCard.CardSign == currentSidePile.Sign && this.takenCard.CardValue == (currentSidePile.TopCard.CardValue + 1))
