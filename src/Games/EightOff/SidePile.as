@@ -2,7 +2,7 @@ package Games.EightOff
 {
 	import flash.display.Sprite;
 	import flash.display.Shape;
-	import Games.GrandFather.Assistant;
+	import SharedClasses.Assistant;
 	import SharedClasses.Card;
 	
 	/**

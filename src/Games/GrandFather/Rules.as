@@ -2,6 +2,7 @@ package Games.GrandFather
 {
 	import flash.display.*;
 	import flash.text.*;
+	import SharedClasses.Assistant;
 	
 	/**
 	 * ...

@@ -8,11 +8,10 @@ package
 	import flash.text.*;
 	import com.greensock.*;
 	import com.greensock.easing.*;
-	import Games.GrandFather.Assistant;
 	
 	import SharedClasses.*;
 	import Games.GrandFather.Grandfather;
-	import Games.EightOff.EightOff;
+	import Games.EightOff.Eightoff;
 	import Games.Prison.PrisonSolitaire;
 	import Games.Alternations.AlternationSolitaire
 	import Games.TopsyTurvyQueens.*
@@ -93,7 +92,7 @@ package
 		
 		private function eightOff(e:Event):void
 		{
-			startGame(EightOff);
+			startGame(Eightoff);
 		}
 		
 		private function grandFather(e:Event):void

@@ -1,6 +1,6 @@
 package Games.EightOff
 {
-	import Games.GrandFather.Assistant;
+	import SharedClasses.Assistant;
 	import flash.events.MouseEvent;
 	
 	/**

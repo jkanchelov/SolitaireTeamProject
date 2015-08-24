@@ -3,8 +3,7 @@ package Games.GrandFather
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.events.MouseEvent;
-	import SharedClasses.Button;
-	import SharedClasses.TimerCounter;
+	import SharedClasses.*
 	
 	/**
 	 * ...

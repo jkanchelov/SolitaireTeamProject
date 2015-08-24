@@ -1,6 +1,7 @@
 package Games.GrandFather
 {
 	import flash.display.Sprite;
+	import SharedClasses.Assistant;
 	import SharedClasses.Card;
 	import flash.display.Bitmap;
 	import flash.display.Loader;

@@ -4,7 +4,7 @@ package Games.EightOff
 	import flash.events.MouseEvent;
 	import flash.geom.*;
 	import Games.EightOff.*;
-	import Games.GrandFather.Assistant;
+	import SharedClasses.Assistant;
 	import Games.GrandFather.GameButton;
 	import Games.GrandFather.Rules;
 	import SharedClasses.Button;
@@ -14,7 +14,7 @@ package Games.EightOff
 	 * ...
 	 * @author Kolarov
 	 */
-	public class EightOff extends Sprite
+	public class Eightoff extends Sprite
 	{
 		private var rulesText:String = "This solitaire uses 52 cards. 48 cards are dealt into 8 tableau piles. Eight cells (reserves) are placed above the tableau piles. At the start of the game 1 card is dealt to each of the 4 cells on the left. Four foundation piles are placed to the right of tableaus. Aces are moved to the foundations as they become available.The object of the game:To build the foundations up in suit to Kings.The rulesThe top cards of tableau piles and cards from cells are available to play. You may build tableau piles down in suit. Only one card at a time can be moved. The top card of any tableau pile can also be moved to any cell. Each cell may contain only one card. Cards in the cells can be moved to the foundation piles or back to the tableau piles, if possible.";
 		private var deck:Deck;
@@ -44,7 +44,7 @@ package Games.EightOff
 		private var buttonSurrender:GameButton = new GameButton("Surrender");
 		private var cardSkin:String;
 		
-		public function EightOff(cardSkinPar:String)
+		public function Eightoff(cardSkinPar:String)
 		{
 			this.gameProcces.isGameRunning = true;
 			this.gameProcces.isWin = false;

@@ -6,6 +6,7 @@ package Games.GrandFather
 	 */
 	import flash.display.Sprite;
 	import flash.events.*;
+	import SharedClasses.Assistant;
 	import SharedClasses.Card;
 	import com.greensock.*; 
 	import com.greensock.easing.*;

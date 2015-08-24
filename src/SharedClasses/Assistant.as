@@ -1,9 +1,9 @@
-package Games.GrandFather
+package SharedClasses
 {
-	import SharedClasses.Card;
 	import flash.events.*
 	import flash.display.*;
 	import flash.net.URLRequest;
+	import Games.GrandFather.*
 	
 	/**
 	 * ...

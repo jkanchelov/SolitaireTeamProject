@@ -1,7 +1,7 @@
 package Games.EightOff
 {
 	import flash.display.Sprite;
-	import Games.GrandFather.Assistant;
+	import SharedClasses.Assistant;
 	import flash.events.MouseEvent;
 	import SharedClasses.Card;
 	
