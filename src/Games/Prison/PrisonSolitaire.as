@@ -27,14 +27,14 @@ package Games.Prison
 		private const CARDS_Y_SPACING:int = 35;
 		
 		private var cardsSkin:String;
-
+		
 		private var score:int = 0;
 		
 		private var cards:Vector.<Card> = new Vector.<Card>();
 		private var isWin:Boolean = false;
 		private var isGameRunning:Boolean = true;
 		private var counterPlacedCards:int = 0;
-
+		
 		private var movCardCurrentSprite:Sprite;
 		private var movCardNewSprite:Sprite;
 		private var movingCardObject:Sprite;
@@ -59,10 +59,10 @@ package Games.Prison
 			return this.isGameRunning;
 		}
 		
-		public function get IsWin():Boolean {
+		public function get IsWin():Boolean
+		{
 			return this.isWin;
 		}
-		
 		
 		private function showMenu():void
 		{
@@ -72,7 +72,7 @@ package Games.Prison
 			menuContainer.addChild(helpMenu);
 			
 			var startButton:MenuButton = new MenuButton("start.png");
-			startButton.addEventListener(MouseEvent.CLICK, startGame,false,0,true);
+			startButton.addEventListener(MouseEvent.CLICK, startGame, false, 0, true);
 			startButton.x = 150;
 			startButton.y = helpMenu.height + 20;
 			startButton.buttonMode = true;
@@ -92,21 +92,22 @@ package Games.Prison
 			DealSolitaire();
 		}
 		
-		private function showSurrenderAndTimer():void { 
+		private function showSurrenderAndTimer():void
+		{
 			buttonsContainer = new Sprite();
 			
 			var buttonWidth:int = 100;
 			
 			var surrenderButton:Button = new Button(buttonWidth, "  Surrender", true);
 			surrenderButton.addEventListener(MouseEvent.CLICK, surrender, false, 0, true);
-		
+			
 			var time:TimerCounter = new TimerCounter(0xffffff);
 			time.y = 60;
 			
 			buttonsContainer.x = STAGE_WIDTH - buttonWidth;
 			buttonsContainer.addChild(time);
 			buttonsContainer.addChild(surrenderButton);
-
+			
 			addChild(buttonsContainer);
 		}
 		
@@ -156,11 +157,11 @@ package Games.Prison
 				}
 			}
 			
-			
 			//TODO: find the logic bug sometimes not filling foundation piles 
 			//hard coded bug fix 
 			var foundationPile:Sprite = foundationContainer.getChildAt(0) as Sprite
-			if (foundationPile.numChildren < 2) {
+			if (foundationPile.numChildren < 2)
+			{
 				loadCardsFoundation();
 			}
 		}
@@ -465,7 +466,8 @@ package Games.Prison
 			}
 		}
 		
-		private function surrender(e:MouseEvent):void {
+		private function surrender(e:MouseEvent):void
+		{
 			gameOver();
 		}
 		
@@ -504,7 +506,7 @@ package Games.Prison
 						cardColor = "Back";
 						cardUrl = i + cardColor;
 						
-						var card:Card = new Card(cardUrl, i,cardsSkin);
+						var card:Card = new Card(cardUrl, i, cardsSkin);
 						cards.push(card);
 						
 						break;
@@ -531,8 +533,8 @@ package Games.Prison
 					cardUrl = i + cardColor;
 					
 					var card:Card = new Card(cardUrl, i, cardsSkin);
-					card.addEventListener(MouseEvent.MOUSE_DOWN, startDraging,false,0,true);
-					card.addEventListener(MouseEvent.MOUSE_UP, stopDraging,false,0,true);
+					card.addEventListener(MouseEvent.MOUSE_DOWN, startDraging, false, 0, true);
+					card.addEventListener(MouseEvent.MOUSE_UP, stopDraging, false, 0, true);
 					card.buttonMode = true;
 					cards.push(card);
 				}

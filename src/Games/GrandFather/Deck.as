@@ -23,7 +23,7 @@ package Games.GrandFather
 		public function Deck(cardSkinPar:String)
 		{
 			this.cardSkin = cardSkinPar;
-			Assistant.fillContainerWithImg(this, "/Data/images/Cards/"+this.cardSkin+"0Back.png", 65, 100);
+			Assistant.fillContainerWithImg(this, "Data/images/Cards/" + this.cardSkin + "0Back.png", 65, 100);
 			loadDeck();
 			loadDeck();
 		}

@@ -14,7 +14,7 @@ package
 	import Games.EightOff.Eightoff;
 	import Games.Prison.PrisonSolitaire;
 	import Games.Alternations.AlternationSolitaire
-	import Games.TopsyTurvyQueens.*
+	import Games.TopsyTurvyQueens.TopsyTurvyQueensMenu
 	
 	/**
 	 * ...
@@ -342,7 +342,7 @@ package
 			buttonCardBackSkin2.buttonMode = true;
 			buttonCardBackSkin2.addEventListener(MouseEvent.CLICK, function():void
 			{
-				cardPath = "skin2/";
+				cardPath = "Skin2/";
 			});
 			settingsContainer.addChild(buttonCardBackSkin2);
 		

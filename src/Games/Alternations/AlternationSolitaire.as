@@ -390,7 +390,7 @@ package Games.Alternations
 		{
 			if (!isDragging)
 			{
-				isDragging = true ;
+				isDragging = true;
 				
 				var cardContainer:Sprite = e.target.parent as Sprite;
 				var card:Card = e.target as Card;
@@ -430,7 +430,8 @@ package Games.Alternations
 					
 					e.target.startDrag();
 				}
-				else {
+				else
+				{
 					resetMovCardVariables();
 				}
 			}
