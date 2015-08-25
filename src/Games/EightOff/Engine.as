@@ -27,8 +27,6 @@ package Games.EightOff
 		private var cardDropping:CardDropping;
 		private var interaction:Interaction;
 		
-		private var score:int = 0;
-		
 		public function Engine(generalPar:Eightoff, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:Deck)
 		{
 			this.initFields(generalPar, extraPilesPar, fieldPilesPar, sidePilesPar, deckPar);
@@ -68,7 +66,6 @@ package Games.EightOff
 								if (sidePile.Suit == this.cardForMoving.CardSign)
 								{
 									sidePile.pushCard(this.cardForMoving);
-									this.score+= 100;
 									isThereMorePossible = true;
 									break;
 								}
@@ -99,7 +96,6 @@ package Games.EightOff
 							{
 								//tween tempPile to sidePile
 								this.cardForMoving = this.tempPile.giveCard();
-								this.score+= 100;
 								sidePile.pushCard(this.cardForMoving);
 							}
 						}
@@ -143,10 +139,6 @@ package Games.EightOff
 			if (!(this.cardDropping.IsDropped))
 			{
 				this.returnCardToExtraPile();
-			}
-			else
-			{
-				this.score+= 20;
 			}
 			Assistant.removeEventListenerTo(this.tempPile, MouseEvent.MOUSE_UP, dropTakenCardFromExtraPile);
 			this.removeTempPile();
@@ -207,10 +199,6 @@ package Games.EightOff
 			if (!(this.cardDropping.IsDropped))
 			{
 				this.returnCardsToFieldPile();
-			}
-			else
-			{
-				this.score+= 100;
 			}
 			
 			Assistant.removeEventListenerTo(this.tempPile, MouseEvent.MOUSE_UP, dropTakenCardsFromFieldPile);
@@ -297,7 +285,7 @@ package Games.EightOff
 			for (var sidePileIndex:int = 0; sidePileIndex < this.sidePiles.length; sidePileIndex++)
 			{
 				var currentSidePile:SidePile = this.sidePiles[sidePileIndex];
-				if (currentSidePile.CardsCount == 13)
+				if (currentSidePile.CardsCount >= 13)
 				{
 					filledSidePilesCount++;
 				}

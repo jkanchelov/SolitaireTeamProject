@@ -54,11 +54,13 @@ package Games.GrandFather
 		
 		public function pushCard(card:Card):void
 		{
-			this.addChild(card);
-			card.x = 0;
-			card.y = 0;
-			this.sidePileCards.push(card);
-			this.topCard = card;
+			if(card!=null){
+				this.addChild(card);
+				card.x = 0;
+				card.y = 0;
+				this.sidePileCards.push(card);
+				this.topCard = card;
+			}
 		}
 		
 		private function fillContainerWithImg(container:Sprite, path:String, imgWidth:int, imgHeight:int):void

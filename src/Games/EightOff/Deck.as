@@ -41,7 +41,7 @@ package Games.EightOff
 						cardColor = "Back";
 						cardUrl = i + cardColor;
 						
-						this.deck.push(card);
+					//	this.deck.push(card);
 						
 						break;
 					}

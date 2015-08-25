@@ -18,7 +18,7 @@ package Games.GrandFather
 		private var fieldPiles:Array;
 		private var sidePiles:Array;
 		
-		private var generalContainer:Sprite;
+		private var generalContainer:Grandfather;
 		
 		private var takenCard:Card;
 		private var pressedFieldPile:FieldPile;
@@ -26,16 +26,11 @@ package Games.GrandFather
 		
 		private var isThereEmpties:Boolean = true;//is field var for use object as reference
 		
-		private var isGameRunning:Boolean;
-		private var isWin:Boolean;
-		
 		private var isAllowed:Boolean;
 		
-		private var score:int = 0;
-		
-		public function Engine(deckPar:Deck, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Sprite, isGameRunningPar:Boolean, isWinPar:Boolean)
+		public function Engine(deckPar:Deck, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Grandfather)
 		{
-			initFields(deckPar, deckPilePar, fieldPilesPar, sidePilesPar, generalContainerPar, isGameRunningPar, isWinPar);
+			initFields(deckPar, deckPilePar, fieldPilesPar, sidePilesPar, generalContainerPar);
 			dealing();
 			autoFillEmptiesOnDealing();
 			makeInteraction();
@@ -68,11 +63,8 @@ package Games.GrandFather
 			{
 				returnTakenCardToDeckPile();
 			}
-			else
-			{
-				this.score+= 100;
-			}
 			Assistant.removeEventListenerTo(takenCard, MouseEvent.MOUSE_UP, dropTakenCardFromDeckPile);
+			this.takenCard = null;
 		}
 		
 		// PUT CARD ON DECK PILE WHILE DECK IS PRESSED
@@ -129,14 +121,14 @@ package Games.GrandFather
 			}
 			else
 			{
-				score+= 100;
 				autoFillEmptyFieldPiles();
 			}
 			if (Assistant.isThereWin(this.sidePiles))
 			{
-				this.isGameRunning = false;
-				this.isWin = true;
+				this.generalContainer.IsGameRunning = false;
+				this.generalContainer.IsWin = true;
 			}
+			this.takenCard = null;
 		}
 		
 		// CARD DROPPING
@@ -205,7 +197,7 @@ package Games.GrandFather
 			}
 		}
 		
-		// ADD EVENT LISTENERS:
+		// MAKE INTERACTION:
 		private function makeInteraction():void
 		{
 			makeDeckInteractive();
@@ -342,15 +334,13 @@ package Games.GrandFather
 		}
 		
 		// INIT FIELDS
-		private function initFields(deckPar:Deck, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Sprite, isGameRunningPar:Boolean, isWinPar:Boolean):void
+		private function initFields(deckPar:Deck, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Grandfather):void
 		{
 			this.deck = deckPar;
 			this.deckPile = deckPilePar;
 			this.fieldPiles = fieldPilesPar;
 			this.sidePiles = sidePilesPar;
 			this.generalContainer = generalContainerPar;
-			this.isGameRunning = isGameRunningPar;
-			this.isWin = isWinPar;
 		}
 	
 	}

@@ -42,7 +42,7 @@ package Games.GrandFather
 		public function Grandfather(cardSkinPar:String)
 		{
 			loadInitialComponents(cardSkinPar);
-			gameEngine = new Engine(this.deck, this.deckPile, this.fieldPiles, this.sidePiles, this as Sprite, this.IsGameRunning, this.isWin);
+			gameEngine = new Engine(this.deck, this.deckPile, this.fieldPiles, this.sidePiles, this);
 		}
 		
 		private function loadInitialComponents(cardSkinPar:String):void
@@ -59,7 +59,7 @@ package Games.GrandFather
 		{
 			this.timer = new TimerCounter(0xFFFFFF, 12);
 			this.timer.alpha = 1;
-			this.addChild(timer);			
+			this.addChild(timer);
 		}
 		
 		private function loadButtons():void
@@ -176,6 +176,16 @@ package Games.GrandFather
 		public function get IsGameRunning():Boolean
 		{
 			return this.isGameRunning;
+		}
+		
+		public function set IsWin(newValue:Boolean):void
+		{
+			this.isWin = newValue;
+		}
+		
+		public function set IsGameRunning(newValue:Boolean):void
+		{
+			this.isGameRunning = newValue;
 		}
 	}
 
