@@ -111,8 +111,8 @@ package Games.TopsyTurvyQueens
 			rulesTxtField.wordWrap = true;
 			
 			rules = new Sprite();
-			rules.graphics.beginFill(0xEDE083);
-			rules.graphics.drawRoundRect(70, 40, 660, 440, 100, 300);
+			rules.graphics.beginFill(0xE8E397);
+			rules.graphics.drawRoundRect(10, 40, 780, 440, 500, 400);
 			rules.graphics.endFill();
 			
 			rules.alpha = 1;
