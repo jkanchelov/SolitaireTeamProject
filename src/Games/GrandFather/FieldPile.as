@@ -10,10 +10,8 @@ package Games.GrandFather
 	 */
 	public class FieldPile extends Sprite
 	{
-		private var fieldPileIndex:int;
 		private var cardsInFieldPile:Array = [];
 		private var topCard:Card;
-		private var lengthOfCardsInFieldPile:int;
 		
 		private const CARD_WIDTH:int = 65;
 		private const CARD_HEIGHT:int = 100;
@@ -21,7 +19,6 @@ package Games.GrandFather
 		public function FieldPile(fieldPileIndexPar:int)
 		{
 			drawBorder();
-			initIndex(fieldPileIndexPar);
 		}
 		
 		private function drawBorder():void
@@ -36,10 +33,6 @@ package Games.GrandFather
 			this.addChild(line);
 		}
 		
-		private function initIndex(fieldPileIndexPar:int):void
-		{
-			this.fieldPileIndex = fieldPileIndexPar;
-		}
 		
 		public function pushCard(card:Card):void
 		{
@@ -77,20 +70,14 @@ package Games.GrandFather
 			return currentTopCard;
 		}
 		
-		public function get Index():int
-		{ 						// returns the index of field pile
-			
-			return this.fieldPileIndex;
-		}
-		
 		public function get TopCard():Card
-		{ 							// returns the top Card
+		{ 				
 			
 			return this.topCard;
 		}
 		
 		public function get CardsCount():int
-		{ 			// returns lenght of the vector with cards
+		{ 		
 			var cardsInThisFieldPile:int = this.cardsInFieldPile.length;
 			return cardsInThisFieldPile;
 		}

@@ -33,7 +33,8 @@ package Games.EightOff
 		
 		private var gameEngine:Engine;
 		
-		private var gameProcces:Object = new Object();
+		private var isGameRunning:Boolean = new Boolean(true);
+		private var isWin:Boolean = new Boolean(false);
 		
 		private var buttonRules:Button;
 		private var rules:Rules;
@@ -46,13 +47,11 @@ package Games.EightOff
 		
 		public function Eightoff(cardSkinPar:String)
 		{
-			this.gameProcces.isGameRunning = true;
-			this.gameProcces.isWin = false;
 			loadDeck(cardSkinPar);
 			loadTimer();
 			loadPiles();
 			loadButtons();
-			gameEngine = new Engine(this as Sprite, this.extraPiles, this.fieldPiles, this.sidePiles, this.deck, this.gameProcces.isGameRunning, this.gameProcces.isWin);
+			gameEngine = new Engine(this, this.extraPiles, this.fieldPiles, this.sidePiles, this.deck);
 		}
 		
 		private function loadDeck(cardSkinPar:String):void
@@ -85,8 +84,8 @@ package Games.EightOff
 		
 		private function surrender(e:MouseEvent):void
 		{
-			this.gameProcces.isWin = false;
-			this.gameProcces.isGameRunning = false;
+			this.isWin = false;
+			this.isGameRunning = false;
 		}
 		
 		private function loadButtonRules():void
@@ -163,12 +162,22 @@ package Games.EightOff
 		
 		public function get IsWin():Boolean
 		{
-			return this.gameProcces.isWin
+			return this.isWin
 		}
 		
 		public function get IsGameRunning():Boolean
 		{
-			return this.gameProcces.isGameRunning
+			return this.isGameRunning
+		}
+		
+		public function set IsWin(newValue:Boolean):void
+		{
+			this.isWin = newValue;
+		}
+		
+		public function set IsGameRunning(newValue:Boolean):void
+		{
+			this.isGameRunning = newValue;
 		}
 	
 	}
