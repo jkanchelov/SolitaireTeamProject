@@ -342,7 +342,7 @@ package
 			buttonCardBackSkin2.buttonMode = true;
 			buttonCardBackSkin2.addEventListener(MouseEvent.CLICK, function():void
 			{
-				cardPath = "skin2/";
+				cardPath = "Skin2/";
 			});
 			settingsContainer.addChild(buttonCardBackSkin2);
 		
