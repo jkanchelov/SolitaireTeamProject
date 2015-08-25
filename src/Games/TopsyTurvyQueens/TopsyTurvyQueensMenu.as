@@ -10,8 +10,7 @@ package Games.TopsyTurvyQueens
 	import flash.geom.*;
 	import com.greensock.*;
 	import com.greensock.easing.*;
-	import SharedClasses.*;
-	import flash.html.HTMLLoader;
+	import SharedClasses.*;;
 	
 	/**
 	 * ...
@@ -25,7 +24,6 @@ package Games.TopsyTurvyQueens
 		private var rulesButton:TopsyMenuButton;
 		private var newGameButton:TopsyMenuButton;
 		private var rules:Sprite;
-		private var html:HTMLLoader;
 		private var isWin:Boolean = false;
 		private var isGameRunning:Boolean = true;
 		private var buttonsSoundChannel:SoundChannel = new SoundChannel();
@@ -99,27 +97,30 @@ package Games.TopsyTurvyQueens
 			isGameRunning = false;
 		}
 		
-		private function howToPlay():void
+	private function howToPlay():void
 		{
-			html = new HTMLLoader();
-			var urlReq:URLRequest = new URLRequest("TopsyRules.txt");
-			html.load(urlReq);
-			html.x = 900;
-			html.y = 65;
-			html.width = 600;
-			html.height = 500;
-			html.alpha = 1;
+			var rulesTxtField:TextField = new TextField();
+			rulesTxtField.defaultTextFormat = new TextFormat('Comic Sans MS', 15, 0x000000, 'bold');
+			rulesTxtField.text = "Topsy-turvy Queens\n2 decks. Average. 2 redeals.\nThis solitaire uses 104 cards (2 decks). The seven cards with their faces down (closed) are the King's row. Eight foundation piles are placed on top of the closed card. The last eighth foundation pile doesn't have an imprisoned card under it.You also have 8 tableau piles with 4 cards in each pile.\nKings are moved to the foundations as they become available.\nThe object of the game\To build the foundations up in suit to Queens.\nThe rules\nIf a King is the top card of any of the tableau piles it is moved to the foundation and placed on top of the closed card in the King's Row. So this closed card becomes imprisoned. It will be free only after you built up the whole suit over it in order of rank (K,A,2,3..,Q). Foundation piles are filled up from left to right as soon as new King's appear. The last eighth king doesn't have an imprisoned card under it.You may build tableau piles down in suit.. \n You can move either a single card or a set of cards. The top card of each tableau pile can be moved to the King's row if it is possible.When you have made all the moves initially available, click the stock pile to begin turning cards over. The card that is face up on top of the deck is always available for play. You can move the top card from the stock pile to the foundations (up in suit) or to one of tableau piles (down in suit). Empty tableau's may be filled with any single card or group of cards in proper sequence. As soon as you build up the suit so that the Queen is on top, the imprisoned card becomes free. You can move this card only onto the King's row (you cannot move it onto any tableau pile). When you have made all the available moves on the board and you still have cards in the stock you can turn it over two more times. You win when all cards are on the foundations.";
+			addChild(rulesTxtField);
+			rulesTxtField.height = 400;
+			rulesTxtField.width = 580;
+			rulesTxtField.x = 810;
+			rulesTxtField.y = 65;
+			rulesTxtField.selectable = false;
+			rulesTxtField.wordWrap = true;
 			
 			rules = new Sprite();
-			rules.graphics.beginFill(0xFFFFFF);
-			rules.graphics.drawRect(70, 40, 660, 550);
+			rules.graphics.beginFill(0xEDE083);
+			rules.graphics.drawRoundRect(70, 40, 660, 440, 100, 300);
 			rules.graphics.endFill();
+			
 			rules.alpha = 1;
 			addChild(rules);
-			rules.addChild(html);
+			rules.addChild(rulesTxtField);
 			rules.addEventListener(MouseEvent.CLICK, closeRules, false, 0, true);
 			
-			TweenMax.to(html, 0.4, {x: 100, y: 65});
+			TweenMax.to(rulesTxtField, 0.4, {x: 120, y: 65});
 		}
 		
 		private function showRules(e:MouseEvent):void
