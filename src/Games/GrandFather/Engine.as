@@ -50,7 +50,7 @@ package Games.GrandFather
 			}
 		}
 		
-		// DROP CARD TAKEN CARD FROM DECK PILE
+		// DROP TAKEN CARD FROM DECK PILE
 		private function dropTakenCardFromDeckPile(e:MouseEvent):void
 		{
 			takenCard.stopDrag();
@@ -75,7 +75,7 @@ package Games.GrandFather
 				if (deckTopCard != null)
 				{
 					this.deckPile.pushCard(deckTopCard);
-					autoFillEmptyFieldPiles();
+					//autoFillEmptyFieldPiles();
 				}
 			}
 			if (deck.CardsCount == 0)
@@ -121,7 +121,7 @@ package Games.GrandFather
 			}
 			else
 			{
-				autoFillEmptyFieldPiles();
+				//autoFillEmptyFieldPiles();
 			}
 			if (Assistant.isThereWin(this.sidePiles))
 			{
@@ -141,7 +141,7 @@ package Games.GrandFather
 				//if (this.takenCard.hitTestObject(currentFieldPile)) {// this.takenCard goes to first field pile thath hit
 				if (currentFieldPile.hitTestPoint(this.generalContainer.mouseX, this.generalContainer.mouseY))
 				{
-					if (currentFieldPile.CardsCount == 1)
+					if (currentFieldPile.CardsCount >=0 && currentFieldPile.CardsCount<2 )
 					{
 						this.isAllowed = true;
 						this.generalContainer.removeChild(this.takenCard);
