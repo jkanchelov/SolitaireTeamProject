@@ -39,16 +39,21 @@ package SharedClasses
 		
 		public static function isThereWin(sidePiles:Array):Boolean
 		{
-			var win:Boolean = false;
+			var filledSidePiles:int = 0;
 			for (var sidePileIndex:int = 0; sidePileIndex < sidePiles.length; sidePileIndex++)
 			{
 				var currentSidePile:SidePile = sidePiles[sidePileIndex];
 				if (currentSidePile.CardsCount == 13)
 				{
-					win = true;
+					filledSidePiles++;
 				}
 			}
-			return win;
+			if (filledSidePiles != 8) {
+				return false	
+			}
+			else {
+			return true;	
+			}
 		}
 		
 		public static function fillContainerWithImg(container:Sprite, path:String, imgWidth:int, imgHeight:int):void
