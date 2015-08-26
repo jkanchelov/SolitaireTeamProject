@@ -50,7 +50,7 @@ package Games.GrandFather
 			}
 		}
 		
-		// DROP CARD ON DECK PILE
+		// DROP CARD TAKEN CARD FROM DECK PILE
 		private function dropTakenCardFromDeckPile(e:MouseEvent):void
 		{
 			takenCard.stopDrag();
@@ -106,7 +106,7 @@ package Games.GrandFather
 			}
 		}
 		
-		//DROP CARD ON FIELD PILES
+		//DROP CARD TAKEN CARD FROM FIELD PILES
 		private function dropTakenCardFromFieldPile(e:MouseEvent):void
 		{
 			takenCard.stopDrag();
