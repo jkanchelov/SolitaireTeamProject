@@ -590,7 +590,7 @@ package Games.Alternations
 			// check if card can be moved to target possition and if its true sets the sprite field to it 
 			
 			//foundation container
-			if (givenCard.hitTestObject(foundationContainer))
+			if (givenCard.hitTestObject(foundationContainer) && moveMultiple == false)
 			{
 				for (var pile:int = 0; pile < foundationContainer.numChildren; pile++)
 				{
