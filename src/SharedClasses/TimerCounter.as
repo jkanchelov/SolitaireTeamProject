@@ -31,7 +31,7 @@ package SharedClasses
 		private function loadTimer():void
 		{
 			
-			seconds = Math.floor(0);
+			seconds = 0;
 			minutes = Math.floor(seconds / 60);
 			hours = Math.floor(minutes / 60);
 			
@@ -69,8 +69,9 @@ package SharedClasses
 			if (seconds > 59)
 			{
 				minutes += 1;
-				seconds = 00;
+				seconds = 0;
 			}
+			
 			tField.text = String(tHours + ":" + tMinutes + ":" + tSeconds);
 		}
 	}
