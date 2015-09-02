@@ -112,7 +112,6 @@ package Games.GrandFather
 		{
 			this.cardSkin = cardSkinPar;
 			this.deck = new Deck(this.cardSkin);
-			this.deck = new Deck(cardSkinPar);
 			this.addChild(this.deck);
 			this.deck.x = 20;
 			this.deck.y = 140;
