@@ -101,7 +101,6 @@ package
 		//made by Jordan
 		private function grandFather(e:Event):void
 		{
-			
 			startGame(Grandfather)
 		}
 		
@@ -174,12 +173,13 @@ package
 		}
 		
 		//made by Jordan
-		private function loadWinLoseSprites():void {
+		private function loadWinLoseSprites():void
+		{
 			var winMessagePath:String = "Data/images/Buttons/winImage.png";
 			var loseMessagePath:String = "Data/images/Buttons/loseImage.png";
 			
-			Assistant.fillContainerWithImg(winMessageContainer, winMessagePath,450,200);
-			Assistant.fillContainerWithImg(loseMessageContainer, loseMessagePath,450,200);
+			Assistant.fillContainerWithImg(winMessageContainer, winMessagePath, 450, 200);
+			Assistant.fillContainerWithImg(loseMessageContainer, loseMessagePath, 450, 200);
 		}
 		
 		private function displayWin():void
@@ -192,9 +192,9 @@ package
 		
 		private function displayLose():void
 		{
-			addChildAt(loseMessageContainer,this.numChildren);
+			addChildAt(loseMessageContainer, this.numChildren);
 			TweenMax.to(loseMessageContainer, 1, {x: 180, y: 200, ease: Bounce.easeOut});
-			TweenMax.to(loseMessageContainer, 1, { x: 900, y: 200, delay: 2.5 } );
+			TweenMax.to(loseMessageContainer, 1, {x: 900, y: 200, delay: 2.5});
 			
 			setTimeout(clearMessage, 4000);
 		}
@@ -204,23 +204,23 @@ package
 		{
 			resetWinLoseContainers();
 			showMainMenu();
-
-			private function resetWinLoseContainers():void 
-			{ 
+			
+			function resetWinLoseContainers():void
+			{
 				loseMessageContainer.x = 0;
 				loseMessageContainer.y = 0;
 				winMessageContainer.x = 0;
 				winMessageContainer.y = 0;
 				
-				try 
+				try
 				{
-					removeChild(loseMessageContainer);				
+					removeChild(loseMessageContainer);
 				}
 				catch (err:Error)
 				{
 					
 				}
-				try 
+				try
 				{
 					removeChild(winMessageContainer);
 				}
@@ -503,7 +503,7 @@ package
 				updateStatusBar();
 			}
 		}
-			
+		
 		private function updateStatusBar():void
 		{
 			removeChild(moneyStatus);
