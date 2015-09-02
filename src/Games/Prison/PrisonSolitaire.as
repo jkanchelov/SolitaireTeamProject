@@ -5,12 +5,13 @@ package Games.Prison
 	import flash.geom.*;
 	import flash.net.URLRequest;
 	import SharedClasses.*
+	import SharedClasses.Interfaces.IGame;
 	
 	/**
 	 * ...
 	 * @author Jordan
 	 */
-	public class PrisonSolitaire extends Sprite
+	public class PrisonSolitaire extends Sprite implements IGame
 	{
 		private const STAGE_WIDTH:int = 800;
 		private const STAGE_HEIGHT:int = 600;

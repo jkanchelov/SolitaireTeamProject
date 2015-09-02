@@ -5,12 +5,13 @@ package Games.Alternations
 	import flash.geom.*;
 	import flash.net.URLRequest;
 	import SharedClasses.*
+	import SharedClasses.Interfaces.*
 	
 	/**
 	 * ...
 	 * @author Jordan
 	 */
-	public class AlternationSolitaire extends Sprite
+	public class AlternationSolitaire extends Sprite implements IGame
 	{
 		private const STAGE_WIDTH:int = 800;
 		private const STAGE_HEIGHT:int = 600;
@@ -77,7 +78,7 @@ package Games.Alternations
 		private function showMenu():void
 		{
 			menuContainer = new Sprite();
-			 var helpMenuText:String = "All top cards of tableau piles are available to play." + 
+			var helpMenuText:String = "All top cards of tableau piles are available to play." + 
 			"You can move cards from one tableau pile to another one." + 
 			"You may build tableau piles down regardless of suit." +
 			"You can move either a single card or a set of cards." +
