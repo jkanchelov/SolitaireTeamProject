@@ -60,16 +60,20 @@ package Games.Alternations
 			showMenu();
 		}
 		
+
+		//made by Jordan
 		public function get IsGameRunning():Boolean
 		{
 			return this.isGameRunning;
 		}
 		
+		//made by Jordan
 		public function get IsWin():Boolean
 		{
 			return this.isWin;
 		}
 		
+		//made by Jordan
 		private function showMenu():void
 		{
 			menuContainer = new Sprite();
@@ -88,6 +92,7 @@ package Games.Alternations
 			addChild(menuContainer);
 		}
 		
+		//made by Jordan
 		private function startGame(e:MouseEvent):void
 		{
 			removeChild(menuContainer);
@@ -98,6 +103,7 @@ package Games.Alternations
 			DealSolitaire();
 		}
 		
+		//made by Jordan
 		private function DealSolitaire():void
 		{
 			addCardContainers();
@@ -108,6 +114,7 @@ package Games.Alternations
 			loadTaublePilesCards();
 		}
 		
+		//made by Jordan
 		private function addCardContainers():void
 		{
 			fillDeckContainer();
@@ -180,6 +187,7 @@ package Games.Alternations
 			}
 		}
 		
+		//made by Jordan
 		private function loadCardDeck():void
 		{
 			var deck:Sprite = deckContainer.getChildAt(0) as Sprite;
@@ -198,6 +206,7 @@ package Games.Alternations
 			}
 		}
 		
+		//made by Jordan
 		private function loadTaublePilesCards():void
 		{
 			var taublePiles:int = 7;
@@ -223,6 +232,7 @@ package Games.Alternations
 			}
 		}
 		
+		//made by Jordan
 		private function dealDeckCard(e:MouseEvent):void
 		{
 			var currentCard:Sprite = e.target as Sprite;
@@ -234,6 +244,7 @@ package Games.Alternations
 			dealRandomCard(dealPile);
 		}
 		
+		//made by Jordan
 		private function dealBackCard(dealAt:Sprite):void
 		{
 			var cardColor:String = "Back";
@@ -259,6 +270,7 @@ package Games.Alternations
 			}
 		}
 		
+		//made by Jordan
 		private function dealRandomCard(dealAt:Sprite, y:int = 0):void
 		{
 			var rndCardNumber:int = randomRange(0, 103 - counterPlacedCards);
@@ -267,6 +279,7 @@ package Games.Alternations
 			cards.splice(rndCardNumber, 1);
 		}
 		
+		//made by Jordan
 		private function showSurrenderAndTimer():void
 		{
 			buttonsContainer = new Sprite();
@@ -287,16 +300,19 @@ package Games.Alternations
 			addChild(buttonsContainer);
 		}
 		
+		//made by Jordan
 		private function surrender(e:MouseEvent):void
 		{
 			gameOver();
 		}
 		
+		//made by Jordan
 		private function gameOver():void
 		{
 			isGameRunning = false;
 		}
 		
+		//made by Jordan
 		private function loadDeck():void
 		{
 			var cardUrl:String;
@@ -357,6 +373,7 @@ package Games.Alternations
 			}
 		}
 		
+		//made by Jordan
 		private function canBeDragged(cardContainer:Sprite, cardIndex:int):Boolean
 		{
 			var cardOne:Card;
@@ -386,6 +403,7 @@ package Games.Alternations
 			return true
 		}
 		
+		//made by Jordan
 		private function startDraging(e:MouseEvent):void
 		{
 			if (!isDragging)
@@ -437,6 +455,7 @@ package Games.Alternations
 			}
 		}
 		
+		//made by Jordan
 		private function followCard(e:Event):void
 		{
 			var counter:int = 1;
@@ -459,6 +478,7 @@ package Games.Alternations
 			}
 		}
 		
+		//made by Jordan
 		private function stopDraging(e:MouseEvent):void
 		{
 			if (movingCardObject != null)
@@ -567,6 +587,7 @@ package Games.Alternations
 			}
 		}
 		
+		//made by Jordan
 		private function checkFlipCard(givenSprite:Sprite):void
 		{
 			try
@@ -585,10 +606,10 @@ package Games.Alternations
 		
 		}
 		
+		//made by Jordan
+		// check if card can be moved to target possition and if its true sets the sprite field to it 
 		private function canBeMoved(givenCard:Card):Boolean
 		{
-			// check if card can be moved to target possition and if its true sets the sprite field to it 
-			
 			//foundation container
 			if (givenCard.hitTestObject(foundationContainer))
 			{
@@ -658,6 +679,7 @@ package Games.Alternations
 			return false
 		}
 		
+		//made by Jordan
 		private function resetMovCardVariables():void
 		{
 			isDragging = false;
@@ -670,10 +692,9 @@ package Games.Alternations
 			followingCards = new Vector.<Card>();
 		}
 		
+		//made by Jordan
 		private function isLastCardOfPile(givenCard:Card, spriteContainer):Boolean
-		{
-			//checks in each container - reserved and container if the given object is equal to the last in the pile 
-			
+		{			
 			for (var pile:int = 0; pile < spriteContainer.numChildren; pile++)
 			{
 				var pileContainer:Sprite = spriteContainer.getChildAt(pile) as Sprite;
@@ -692,6 +713,7 @@ package Games.Alternations
 			return false;
 		}
 		
+		//made by Jordan
 		private function checkWin():void
 		{
 			isWin = true;
@@ -712,6 +734,7 @@ package Games.Alternations
 			}
 		}
 		
+		//made by Jordan
 		private function randomRange(minNum:Number, maxNum:Number):int
 		{
 			return (int(Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum));

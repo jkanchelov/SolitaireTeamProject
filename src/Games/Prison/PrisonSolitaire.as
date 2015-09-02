@@ -48,22 +48,26 @@ package Games.Prison
 		private var reservesContainer:Sprite;
 		private var taublePilesContainer:Sprite;
 		
+		//made by Jordan
 		public function PrisonSolitaire(cardsSkin:String = "skin1/")
 		{
 			this.cardsSkin = cardsSkin
 			showMenu()
 		}
 		
+		//made by Jordan
 		public function get IsGameRunning():Boolean
 		{
 			return this.isGameRunning;
 		}
 		
+		//made by Jordan
 		public function get IsWin():Boolean
 		{
 			return this.isWin;
 		}
 		
+		//made by Jordan
 		private function showMenu():void
 		{
 			menuContainer = new Sprite();
@@ -82,6 +86,7 @@ package Games.Prison
 			addChild(menuContainer);
 		}
 		
+		//made by Jordan
 		private function startGame(e:MouseEvent):void
 		{
 			removeChild(menuContainer);
@@ -92,6 +97,7 @@ package Games.Prison
 			DealSolitaire();
 		}
 		
+		//made by Jordan
 		private function showSurrenderAndTimer():void
 		{
 			buttonsContainer = new Sprite();
@@ -111,6 +117,7 @@ package Games.Prison
 			addChild(buttonsContainer);
 		}
 		
+		//made by Jordan
 		private function DealSolitaire():void
 		{
 			addCardContainers();
@@ -121,6 +128,7 @@ package Games.Prison
 			loadTaublePilesCards();
 		}
 		
+		//made by Jordan
 		private function loadCardsFoundation():void
 		{
 			var rndCardNumber:int = randomRange(0, 52 - counterPlacedCards);
@@ -166,6 +174,7 @@ package Games.Prison
 			}
 		}
 		
+		//made by Jordan
 		private function loadReservedCards():void
 		{
 			var reservedPiles:int = 8;
@@ -177,6 +186,7 @@ package Games.Prison
 			}
 		}
 		
+		//made by Jordan
 		private function loadTaublePilesCards():void
 		{
 			var taublePiles:int = 10;
@@ -193,6 +203,7 @@ package Games.Prison
 			}
 		}
 		
+		//made by Jordan
 		private function startDraging(e:MouseEvent):void
 		{
 			if (isLastCardOfPile(e.target as Card))
@@ -213,6 +224,7 @@ package Games.Prison
 			}
 		}
 		
+		//made by Jordan
 		private function stopDraging(e:MouseEvent):void
 		{
 			if (movingCardObject != null)
@@ -258,6 +270,7 @@ package Games.Prison
 		
 		}
 		
+		//made by Jordan
 		private function resetMovCardVariables():void
 		{
 			movCardNewSprite = null;
@@ -266,10 +279,9 @@ package Games.Prison
 			movCardCurrentSprite = null;
 		}
 		
+		// check if card can be moved to target possition and if its true sets the sprite field to it 
 		private function canBeMoved(givenCard:Card):Boolean
-		{
-			// check if card can be moved to target possition and if its true sets the sprite field to it 
-			
+		{			
 			//foundation container
 			if (givenCard.hitTestObject(foundationContainer))
 			{
@@ -355,10 +367,9 @@ package Games.Prison
 			return false
 		}
 		
+		//made by Jordan
 		private function isLastCardOfPile(givenCard:Card):Boolean
 		{
-			//checks in each container - reserved and container if the given object is equal to the last in the pile 
-			
 			//check if card is from reserves container
 			if (givenCard.parent.parent == reservesContainer)
 			{
@@ -446,6 +457,7 @@ package Games.Prison
 			}
 		}
 		
+		//made by Jordan
 		private function checkWin():void
 		{
 			isWin = true;
@@ -466,16 +478,19 @@ package Games.Prison
 			}
 		}
 		
+		//made by Jordan
 		private function surrender(e:MouseEvent):void
 		{
 			gameOver();
 		}
 		
+		//made by Jordan
 		private function gameOver():void
 		{
 			isGameRunning = false;
 		}
 		
+		//made by Jordan
 		private function dealRandomCard(dealAt:Sprite, y:int = 0):void
 		{
 			var rndCardNumber:int = randomRange(0, 51 - counterPlacedCards);
@@ -484,6 +499,7 @@ package Games.Prison
 			cards.splice(rndCardNumber, 1);
 		}
 		
+		//made by Jordan
 		private function loadDeck():void
 		{
 			var cardUrl:String;
@@ -541,6 +557,7 @@ package Games.Prison
 			}
 		}
 		
+		//made by Jordan
 		private function randomRange(minNum:Number, maxNum:Number):int
 		{
 			return (int(Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum));
