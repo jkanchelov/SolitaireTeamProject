@@ -294,14 +294,11 @@ package Games.GrandFather
 				var currentFieldPile:FieldPile = fieldPiles[fieldPileIndex];
 				if (currentFieldPile.TopCard == null)
 				{
-					if (this.deckPile.TopCard == null)
+					if (this.deckPile.TopCard == null&&this.deck.CardsCount != 0)
 					{
-						if (this.deck.CardsCount != 0)
-						{
-							this.takenCard = deck.giveTopCard();
-						}
+						this.takenCard = deck.giveTopCard();
 					}
-					else
+					else if(this.deckPile.TopCard!=null)
 					{
 						this.takenCard = deckPile.giveTopCard();
 					}

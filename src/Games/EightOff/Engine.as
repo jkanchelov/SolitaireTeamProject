@@ -290,7 +290,7 @@ package Games.EightOff
 					filledSidePilesCount++;
 				}
 			}
-			if (filledSidePilesCount == 8) 
+			if (filledSidePilesCount == 4) 
 			{
 				return true;	
 			}
