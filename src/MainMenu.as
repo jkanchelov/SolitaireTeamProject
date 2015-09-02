@@ -62,6 +62,7 @@ package
 			loadMusic();
 		}
 		
+		//made by Jordan
 		private function loadMenuButtons():void
 		{
 			addChild(menuContainer);
@@ -85,42 +86,50 @@ package
 			}
 		}
 		
+		//made by Jordan
 		private function prison(e:Event):void
 		{
 			startGame(PrisonSolitaire);
 		}
 		
+		//made by Jordan
 		private function eightOff(e:Event):void
 		{
 			startGame(Eightoff);
 		}
 		
+		//made by Jordan
 		private function grandFather(e:Event):void
 		{
 			
 			startGame(Grandfather)
 		}
 		
+		//made by Jordan
 		private function alternations(e:Event):void
 		{
 			startGame(AlternationSolitaire)
 		}
 		
+		//made by Jordan
 		private function topsyTurvyQueens(e:Event):void
 		{
 			startGame(TopsyTurvyQueensMenu);
 		}
 		
+		//made by Jordan
 		private function clearSettingsButton():void
 		{
 			removeChild(settingsButtonContainer);
 		}
 		
+		//made by Jordan
 		private function showSettingsButton():void
 		{
 			addChild(settingsButtonContainer);
 		}
 		
+		//made by Jordan
 		private function startGame(game:Object):void
 		{
 			if (this.bet > 0)
@@ -140,6 +149,7 @@ package
 			}
 		}
 		
+		//made by Jordan
 		private function checkGameOver(e:Event):void
 		{
 			if (e.target.IsGameRunning == false)
@@ -163,6 +173,7 @@ package
 			}
 		}
 		
+		//made by Jordan
 		private function loadWinLoseSprites():void {
 			var winMessagePath:String = "Data/images/Buttons/winImage.png";
 			var loseMessagePath:String = "Data/images/Buttons/loseImage.png";
@@ -188,36 +199,39 @@ package
 			setTimeout(clearMessage, 4000);
 		}
 		
-		private function resetWinLoseContainers():void { 
-			loseMessageContainer.x = 0;
-			loseMessageContainer.y = 0;
-			winMessageContainer.x = 0;
-			winMessageContainer.y = 0;
-			
-			try 
-			{
-				removeChild(loseMessageContainer);				
-			}
-			catch (err:Error)
-			{
-				
-			}
-			try 
-			{
-				removeChild(winMessageContainer);
-			}
-			catch (err:Error)
-			{
-				
-			}
-		}
-		
+		//made by Jordan	
 		private function clearMessage():void
 		{
 			resetWinLoseContainers();
 			showMainMenu();
+
+			private function resetWinLoseContainers():void 
+			{ 
+				loseMessageContainer.x = 0;
+				loseMessageContainer.y = 0;
+				winMessageContainer.x = 0;
+				winMessageContainer.y = 0;
+				
+				try 
+				{
+					removeChild(loseMessageContainer);				
+				}
+				catch (err:Error)
+				{
+					
+				}
+				try 
+				{
+					removeChild(winMessageContainer);
+				}
+				catch (err:Error)
+				{
+					
+				}
+			}
 		}
 		
+		//made by Jordan
 		private function loadMusic():void
 		{
 			var musicButtonWidth:int = 40;
