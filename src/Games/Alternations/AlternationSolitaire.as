@@ -77,8 +77,14 @@ package Games.Alternations
 		private function showMenu():void
 		{
 			menuContainer = new Sprite();
+			 var helpMenuText:String = "All top cards of tableau piles are available to play." + 
+			"You can move cards from one tableau pile to another one." + 
+			"You may build tableau piles down regardless of suit." +
+			"You can move either a single card or a set of cards." +
+			"When one of the piles becomes empty you can fill the space with any available single card or set of cards." +
+			"If, during play, any of closed becomes the top card of a pile, it is automatically turned over."
 			
-			var helpMenu:AlternationHelpMenu = new AlternationHelpMenu();
+			var helpMenu:HelpMenu = new HelpMenu(helpMenuText);
 			menuContainer.addChild(helpMenu);
 			
 			var startButton:MenuButton = new MenuButton("start.png");

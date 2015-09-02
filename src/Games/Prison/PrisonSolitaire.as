@@ -72,7 +72,14 @@ package Games.Prison
 		{
 			menuContainer = new Sprite();
 			
-			var helpMenu:PrisonHelpMenu = new PrisonHelpMenu();
+			var helpMenuText:String = "The top cards of tableau piles and cards from cells are available to play." +
+			"You may build tableau piles down in suit." +
+			"Only one card at a time can be moved."+
+			"The top card of any tableau pile can also be moved to any cell." +
+			"Each cell may contain only one card." +
+			"Cards in the cells can be moved to the foundation piles or back to the tableau piles, if possible."
+			
+			var helpMenu:HelpMenu = new HelpMenu(helpMenuText);
 			menuContainer.addChild(helpMenu);
 			
 			var startButton:MenuButton = new MenuButton("start.png");
