@@ -21,15 +21,15 @@ package Games.GrandFather
 			var gradientType:String = GradientType.RADIAL;
 			var gradientColors:Array = [0xF2290D, 0x000000];
 			var gradientAlphas:Array = [1, 1];
-			var gradientRatios:Array = [100, 250]; 						// цвета на елипсата в средата е по наситена
+			var gradientRatios:Array = [100, 250]; 										// the color of the elipse in the middle of the button is more saturated
 			var graeientSpreadMethod:String = SpreadMethod.PAD;
 			var colorInterpolation:String = InterpolationMethod.RGB;
 			var focalPointRatio:Number = 100;
 			var matrix:Matrix = new Matrix();
-			var boxWidth:Number = 200; 							//увеличава площта на елипсата в средата
+			var boxWidth:Number = 200; 													// increases the width of the elipse in the
 			var boxHeight:Number = 100;
-			var boxRotation:Number = Math.PI / 2; // 90° 
-			var tx:Number = 0; 								// от къде да започва червената елипса по Х и по Y - параметри в матрицата
+			var boxRotation:Number = Math.PI / 2; 										// 90° 
+			var tx:Number = 0; 															// sets the position of the elipse
 			var ty:Number = -20;
 			
 			matrix.createGradientBox(boxWidth, boxHeight, boxRotation, tx, ty);
@@ -40,7 +40,7 @@ package Games.GrandFather
 			buttonTxtFiled.defaultTextFormat = new TextFormat('Comic Sans MS', 10, 0x80FF00, 'bold');
 			buttonTxtFiled.text = this.buttonText;
 			this.addChild(buttonTxtFiled);
-			buttonTxtFiled.x = 13; //this.x + (this.width / 2) - (buttonTxtFiled.textWidth / 2);
+			buttonTxtFiled.x = 13; 														//this.x + (this.width / 2) - (buttonTxtFiled.textWidth / 2);
 			buttonTxtFiled.y = -2;
 			buttonTxtFiled.mouseEnabled = true;
 			buttonTxtFiled.height = 50;
