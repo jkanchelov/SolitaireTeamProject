@@ -501,9 +501,8 @@ package Games.Alternations
 				}
 				
 				movingCardObject.stopDrag();
-				var movingCard:Card = movingCardObject as Card;
 				
-				if (canBeMoved(movingCard))
+				if (canBeMoved(movingCardObject as Card))
 				{
 					if (moveMultiple)
 					{
