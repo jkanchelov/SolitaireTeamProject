@@ -4,7 +4,7 @@ package Games.EightOff
 	import flash.display.Shape;
 	import SharedClasses.Assistant;
 	import SharedClasses.Card;
-	import SharedClasses.Pile;
+	import SharedClasses.GrandFatherEightOff.Pile;
 	
 	/**
 	 * ...

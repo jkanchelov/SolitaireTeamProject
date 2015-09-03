@@ -1,4 +1,4 @@
-package SharedClasses
+package SharedClasses.PrisonAlternation
 {
 	import flash.display.Sprite;
 	import flash.text.*

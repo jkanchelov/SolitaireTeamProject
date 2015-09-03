@@ -1,7 +1,7 @@
 package Games.EightOff
 {
 	import SharedClasses.Card;
-	import SharedClasses.Pile;
+	import SharedClasses.GrandFatherEightOff.Pile;
 	
 	/**
 	 * ...

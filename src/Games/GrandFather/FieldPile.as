@@ -1,7 +1,7 @@
 package Games.GrandFather
 {
 	import SharedClasses.Card;
-	import SharedClasses.Pile;
+	import SharedClasses.GrandFatherEightOff.Pile;
 	
 	/**
 	 * ...

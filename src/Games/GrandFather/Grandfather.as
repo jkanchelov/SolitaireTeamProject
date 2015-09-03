@@ -4,8 +4,8 @@ package Games.GrandFather
 	import flash.geom.Point;
 	import flash.events.MouseEvent;
 	import SharedClasses.*
-	import SharedClasses.Interfaces.IGame;
-	import SharedClasses.Rules;
+	import Interfaces.IGame;
+	import SharedClasses.GrandFatherEightOff.Rules;
 	
 	/**
 	 * ...

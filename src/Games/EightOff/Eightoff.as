@@ -6,8 +6,8 @@ package Games.EightOff
 	import Games.EightOff.*;
 	import SharedClasses.Assistant;
 	import Games.GrandFather.GameButton;
-	import SharedClasses.Interfaces.IGame;
-	import SharedClasses.Rules;
+	import Interfaces.IGame;
+	import SharedClasses.GrandFatherEightOff.Rules;
 	import SharedClasses.Button;
 	import SharedClasses.TimerCounter;
 	

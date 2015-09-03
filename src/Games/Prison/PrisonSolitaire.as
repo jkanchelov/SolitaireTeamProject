@@ -5,7 +5,9 @@ package Games.Prison
 	import flash.geom.*;
 	import flash.net.URLRequest;
 	import SharedClasses.*
-	import SharedClasses.Interfaces.IGame;
+	import Interfaces.IGame;
+	import SharedClasses.PrisonAlternation.HelpMenu;
+	import SharedClasses.PrisonAlternation.PileBackground;
 	
 	/**
 	 * ...
@@ -398,8 +400,7 @@ package Games.Prison
 					return true;
 				}
 				
-			}
-			
+			}	
 			return false;
 		}
 		

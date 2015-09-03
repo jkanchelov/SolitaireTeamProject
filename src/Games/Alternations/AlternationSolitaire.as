@@ -4,14 +4,15 @@ package Games.Alternations
 	import flash.display.*;
 	import flash.geom.*;
 	import flash.net.URLRequest;
+	import Interfaces.IGame;
 	import SharedClasses.*
-	import SharedClasses.Interfaces.*
+	import SharedClasses.PrisonAlternation.*
 	
 	/**
 	 * ...
 	 * @author Jordan
 	 */
-	public class AlternationSolitaire extends Sprite implements IGame
+	public class AlternationSolitaire extends AbstractSolitaire implements IGame
 	{
 		private const STAGE_WIDTH:int = 800;
 		private const STAGE_HEIGHT:int = 600;
@@ -107,11 +108,11 @@ package Games.Alternations
 			
 			showSurrenderAndTimer();
 			
-			DealSolitaire();
+			dealSolitaire();
 		}
 		
 		//made by Jordan
-		private function DealSolitaire():void
+		protected override function dealSolitaire():void
 		{
 			addCardContainers();
 			
@@ -122,7 +123,7 @@ package Games.Alternations
 		}
 		
 		//made by Jordan
-		private function addCardContainers():void
+		protected override function addCardContainers():void
 		{
 			fillDeckContainer();
 			fillFoundationContainer();
@@ -228,7 +229,8 @@ package Games.Alternations
 					if (card % 2 == 0)
 					{
 						
-						dealRandomCard(pileContainer, cardY);
+						dealRandomCard(pileContainer, cards, counterPlacedCards, cardY);
+						counterPlacedCards++
 					}
 					else
 					{
@@ -248,7 +250,8 @@ package Games.Alternations
 			undealedCards.removeChild(currentCard);
 			
 			var dealPile:Sprite = deckContainer.getChildAt(1) as Sprite
-			dealRandomCard(dealPile);
+			dealRandomCard(dealPile,cards,counterPlacedCards);
+			counterPlacedCards++;
 		}
 		
 		//made by Jordan
@@ -273,18 +276,11 @@ package Games.Alternations
 			{
 				var cardY = (parentContainer.numChildren - 2) * CARDS_Y_SPACING
 				parentContainer.removeChild(backCard);
-				dealRandomCard(parentContainer, cardY);
+				dealRandomCard(parentContainer, cards, counterPlacedCards,cardY);
+				counterPlacedCards++;
 			}
 		}
 		
-		//made by Jordan
-		private function dealRandomCard(dealAt:Sprite, y:int = 0):void
-		{
-			var rndCardNumber:int = randomRange(0, 103 - counterPlacedCards);
-			dealAt.addChild(cards[rndCardNumber]).y = y;
-			counterPlacedCards++;
-			cards.splice(rndCardNumber, 1);
-		}
 		
 		//made by Jordan
 		private function showSurrenderAndTimer():void
@@ -411,7 +407,7 @@ package Games.Alternations
 		}
 		
 		//made by Jordan
-		private function startDraging(e:MouseEvent):void
+		protected override function startDraging(e:MouseEvent):void
 		{
 			if (!isDragging)
 			{
@@ -486,7 +482,7 @@ package Games.Alternations
 		}
 		
 		//made by Jordan
-		private function stopDraging(e:MouseEvent):void
+		protected override function stopDraging(e:MouseEvent):void
 		{
 			if (movingCardObject != null)
 			{

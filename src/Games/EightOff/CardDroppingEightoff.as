@@ -3,8 +3,8 @@ package Games.EightOff
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import SharedClasses.Card;
-	import SharedClasses.CardDropping;
-	import SharedClasses.Pile;
+	import SharedClasses.GrandFatherEightOff.CardDropping;
+	import SharedClasses.GrandFatherEightOff.Pile;
 	
 	/**
 	 * ...

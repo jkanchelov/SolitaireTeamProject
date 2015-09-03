@@ -7,7 +7,7 @@ package Games.EightOff
 	 * @author Kolarov
 	 */
 	import SharedClasses.Card
-	import SharedClasses.Deck;
+	import SharedClasses.GrandFatherEightOff.Deck;
 	
 	public class DeckEightoff extends Deck
 	{	

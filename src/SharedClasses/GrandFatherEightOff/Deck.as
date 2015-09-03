@@ -1,6 +1,7 @@
-package SharedClasses 
+package SharedClasses.GrandFatherEightOff 
 {
 	import flash.display.Sprite;
+	import SharedClasses.*
 	/**
 	 * ...
 	 * @author Kolarov

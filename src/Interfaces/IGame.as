@@ -1,4 +1,4 @@
-package SharedClasses.Interfaces 
+package Interfaces 
 {
 	
 	/**

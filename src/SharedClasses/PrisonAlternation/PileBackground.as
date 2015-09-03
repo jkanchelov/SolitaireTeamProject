@@ -1,4 +1,4 @@
-package SharedClasses
+package SharedClasses.PrisonAlternation
 {
 	import flash.events.*;
 	import flash.display.*;

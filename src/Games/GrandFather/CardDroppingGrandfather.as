@@ -2,7 +2,7 @@ package Games.GrandFather
 {
 	import flash.display.Sprite;
 	import SharedClasses.Card;
-	import SharedClasses.CardDropping;
+	import SharedClasses.GrandFatherEightOff.CardDropping;
 	/**
 	 * ...
 	 * @author Kolarov

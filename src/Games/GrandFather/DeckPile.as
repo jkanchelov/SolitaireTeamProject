@@ -3,8 +3,8 @@ package Games.GrandFather
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import SharedClasses.Card;
-	import SharedClasses.Deck;
-	import SharedClasses.Pile;
+	import SharedClasses.GrandFatherEightOff.Deck;
+	import SharedClasses.GrandFatherEightOff.Pile;
 	
 	/**
 	 * ...

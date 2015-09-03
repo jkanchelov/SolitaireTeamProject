@@ -7,7 +7,7 @@ package Games.GrandFather
 	import flash.display.Loader;
 	import flash.events.*;
 	import flash.net.*;
-	import SharedClasses.Deck;
+	import SharedClasses.GrandFatherEightOff.Deck;
 	
 	/**
 	 * ...
