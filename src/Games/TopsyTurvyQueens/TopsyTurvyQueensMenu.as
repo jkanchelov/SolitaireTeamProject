@@ -10,13 +10,15 @@ package Games.TopsyTurvyQueens
 	import flash.geom.*;
 	import com.greensock.*;
 	import com.greensock.easing.*;
-	import SharedClasses.*;;
+	import SharedClasses.*;
+	import SharedClasses.Interfaces.IGame;
+	
 	
 	/**
 	 * ...
 	 * @author SS
 	 */
-	public class TopsyTurvyQueensMenu extends Sprite
+	public class TopsyTurvyQueensMenu extends Sprite implements IGame
 	{
 		
 		private var backgroundContainer:Sprite = new Sprite();
