@@ -13,22 +13,22 @@ package Games.GrandFather
 	
 	public class Engine
 	{
-		private var deck:Deck;
+		private var deck:DeckGrandfather;
 		private var deckPile:DeckPile;
 		private var fieldPiles:Array;
 		private var sidePiles:Array;
-		
 		private var generalContainer:Grandfather;
 		
 		private var takenCard:Card;
 		private var pressedFieldPile:FieldPile;
 		private var pressedDeckPile:DeckPile;
 		
-		private var isThereEmpties:Boolean = true;//is field var for use object as reference
+		private var isThereEmpties:Boolean;//is field var for use object as reference
 		
-		private var isAllowed:Boolean;
+		private var isDropped:Boolean;
+		private var cardDropping:CardDroppingGrandfather;
 		
-		public function Engine(deckPar:Deck, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Grandfather)
+		public function Engine(deckPar:DeckGrandfather, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Grandfather)
 		{
 			initFields(deckPar, deckPilePar, fieldPilesPar, sidePilesPar, generalContainerPar);
 			dealing();
@@ -54,15 +54,19 @@ package Games.GrandFather
 		private function dropTakenCardFromDeckPile(e:MouseEvent):void
 		{
 			takenCard.stopDrag();
-			this.isAllowed = false;
+			this.isDropped = false;
 			
-			tryToDropOnFieldPile();
-			tryToDropOnSidePile();
+			this.cardDropping.tryCardOnSidePile(this.takenCard);
 			
-			if (!isAllowed)
+			if (!cardDropping.IsDropped) {
+				this.cardDropping.tryCardOnFieldPile(this.takenCard);
+			}
+			
+			if (!cardDropping.IsDropped)
 			{
 				returnTakenCardToDeckPile();
 			}
+			
 			Assistant.removeEventListenerTo(takenCard, MouseEvent.MOUSE_UP, dropTakenCardFromDeckPile);
 			this.takenCard = null;
 		}
@@ -110,91 +114,26 @@ package Games.GrandFather
 		private function dropTakenCardFromFieldPile(e:MouseEvent):void
 		{
 			takenCard.stopDrag();
-			isAllowed = false;
 			
-			tryToDropOnSidePile();
+			this.cardDropping.tryCardOnSidePile(this.takenCard);
 			
 			Assistant.removeEventListenerTo(this.takenCard, MouseEvent.MOUSE_UP, dropTakenCardFromFieldPile);
-			if (!isAllowed)
+			
+			if (!cardDropping.IsDropped)
 			{
 				returnTakenCardToFieldPile();
-			}
-			else
+			}else
 			{
 				//autoFillEmptyFieldPiles();
 			}
+			
 			if (Assistant.isThereWin(this.sidePiles))
 			{
 				this.generalContainer.IsGameRunning = false;
 				this.generalContainer.IsWin = true;
 			}
+			
 			this.takenCard = null;
-		}
-		
-		// CARD DROPPING
-		//// CHECK IF CAN BE DROPPED ON FIELD PILE
-		private function tryToDropOnFieldPile():void
-		{
-			for (var fieldPileIndex:int = 0; fieldPileIndex < this.fieldPiles.length; fieldPileIndex++)
-			{
-				var currentFieldPile:FieldPile = fieldPiles[fieldPileIndex];
-				//if (this.takenCard.hitTestObject(currentFieldPile)) {// this.takenCard goes to first field pile thath hit
-				if (currentFieldPile.hitTestPoint(this.generalContainer.mouseX, this.generalContainer.mouseY))
-				{
-					if (currentFieldPile.CardsCount >=0 && currentFieldPile.CardsCount<2 )
-					{
-						this.isAllowed = true;
-						this.generalContainer.removeChild(this.takenCard);
-						currentFieldPile.pushCard(this.takenCard);
-						break;
-					}
-				}
-			}
-		}
-		
-		//// CHECK IF CAN BE DROPPED ON FIELD PILE
-		private function tryToDropOnSidePile():void
-		{
-			for (var sidePileIndex:int = 0; sidePileIndex < this.sidePiles.length; sidePileIndex++)
-			{
-				var currentSidePile:SidePile = sidePiles[sidePileIndex];
-				if (this.takenCard.hitTestObject(currentSidePile))
-				{
-					// if no cards in side pile
-					if (this.takenCard.CardValue == 1 && this.takenCard.CardSign == currentSidePile.Sign && currentSidePile.TopCard == null && currentSidePile.StartValue == 1)
-					{
-						this.isAllowed = true;
-						this.generalContainer.removeChild(this.takenCard);
-						currentSidePile.pushCard(this.takenCard);
-						break;
-					}
-					if (this.takenCard.CardValue == 13 && this.takenCard.CardSign == currentSidePile.Sign && currentSidePile.TopCard == null && currentSidePile.StartValue == 13)
-					{
-						isAllowed = true;
-						this.generalContainer.removeChild(this.takenCard);
-						currentSidePile.pushCard(this.takenCard);
-						break;
-					}
-					// if there are cards in side pile
-					if (currentSidePile.TopCard != null)
-					{
-						if (currentSidePile.StartValue == 1 && this.takenCard.CardSign == currentSidePile.Sign && this.takenCard.CardValue == (currentSidePile.TopCard.CardValue + 1))
-						{
-							isAllowed = true;
-							this.generalContainer.removeChild(this.takenCard);
-							currentSidePile.pushCard(this.takenCard);
-							break;
-						}
-						if (currentSidePile.StartValue == 13 && this.takenCard.CardSign == currentSidePile.Sign && this.takenCard.CardValue == (currentSidePile.TopCard.CardValue - 1))
-						{
-							isAllowed = true;
-							this.generalContainer.removeChild(this.takenCard);
-							currentSidePile.pushCard(this.takenCard);
-							break;
-						}
-					}
-				}
-			}
 		}
 		
 		// MAKE INTERACTION:
@@ -331,13 +270,15 @@ package Games.GrandFather
 		}
 		
 		// INIT FIELDS
-		private function initFields(deckPar:Deck, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Grandfather):void
+		private function initFields(deckPar:DeckGrandfather, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Grandfather):void
 		{
 			this.deck = deckPar;
 			this.deckPile = deckPilePar;
 			this.fieldPiles = fieldPilesPar;
 			this.sidePiles = sidePilesPar;
 			this.generalContainer = generalContainerPar;
+			this.isThereEmpties = true;
+			this.cardDropping = new CardDroppingGrandfather(this.generalContainer, this.fieldPiles, this.sidePiles, this.isDropped);
 		}
 	
 	}

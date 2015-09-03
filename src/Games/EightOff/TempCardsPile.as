@@ -71,6 +71,10 @@ package Games.EightOff
 		{
 			return this.cards.length;
 		}
+		
+		public function get Cards():Array {
+			return this.cards;	
+		}
 	
 	}
 

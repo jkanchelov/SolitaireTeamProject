@@ -17,17 +17,17 @@ package Games.EightOff
 		private var sidePiles:Array = [];//4
 		private var tempPile:TempCardsPile = new TempCardsPile();
 		
-		private var deck:Deck;
+		private var deck:DeckEightoff;
 		
 		private var pressedExtraPile:ExtraPile;
 		private var pressedFieldPile:FieldPile;
 		private var cardForMoving:Card;
 		private var cardsForMoving:Array;
 		
-		private var cardDropping:CardDropping;
+		private var cardDropping:CardDroppingEightoff;
 		private var interaction:Interaction;
 		
-		public function Engine(generalPar:Eightoff, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:Deck)
+		public function Engine(generalPar:Eightoff, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:DeckEightoff)
 		{
 			this.initFields(generalPar, extraPilesPar, fieldPilesPar, sidePilesPar, deckPar);
 			this.dealCards();
@@ -120,16 +120,16 @@ package Games.EightOff
 		//// DROP CARD FROM EXTRA PILE
 		private function dropTakenCardFromExtraPile(e:MouseEvent):void
 		{
-			this.cardDropping.tryCardOnExtraPile();
+			this.cardDropping.tryCardOnExtraPile(this.tempPile.FirstCard);
 			
 			if (!(this.cardDropping.IsDropped))
 			{
-				this.cardDropping.tryCardOnFieldPile();
+				this.cardDropping.tryCardOnFieldPile(this.tempPile.FirstCard);
 			}
 			
 			if (!(this.cardDropping.IsDropped))
 			{
-				this.cardDropping.tryCardOnSidePile();
+				this.cardDropping.tryCardOnSidePile(this.tempPile.FirstCard);
 				if (this.win())
 				{
 					this.makeWin();
@@ -145,7 +145,7 @@ package Games.EightOff
 		}
 		
 		// FIELD PILES Drag&Drop	
-		//// DRAG CARD FROM FIELD PILE
+		//// DRAG CARDS FROM FIELD PILE
 		private function dragCardsFromFieldPile(e:MouseEvent):void
 		{
 			this.pressedFieldPile = e.currentTarget as FieldPile;
@@ -158,7 +158,7 @@ package Games.EightOff
 					choosenStartCard = card;
 				}
 			}
-			
+			//SUPER MOVE
 			var countOfChoosenCards:int = pressedFieldPile.countOfChoosenCards(choosenStartCard);
 			if (pressedFieldPile.isSequenceFrom(choosenStartCard)&&(countOfChoosenCards<=emptyExtraPiles()||countOfChoosenCards==1))
 			{
@@ -175,16 +175,16 @@ package Games.EightOff
 		{
 			if (this.tempPile.CardsCount == 1)
 			{
-				this.cardDropping.tryCardOnExtraPile();
+				this.cardDropping.tryCardOnExtraPile(this.tempPile.FirstCard);
 				
 				if (!(this.cardDropping.IsDropped))
 				{
-					this.cardDropping.tryCardOnFieldPile();
+					this.cardDropping.tryCardOnFieldPile(this.tempPile.FirstCard);
 				}
 				
 				if (!(this.cardDropping.IsDropped))
 				{
-					this.cardDropping.tryCardOnSidePile();
+					this.cardDropping.tryCardOnSidePile(this.tempPile.FirstCard);
 					if (win())
 					{
 						makeWin();
@@ -193,7 +193,7 @@ package Games.EightOff
 			}
 			else if (this.tempPile.CardsCount > 1)
 			{
-				this.cardDropping.tryCardsOnFieldPile();
+				this.cardDropping.tryCardsOnFieldPile(this.tempPile.Cards);
 			}
 			
 			if (!(this.cardDropping.IsDropped))
@@ -208,14 +208,14 @@ package Games.EightOff
 		}
 		
 		// INIT FIELDS
-		private function initFields(generalPar:Eightoff, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:Deck):void
+		private function initFields(generalPar:Eightoff, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:DeckEightoff):void
 		{
 			this.general = generalPar;
 			this.extraPiles = extraPilesPar;
 			this.fieldPiles = fieldPilesPar;
 			this.sidePiles = sidePilesPar;
 			this.deck = deckPar;
-			this.cardDropping = new CardDropping(this.extraPiles, this.fieldPiles, this.sidePiles, this.cardForMoving, this.cardsForMoving, this.tempPile, this.general as Sprite);
+			this.cardDropping = new CardDroppingEightoff(this.extraPiles, this.fieldPiles, this.sidePiles, this.tempPile, this.general as Sprite);
 			this.interaction = new Interaction(this.extraPiles, this.fieldPiles, this.sidePiles, this.dragCardFromExtraPile, this.dragCardsFromFieldPile);
 		}
 		
@@ -243,7 +243,7 @@ package Games.EightOff
 		private function invokeTempPileToMouse():void
 		{
 			this.general.addChild(tempPile);
-			this.tempPile.x = general.mouseX - 20;
+			this.tempPile.x = general.mouseX - 20
 			this.tempPile.y = general.mouseY - 20;
 		}
 		
@@ -275,7 +275,7 @@ package Games.EightOff
 					count++;	
 				}
 			}
-			return count++;
+			return count;
 		}
 		
 		// CHECK FOR WIN

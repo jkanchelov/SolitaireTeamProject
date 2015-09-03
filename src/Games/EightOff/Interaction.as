@@ -16,9 +16,6 @@ package Games.EightOff
 		private var dragCardFromExtraPile:Function;
 		private var dragCardsFromFieldPile:Function;
 		
-		//private var 
-		//private var 
-		
 		public function Interaction(extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, dragCardFromExtraPilePar:Function, dragCardsFromFieldPilePar:Function)
 		{
 			this.extraPiles = extraPilesPar;

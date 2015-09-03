@@ -1,35 +1,19 @@
 package Games.EightOff
 {
-	import flash.display.Sprite;
-	import flash.display.Shape;
 	import SharedClasses.Card;
+	import SharedClasses.Pile;
 	
 	/**
 	 * ...
 	 * @author Kolarov
 	 */
-	public class ExtraPile extends Sprite
+	public class ExtraPile extends Pile
 	{
 		private var card:Array = [];
 		
-		private const CARD_WIDTH:int = 65;
-		private const CARD_HEIGHT:int = 100;
-		
 		public function ExtraPile()
 		{
-			drawBorder();
-		}
-		
-		private function drawBorder():void
-		{
-			var line:Shape = new Shape();
-			line.graphics.lineStyle(1, 0x0);
-			line.graphics.moveTo(0, 0);
-			line.graphics.lineTo(CARD_WIDTH, 0);
-			line.graphics.lineTo(CARD_WIDTH, CARD_HEIGHT);
-			line.graphics.lineTo(0, CARD_HEIGHT);
-			line.graphics.lineTo(0, 0);
-			this.addChild(line);
+			super();
 		}
 		
 		public function pushCard(card:Card):void

@@ -3,39 +3,30 @@ package Games.EightOff
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import SharedClasses.Card;
+	import SharedClasses.CardDropping;
+	import SharedClasses.Pile;
 	
 	/**
 	 * ...
 	 * @author Kolarov
 	 */
-	public class CardDropping
+	public class CardDroppingEightoff extends CardDropping
 	{
-		private var general:Sprite;
 		private var extraPiles:Array;
-		private var fieldPiles:Array;
-		private var sidePiles:Array;
-		
-		private var cardForMoving:Card;
-		private var cardsForMoving:Array;
 		
 		private var tempPile:TempCardsPile;
 		
-		private var isDropped:Boolean = false;
-		
-		public function CardDropping(extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, cardForMovingPar:Card, cardsForMovingPar:Array, tempPilePar:TempCardsPile, generalPar:Sprite)
+		public function CardDroppingEightoff(extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, tempPilePar:TempCardsPile, generalPar:Sprite)
 		{
 			this.extraPiles = extraPilesPar;
-			this.fieldPiles = fieldPilesPar;
-			this.sidePiles = sidePilesPar;
-			this.cardForMoving = cardForMovingPar;
-			this.cardsForMoving = cardsForMovingPar;
 			this.tempPile = tempPilePar;
-			this.general = generalPar;
+			super(generalPar, fieldPilesPar, sidePilesPar);
 		}
 		
-		public function tryCardOnExtraPile():void
+		
+		public function tryCardOnExtraPile(cardForMoving:Card):void
 		{
-			this.isDropped = false;// we check first every time extra piles and isDropped is false 
+			this.isDropped = false;
 			
 			for (var extraPileIndex:int = 0; extraPileIndex < extraPiles.length; extraPileIndex++)
 			{
@@ -44,18 +35,17 @@ package Games.EightOff
 				{
 					if (extraPile.isEmpty)
 					{
-						this.cardForMoving = this.tempPile.giveCard();
-						extraPile.pushCard(this.cardForMoving);
-						this.isDropped = true;
-						this.tempPile.stopDrag();
+						makeDropping(cardForMoving);
+						extraPile.pushCard(cardForMoving);
 					}
 				}
 			}
 		
 		}
 		
-		public function tryCardOnFieldPile():void
+		public function tryCardOnFieldPile(cardForMoving:Card):void
 		{
+			this.isDropped = false;
 			for (var fieldPileIndex:int = 0; fieldPileIndex < fieldPiles.length; fieldPileIndex++)
 			{
 				var fieldPile:FieldPile = this.fieldPiles[fieldPileIndex];
@@ -63,17 +53,16 @@ package Games.EightOff
 				{
 					if (fieldPile.CardsCount != 0 && fieldPile.TopCard.CardValue - 1 == this.tempPile.FirstCard.CardValue && fieldPile.TopCard.CardSign == this.tempPile.FirstCard.CardSign || fieldPile.CardsCount == 0 && tempPile.FirstCard.CardValue == 13)
 					{
-						this.cardForMoving = this.tempPile.giveCard();
-						fieldPile.pushCard(this.cardForMoving);
-						this.isDropped = true;
-						this.tempPile.stopDrag();
+						makeDropping(cardForMoving);
+						fieldPile.pushCard(cardForMoving);
 					}
 				}
 			}
 		}
 		
-		public function tryCardOnSidePile():void
+		public function tryCardOnSidePile(cardForMoving:Card):void
 		{
+			this.isDropped = false;
 			for (var sidePileIndex:int = 0; sidePileIndex < sidePiles.length; sidePileIndex++)
 			{
 				var sidePile:SidePile = this.sidePiles[sidePileIndex];
@@ -81,18 +70,16 @@ package Games.EightOff
 				{
 					if ((sidePile.CardsCount == 0 && this.tempPile.FirstCard.CardValue == 1 && sidePile.Suit == this.tempPile.FirstCard.CardSign) || (sidePile.CardsCount != 0 && sidePile.TopCard.CardValue == this.tempPile.FirstCard.CardValue - 1 && sidePile.Suit == tempPile.FirstCard.CardSign))
 					{
-						this.cardForMoving = this.tempPile.giveCard();
-						sidePile.pushCard(this.cardForMoving);
-						this.isDropped = true;
-						this.tempPile.stopDrag();
+						makeDropping(cardForMoving);
+						sidePile.pushCard(cardForMoving);
 					}
 				}
 			}
 		}
 		
-		public function tryCardsOnFieldPile():void
+		public function tryCardsOnFieldPile(cardsForMoving:Array):void
 		{
-			this.isDropped = false;//we call only this function and isDroped is false at the begining of the check
+			this.isDropped = false;
 			for (var fieldPileIndex:int = 0; fieldPileIndex < this.fieldPiles.length; fieldPileIndex++)
 			{
 				var fieldPile:FieldPile = this.fieldPiles[fieldPileIndex];
@@ -100,8 +87,8 @@ package Games.EightOff
 				{
 					if (((fieldPile.CardsCount > 0) && (fieldPile.TopCard.CardValue == this.tempPile.FirstCard.CardValue + 1) && (fieldPile.TopCard.CardSign == this.tempPile.FirstCard.CardSign)) || (fieldPile.CardsCount == 0 && this.tempPile.FirstCard.CardValue == 13))
 					{
-						this.cardsForMoving = this.tempPile.giveCards();
-						fieldPile.pushCards(this.cardsForMoving);
+						cardsForMoving = this.tempPile.giveCards();
+						fieldPile.pushCards(cardsForMoving);
 						this.isDropped = true;
 						this.tempPile.stopDrag();
 					}
@@ -109,11 +96,11 @@ package Games.EightOff
 			}
 		}
 		
-		public function get IsDropped():Boolean
-		{
-			return this.isDropped;
+		private function makeDropping(cardForMoving:Card):void {
+			cardForMoving = this.tempPile.giveCard();
+			this.isDropped = true;
+			this.tempPile.stopDrag();
 		}
-	
 	}
 
 }

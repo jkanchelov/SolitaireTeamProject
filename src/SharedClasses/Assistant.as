@@ -17,7 +17,7 @@ package SharedClasses
 		
 		}
 		
-		public static function dealing(deck:Deck, fieldPiles:Array):void
+		public static function dealing(deck:DeckGrandfather, fieldPiles:Array):void
 		{
 			for (var pileIndex:int = 0; pileIndex < fieldPiles.length; pileIndex++)
 			{

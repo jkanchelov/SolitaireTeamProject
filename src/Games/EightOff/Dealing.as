@@ -8,12 +8,12 @@ package Games.EightOff
 	 */
 	public class Dealing
 	{
-		private var deck:Deck;
+		private var deck:DeckEightoff;
 		private var fieldPiles:Array;
 		private var extraPiles:Array;
 		private var sidePiles:Array;
 		
-		public function Dealing(deckPar:Deck, fieldPilesPar:Array, extraPilesPar:Array, sidePilesPar:Array)
+		public function Dealing(deckPar:DeckEightoff, fieldPilesPar:Array, extraPilesPar:Array, sidePilesPar:Array)
 		{
 			this.deck = deckPar;
 			this.fieldPiles = fieldPilesPar;
