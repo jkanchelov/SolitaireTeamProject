@@ -35,7 +35,7 @@ package Games.EightOff
 				{
 					if (extraPile.isEmpty)
 					{
-						makeDropping(cardForMoving);
+						makeDroppingOnCard(cardForMoving);
 						extraPile.pushCard(cardForMoving);
 					}
 				}
@@ -53,7 +53,7 @@ package Games.EightOff
 				{
 					if (fieldPile.CardsCount != 0 && fieldPile.TopCard.CardValue - 1 == this.tempPile.FirstCard.CardValue && fieldPile.TopCard.CardSign == this.tempPile.FirstCard.CardSign || fieldPile.CardsCount == 0 && tempPile.FirstCard.CardValue == 13)
 					{
-						makeDropping(cardForMoving);
+						makeDroppingOnCard(cardForMoving);
 						fieldPile.pushCard(cardForMoving);
 					}
 				}
@@ -70,7 +70,7 @@ package Games.EightOff
 				{
 					if ((sidePile.CardsCount == 0 && this.tempPile.FirstCard.CardValue == 1 && sidePile.Suit == this.tempPile.FirstCard.CardSign) || (sidePile.CardsCount != 0 && sidePile.TopCard.CardValue == this.tempPile.FirstCard.CardValue - 1 && sidePile.Suit == tempPile.FirstCard.CardSign))
 					{
-						makeDropping(cardForMoving);
+						makeDroppingOnCard(cardForMoving);
 						sidePile.pushCard(cardForMoving);
 					}
 				}
@@ -96,7 +96,7 @@ package Games.EightOff
 			}
 		}
 		
-		private function makeDropping(cardForMoving:Card):void {
+		private function makeDroppingOnCard(cardForMoving:Card):void {
 			cardForMoving = this.tempPile.giveCard();
 			this.isDropped = true;
 			this.tempPile.stopDrag();

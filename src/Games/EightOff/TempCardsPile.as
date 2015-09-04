@@ -1,4 +1,4 @@
-package Games.EightOff
+package Games.EightOff 
 {
 	import flash.display.Sprite;
 	import SharedClasses.Card;

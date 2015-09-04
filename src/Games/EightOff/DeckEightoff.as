@@ -1,7 +1,5 @@
-package Games.EightOff
-
+package Games.EightOff 
 {
-	
 	/**
 	 * ...
 	 * @author Kolarov

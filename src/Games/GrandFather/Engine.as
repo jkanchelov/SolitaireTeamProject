@@ -10,6 +10,7 @@ package Games.GrandFather
 	import SharedClasses.Card;
 	import com.greensock.*; 
 	import com.greensock.easing.*;
+	import flash.utils.*;
 	
 	public class Engine
 	{
@@ -53,7 +54,7 @@ package Games.GrandFather
 		// DROP TAKEN CARD FROM DECK PILE
 		private function dropTakenCardFromDeckPile(e:MouseEvent):void
 		{
-			takenCard.stopDrag();
+			this.takenCard.stopDrag();
 			this.isDropped = false;
 			
 			this.cardDropping.tryCardOnSidePile(this.takenCard);
@@ -76,9 +77,15 @@ package Games.GrandFather
 		{
 			if(deck.CardsCount!=0){
 				var deckTopCard:Card = deck.giveTopCard();
+				this.generalContainer.addChild(deckTopCard);
+				deckTopCard.x = this.deck.x;
+				deckTopCard.y = this.deck.y;
+				
 				if (deckTopCard != null)
 				{
-					this.deckPile.pushCard(deckTopCard);
+					motionToDeckPile(deckTopCard);
+					//this.deckPile.pushCard(deckTopCard);
+					//pushCardInDeckPile(deckTopCard);
 					//autoFillEmptyFieldPiles();
 				}
 			}
@@ -94,6 +101,15 @@ package Games.GrandFather
 					this.deck.ReloadDeck(this.deckPile.Cards);
 				}
 			}
+		}
+		// MOTION  CARD TO DECK PILE
+		private function motionToDeckPile(deckTopCard:Card):void {
+			TweenMax.to(deckTopCard, 0.5, { x:this.deckPile.x, y:this.deckPile.y, onComplete:function():void{performPushingCardInDeckPile(deckTopCard)}} ) ;
+		}
+		// PERFORMING PUSHING CARD IN DECK PILE
+		private function performPushingCardInDeckPile(deckTopCard:Card):void {
+			deckTopCard.parent.removeChild(deckTopCard);
+			this.deckPile.pushCard(deckTopCard);
 		}
 		
 		// DRAG CARD FROM FIELD PILES	
