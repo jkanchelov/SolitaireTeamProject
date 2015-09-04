@@ -150,7 +150,7 @@ package Games.GrandFather
 			this.takenCard = null;
 		}
 		
-		// MAKE INTERACTION:
+		// MAKE INTERACTION //KOLAROV
 		private function makeInteraction():void
 		{
 			makeDeckInteractive();
@@ -158,19 +158,19 @@ package Games.GrandFather
 			makeInteractiveFieldPiles();
 		}
 		
-		//// ON DECK PILE
+		//// ON DECK PILE 
 		private function makeDeckPileInteractive():void
 		{
 			Assistant.addEventListenerTo(this.deckPile, MouseEvent.MOUSE_DOWN, dragTopCardFromDeckPile);
 		}
 		
-		//// ON DECK
+		//// ON DECK 
 		private function makeDeckInteractive():void
 		{
 			Assistant.addEventListenerTo(this.deck, MouseEvent.CLICK, putCardOnDeckPile);
 		}
 		
-		//// ON FIELD PILES
+		//// ON FIELD PILES 
 		private function makeInteractiveFieldPiles():void
 		{
 			for (var fieldPileIndex:int = 0; fieldPileIndex < fieldPiles.length; fieldPileIndex++)
@@ -183,7 +183,7 @@ package Games.GrandFather
 			}
 		}
 		
-		// MAKE DEALING
+		// MAKE DEALING //KOLAROV
 		private function dealing():void
 		{
 			Assistant.dealing(this.deck, this.fieldPiles);
@@ -274,7 +274,7 @@ package Games.GrandFather
 			}
 		}
 			
-		//// RETURN TO DECK PILE
+		//// RETURN TO DECK PILE //KOLAROV
 		private function returnTakenCardToDeckPile():void
 		{
 			if (this.takenCard != null)
@@ -284,7 +284,7 @@ package Games.GrandFather
 			}
 		}
 		
-		// INIT FIELDS
+		// INIT FIELDS 
 		private function initFields(deckPar:DeckGrandfather, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Grandfather):void
 		{
 			this.deck = deckPar;

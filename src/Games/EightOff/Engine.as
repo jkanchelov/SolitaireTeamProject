@@ -226,13 +226,13 @@ package Games.EightOff
 			dealing.initialDealing();
 		}
 		
-		// MAKE GAME OVER 
+		// MAKE GAME OVER //KOLAROV
 		private function makeGameOver():void
 		{
 			this.general.IsGameRunning = false;
 		}
 		
-		// MAKE WIN
+		// MAKE WIN //KOLAROV
 		private function makeWin():void
 		{
 			this.general.IsWin = true;
@@ -260,13 +260,13 @@ package Games.EightOff
 			this.pressedExtraPile.pushCard(this.cardForMoving);
 		}
 		
-		//// RETURN CARD TO FIELD PILE
+		//// RETURN CARD TO FIELD PILE //KOLAROV
 		private function returnCardsToFieldPile():void
 		{
 			this.pressedFieldPile.pushCards(this.cardsForMoving);
 		}
 		
-		// RETURN COUNT OF CHOOSEN CARDS -> FOR SUPER MOVE
+		// RETURN COUNT OF CHOOSEN CARDS -> FOR SUPER MOVE //KOLAROV
 		private function emptyExtraPiles():int {
 			var count:int = 0;
 			for (var extraPileIndex:int = 0; extraPileIndex < this.extraPiles.length; extraPileIndex++) {
@@ -278,7 +278,7 @@ package Games.EightOff
 			return count;
 		}
 		
-		// CHECK FOR WIN
+		// CHECK FOR WIN //KOLAROV
 		private function win():Boolean
 		{
 			var filledSidePilesCount:int = 0;
@@ -300,7 +300,7 @@ package Games.EightOff
 			}
 		}
 		
-		// ADD EVENT LISTENERS TO PILES
+		// ADD EVENT LISTENERS TO PILES //KOLAROV
 		private function makeInteraction():void
 		{
 			this.interaction.makeExtraPilesInteractive();
