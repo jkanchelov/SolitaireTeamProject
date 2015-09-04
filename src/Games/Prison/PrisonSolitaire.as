@@ -71,7 +71,7 @@ package Games.Prison
 			return this.isWin;
 		}
 		
-		//made by Jordan
+		//made by Kaloqn
 		protected override function showMenu():void
 		{
 			menuContainer = new Sprite();
@@ -97,7 +97,7 @@ package Games.Prison
 			addChild(menuContainer);
 		}
 		
-		//made by Jordan
+		//made by Vladimir
 		protected override function startGame(e:MouseEvent):void
 		{
 			removeChild(menuContainer);
@@ -108,7 +108,7 @@ package Games.Prison
 			dealSolitaire();
 		}
 		
-		//made by Jordan
+		//made by Vladimir
 		protected override function showSurrenderAndTimer():void
 		{
 			buttonsContainer = new Sprite();
@@ -128,7 +128,7 @@ package Games.Prison
 			addChild(buttonsContainer);
 		}
 		
-		//made by Jordan
+		//made by Vladimir
 		protected override function dealSolitaire():void
 		{
 			addCardContainers();
@@ -139,7 +139,7 @@ package Games.Prison
 			loadTaublePilesCards();
 		}
 		
-		//made by Jordan
+		//made by Vladimir
 		private function loadCardsFoundation():void
 		{
 			var rndCardNumber:int = randomRange(0, 52 - counterPlacedCards);
@@ -185,7 +185,7 @@ package Games.Prison
 			}
 		}
 		
-		//made by Jordan
+		//made by Vladimir
 		private function loadReservedCards():void
 		{
 			var reservedPiles:int = 8;
@@ -198,7 +198,7 @@ package Games.Prison
 			}
 		}
 		
-		//made by Jordan
+		//made by Vladimir
 		protected override function loadTaublePilesCards():void
 		{
 			var taublePiles:int = 10;
@@ -407,6 +407,7 @@ package Games.Prison
 			return false;
 		}
 		
+		//made by Vladimir
 		protected override function addCardContainers():void
 		{
 			fillFoundationContainer();
@@ -502,7 +503,7 @@ package Games.Prison
 			isGameRunning = false;
 		}
 		
-		//made by Jordan
+		//made by Vladimir
 		protected override function loadDeck():void
 		{
 			var cardUrl:String;
