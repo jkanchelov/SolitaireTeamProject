@@ -4,16 +4,17 @@ package Games.Prison
 	import flash.display.*;
 	import flash.geom.*;
 	import flash.net.URLRequest;
-	import SharedClasses.*
+	
 	import Interfaces.IGame;
-	import SharedClasses.PrisonAlternation.HelpMenu;
-	import SharedClasses.PrisonAlternation.PileBackground;
+	import SharedClasses.*
+	import SharedClasses.PrisonAlternation.*
+
 	
 	/**
 	 * ...
 	 * @author Jordan
 	 */
-	public class PrisonSolitaire extends Sprite implements IGame
+	public class PrisonSolitaire extends AbstractSolitaire implements IGame
 	{
 		private const STAGE_WIDTH:int = 800;
 		private const STAGE_HEIGHT:int = 600;
@@ -71,7 +72,7 @@ package Games.Prison
 		}
 		
 		//made by Jordan
-		private function showMenu():void
+		protected override function showMenu():void
 		{
 			menuContainer = new Sprite();
 			
@@ -97,18 +98,18 @@ package Games.Prison
 		}
 		
 		//made by Jordan
-		private function startGame(e:MouseEvent):void
+		protected override function startGame(e:MouseEvent):void
 		{
 			removeChild(menuContainer);
 			menuContainer = null;
 			
 			showSurrenderAndTimer();
 			
-			DealSolitaire();
+			dealSolitaire();
 		}
 		
 		//made by Jordan
-		private function showSurrenderAndTimer():void
+		protected override function showSurrenderAndTimer():void
 		{
 			buttonsContainer = new Sprite();
 			
@@ -128,7 +129,7 @@ package Games.Prison
 		}
 		
 		//made by Jordan
-		private function DealSolitaire():void
+		protected override function dealSolitaire():void
 		{
 			addCardContainers();
 			
@@ -192,12 +193,13 @@ package Games.Prison
 			for (var i:int = 0; i < reservedPiles; i++)
 			{
 				var reservedPile:Sprite = reservesContainer.getChildAt(i) as Sprite;
-				dealRandomCard(reservedPile);
+				dealRandomCard(reservedPile, cards, counterPlacedCards);
+				counterPlacedCards++;
 			}
 		}
 		
 		//made by Jordan
-		private function loadTaublePilesCards():void
+		protected override function loadTaublePilesCards():void
 		{
 			var taublePiles:int = 10;
 			var taubleCards:int = 4;
@@ -208,13 +210,14 @@ package Games.Prison
 				{
 					var pileContainer:Sprite = taublePilesContainer.getChildAt(pile) as Sprite;
 					var cardY:int = (pileContainer.numChildren - 1) * CARDS_Y_SPACING;
-					dealRandomCard(pileContainer, cardY);
+					dealRandomCard(pileContainer, cards, counterPlacedCards, cardY);
+					counterPlacedCards++;
 				}
 			}
 		}
 		
 		//made by Jordan
-		private function startDraging(e:MouseEvent):void
+		protected override function startDraging(e:MouseEvent):void
 		{
 			if (isLastCardOfPile(e.target as Card))
 			{
@@ -235,7 +238,7 @@ package Games.Prison
 		}
 		
 		//made by Jordan
-		private function stopDraging(e:MouseEvent):void
+		protected override function stopDraging(e:MouseEvent):void
 		{
 			if (movingCardObject != null)
 			{
@@ -281,7 +284,7 @@ package Games.Prison
 		}
 		
 		//made by Jordan
-		private function resetMovCardVariables():void
+		protected override function resetMovCardVariables():void
 		{
 			movCardNewSprite = null;
 			movCardToFoundation = false;
@@ -290,7 +293,7 @@ package Games.Prison
 		}
 		
 		// check if card can be moved to target possition and if its true sets the sprite field to it 
-		private function canBeMoved(givenCard:Card):Boolean
+		protected override function canBeMoved(givenCard:Card):Boolean
 		{			
 			//foundation container
 			if (givenCard.hitTestObject(foundationContainer))
@@ -378,7 +381,7 @@ package Games.Prison
 		}
 		
 		//made by Jordan
-		private function isLastCardOfPile(givenCard:Card):Boolean
+		protected override function isLastCardOfPile(givenCard:Card, spriteContainer:Sprite = null):Boolean
 		{
 			//check if card is from reserves container
 			if (givenCard.parent.parent == reservesContainer)
@@ -404,7 +407,7 @@ package Games.Prison
 			return false;
 		}
 		
-		private function addCardContainers():void
+		protected override function addCardContainers():void
 		{
 			fillFoundationContainer();
 			fillReserveContainer();
@@ -467,7 +470,7 @@ package Games.Prison
 		}
 		
 		//made by Jordan
-		private function checkWin():void
+		protected override function checkWin():void
 		{
 			isWin = true;
 			
@@ -488,28 +491,19 @@ package Games.Prison
 		}
 		
 		//made by Jordan
-		private function surrender(e:MouseEvent):void
+		protected override function surrender(e:MouseEvent):void
 		{
 			gameOver();
 		}
 		
 		//made by Jordan
-		private function gameOver():void
+		protected override function gameOver():void
 		{
 			isGameRunning = false;
 		}
 		
 		//made by Jordan
-		private function dealRandomCard(dealAt:Sprite, y:int = 0):void
-		{
-			var rndCardNumber:int = randomRange(0, 51 - counterPlacedCards);
-			dealAt.addChild(cards[rndCardNumber]).y = y;
-			counterPlacedCards++;
-			cards.splice(rndCardNumber, 1);
-		}
-		
-		//made by Jordan
-		private function loadDeck():void
+		protected override function loadDeck():void
 		{
 			var cardUrl:String;
 			var cardNumbers:int = 14;
@@ -564,12 +558,6 @@ package Games.Prison
 					cards.push(card);
 				}
 			}
-		}
-		
-		//made by Jordan
-		private function randomRange(minNum:Number, maxNum:Number):int
-		{
-			return (int(Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum));
 		}
 	}
 }

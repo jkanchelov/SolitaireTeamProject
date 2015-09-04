@@ -28,6 +28,7 @@ package Games.Alternations
 		private const CONTAINER_HEIGHT:int = 100;
 		private const CONTAINER_WIDTH_SPACING:int = 10;
 		private const CARDS_Y_SPACING:int = 22;
+		private const CARDS_NUMBERS:int = 103;
 		
 		private var cardsSkin:String;
 		private var score:int = 0;
@@ -62,7 +63,6 @@ package Games.Alternations
 			showMenu();
 		}
 		
-
 		//made by Jordan
 		public function get IsGameRunning():Boolean
 		{
@@ -76,15 +76,10 @@ package Games.Alternations
 		}
 		
 		//made by Jordan
-		private function showMenu():void
+		protected override function showMenu():void
 		{
 			menuContainer = new Sprite();
-			var helpMenuText:String = "All top cards of tableau piles are available to play." + 
-			"You can move cards from one tableau pile to another one." + 
-			"You may build tableau piles down regardless of suit." +
-			"You can move either a single card or a set of cards." +
-			"When one of the piles becomes empty you can fill the space with any available single card or set of cards." +
-			"If, during play, any of closed becomes the top card of a pile, it is automatically turned over."
+			var helpMenuText:String = "All top cards of tableau piles are available to play." + "You can move cards from one tableau pile to another one." + "You may build tableau piles down regardless of suit." + "You can move either a single card or a set of cards." + "When one of the piles becomes empty you can fill the space with any available single card or set of cards." + "If, during play, any of closed becomes the top card of a pile, it is automatically turned over."
 			
 			var helpMenu:HelpMenu = new HelpMenu(helpMenuText);
 			menuContainer.addChild(helpMenu);
@@ -101,7 +96,7 @@ package Games.Alternations
 		}
 		
 		//made by Jordan
-		private function startGame(e:MouseEvent):void
+		protected override function startGame(e:MouseEvent):void
 		{
 			removeChild(menuContainer);
 			menuContainer = null;
@@ -112,13 +107,34 @@ package Games.Alternations
 		}
 		
 		//made by Jordan
+		protected override function showSurrenderAndTimer():void
+		{
+			buttonsContainer = new Sprite();
+			
+			var buttonWidth:int = 100;
+			
+			var surrenderButton:Button = new Button(buttonWidth, "  Surrender", true);
+			surrenderButton.x = -125
+			surrenderButton.addEventListener(MouseEvent.CLICK, surrender, false, 0, true);
+			
+			var time:TimerCounter = new TimerCounter(0xffffff);
+			time.y = 10;
+			
+			buttonsContainer.x = STAGE_WIDTH - buttonWidth;
+			buttonsContainer.addChild(time);
+			buttonsContainer.addChild(surrenderButton);
+			
+			addChild(buttonsContainer);
+		}
+		
+		//made by Jordan
 		protected override function dealSolitaire():void
 		{
 			addCardContainers();
 			
 			loadDeck();
 			
-			loadCardDeck();
+			loadCardDeckContainer();
 			loadTaublePilesCards();
 		}
 		
@@ -196,7 +212,46 @@ package Games.Alternations
 		}
 		
 		//made by Jordan
-		private function loadCardDeck():void
+		protected override function loadTaublePilesCards():void
+		{
+			var taublePiles:int = 7;
+			var taubleCards:int = 7;
+			
+			for (var pile:int = 0; pile < taublePiles; pile++)
+			{
+				for (var card:int = 0; card < taubleCards; card++)
+				{
+					var pileContainer:Sprite = taublePilesContainer.getChildAt(pile) as Sprite;
+					var cardY = (pileContainer.numChildren - 1) * CARDS_Y_SPACING;
+					if (card % 2 == 0)
+					{
+						
+						dealRandomCard(pileContainer, cards, counterPlacedCards, cardY,CARDS_NUMBERS);
+						counterPlacedCards++
+					}
+					else
+					{
+						dealBackCard(pileContainer);
+					}
+					
+				}
+			}
+			
+			function dealBackCard(dealAt:Sprite):void
+			{
+				var cardColor:String = "Back";
+				var cardUrl:String = 0 + cardColor;
+				
+				var card:Card = new Card(cardUrl, 0, cardsSkin);
+				card.name = "back";
+				card.y = (dealAt.numChildren - 1) * CARDS_Y_SPACING
+				
+				dealAt.addChild(card);
+			}
+		}
+		
+		//made by Jordan
+		private function loadCardDeckContainer():void
 		{
 			var deck:Sprite = deckContainer.getChildAt(0) as Sprite;
 			deck.buttonMode = true;
@@ -215,33 +270,6 @@ package Games.Alternations
 		}
 		
 		//made by Jordan
-		private function loadTaublePilesCards():void
-		{
-			var taublePiles:int = 7;
-			var taubleCards:int = 7;
-			
-			for (var pile:int = 0; pile < taublePiles; pile++)
-			{
-				for (var card:int = 0; card < taubleCards; card++)
-				{
-					var pileContainer:Sprite = taublePilesContainer.getChildAt(pile) as Sprite;
-					var cardY = (pileContainer.numChildren - 1) * CARDS_Y_SPACING;
-					if (card % 2 == 0)
-					{
-						
-						dealRandomCard(pileContainer, cards, counterPlacedCards, cardY);
-						counterPlacedCards++
-					}
-					else
-					{
-						dealBackCard(pileContainer);
-					}
-					
-				}
-			}
-		}
-		
-		//made by Jordan
 		private function dealDeckCard(e:MouseEvent):void
 		{
 			var currentCard:Sprite = e.target as Sprite;
@@ -250,21 +278,8 @@ package Games.Alternations
 			undealedCards.removeChild(currentCard);
 			
 			var dealPile:Sprite = deckContainer.getChildAt(1) as Sprite
-			dealRandomCard(dealPile,cards,counterPlacedCards);
+			dealRandomCard(dealPile, cards, counterPlacedCards,0,CARDS_NUMBERS);
 			counterPlacedCards++;
-		}
-		
-		//made by Jordan
-		private function dealBackCard(dealAt:Sprite):void
-		{
-			var cardColor:String = "Back";
-			var cardUrl:String = 0 + cardColor;
-			
-			var card:Card = new Card(cardUrl, 0, cardsSkin);
-			card.name = "back";
-			card.y = (dealAt.numChildren - 1) * CARDS_Y_SPACING
-			
-			dealAt.addChild(card);
 		}
 		
 		private function flipCard(card:Card):void
@@ -276,47 +291,45 @@ package Games.Alternations
 			{
 				var cardY = (parentContainer.numChildren - 2) * CARDS_Y_SPACING
 				parentContainer.removeChild(backCard);
-				dealRandomCard(parentContainer, cards, counterPlacedCards,cardY);
+				dealRandomCard(parentContainer, cards, counterPlacedCards, cardY, CARDS_NUMBERS);
 				counterPlacedCards++;
 			}
 		}
 		
-		
-		//made by Jordan
-		private function showSurrenderAndTimer():void
+		protected override function isLastCardOfPile(givenCard:Card, spriteContainer:Sprite = null):Boolean
 		{
-			buttonsContainer = new Sprite();
-			
-			var buttonWidth:int = 100;
-			
-			var surrenderButton:Button = new Button(buttonWidth, "  Surrender", true);
-			surrenderButton.x = -125
-			surrenderButton.addEventListener(MouseEvent.CLICK, surrender, false, 0, true);
-			
-			var time:TimerCounter = new TimerCounter(0xffffff);
-			time.y = 10;
-			
-			buttonsContainer.x = STAGE_WIDTH - buttonWidth;
-			buttonsContainer.addChild(time);
-			buttonsContainer.addChild(surrenderButton);
-			
-			addChild(buttonsContainer);
+			for (var pile:int = 0; pile < spriteContainer.numChildren; pile++)
+			{
+				var pileContainer:Sprite = spriteContainer.getChildAt(pile) as Sprite;
+				
+				var lastCardIndex:int = spriteContainer.numChildren - 1;
+				
+				var card:Card = spriteContainer.getChildAt(lastCardIndex) as Card;
+				
+				if (givenCard == card)
+				{
+					return true;
+				}
+				
+			}
+				
+			return false;	
 		}
 		
 		//made by Jordan
-		private function surrender(e:MouseEvent):void
+		protected override function surrender(e:MouseEvent):void
 		{
 			gameOver();
 		}
 		
 		//made by Jordan
-		private function gameOver():void
+		protected override function gameOver():void
 		{
 			isGameRunning = false;
 		}
 		
 		//made by Jordan
-		private function loadDeck():void
+		protected override function loadDeck():void
 		{
 			var cardUrl:String;
 			var cardNumbers:int = 14;
@@ -386,6 +399,7 @@ package Games.Alternations
 			{
 				cardOne = cardContainer.getChildAt(i) as Card;
 				cardTwo = cardContainer.getChildAt(i + 1) as Card;
+				
 				if (cardOne.name == "back" || cardTwo.name == "back")
 				{
 					multipleStartIndex = null;
@@ -610,7 +624,7 @@ package Games.Alternations
 		
 		//made by Jordan
 		// check if card can be moved to target possition and if its true sets the sprite field to it 
-		private function canBeMoved(givenCard:Card):Boolean
+		protected override function canBeMoved(givenCard:Card):Boolean
 		{
 			//foundation container
 			if (givenCard.hitTestObject(foundationContainer))
@@ -682,7 +696,7 @@ package Games.Alternations
 		}
 		
 		//made by Jordan
-		private function resetMovCardVariables():void
+		protected override function resetMovCardVariables():void
 		{
 			isDragging = false;
 			moveMultiple = false;
@@ -695,28 +709,7 @@ package Games.Alternations
 		}
 		
 		//made by Jordan
-		private function isLastCardOfPile(givenCard:Card, spriteContainer):Boolean
-		{			
-			for (var pile:int = 0; pile < spriteContainer.numChildren; pile++)
-			{
-				var pileContainer:Sprite = spriteContainer.getChildAt(pile) as Sprite;
-				
-				var lastCardIndex:int = spriteContainer.numChildren - 1;
-				
-				var card:Card = spriteContainer.getChildAt(lastCardIndex) as Card;
-				
-				if (givenCard == card)
-				{
-					return true;
-				}
-				
-			}
-			
-			return false;
-		}
-		
-		//made by Jordan
-		private function checkWin():void
+		protected override function checkWin():void
 		{
 			isWin = true;
 			
@@ -734,12 +727,6 @@ package Games.Alternations
 			{
 				gameOver();
 			}
-		}
-		
-		//made by Jordan
-		private function randomRange(minNum:Number, maxNum:Number):int
-		{
-			return (int(Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum));
 		}
 	}
 }
