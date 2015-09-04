@@ -8,7 +8,7 @@ package Games.TopsyTurvyQueens
 	
 	/**
 	 * ...
-	 * @author SS
+	 * @author Slobodan
 	 */
 	public class TopsyMenuButton extends Sprite
 	{

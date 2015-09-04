@@ -11,12 +11,12 @@ package Games.TopsyTurvyQueens
 	import com.greensock.*;
 	import com.greensock.easing.*;
 	import SharedClasses.*;
-	import SharedClasses.Interfaces.IGame;
+	import Interfaces.IGame;
 	
 	
 	/**
 	 * ...
-	 * @author SS
+	 * @author Slobodan
 	 */
 	public class TopsyTurvyQueensMenu extends Sprite implements IGame
 	{

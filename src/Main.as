@@ -6,7 +6,7 @@ package
 	
 	/**
 	 * ...
-	 * @author SS
+	 * @author Slobodan
 	 */
 	
 	public class Main extends Sprite 
