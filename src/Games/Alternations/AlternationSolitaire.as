@@ -75,7 +75,7 @@ package Games.Alternations
 			return this.isWin;
 		}
 		
-		//made by Jordan
+		//made by Kaloqn
 		protected override function showMenu():void
 		{
 			menuContainer = new Sprite();
@@ -95,7 +95,7 @@ package Games.Alternations
 			addChild(menuContainer);
 		}
 		
-		//made by Jordan
+		//made by Kaloqn
 		protected override function startGame(e:MouseEvent):void
 		{
 			removeChild(menuContainer);
@@ -106,7 +106,7 @@ package Games.Alternations
 			dealSolitaire();
 		}
 		
-		//made by Jordan
+		//made by Kaloqn
 		protected override function showSurrenderAndTimer():void
 		{
 			buttonsContainer = new Sprite();
@@ -127,7 +127,7 @@ package Games.Alternations
 			addChild(buttonsContainer);
 		}
 		
-		//made by Jordan
+		//made by Kaloqn
 		protected override function dealSolitaire():void
 		{
 			addCardContainers();
@@ -138,7 +138,7 @@ package Games.Alternations
 			loadTaublePilesCards();
 		}
 		
-		//made by Jordan
+		//made by Kaloqn
 		protected override function addCardContainers():void
 		{
 			fillDeckContainer();
@@ -211,7 +211,7 @@ package Games.Alternations
 			}
 		}
 		
-		//made by Jordan
+		//made by Kaloqn
 		protected override function loadTaublePilesCards():void
 		{
 			var taublePiles:int = 7;
@@ -250,7 +250,7 @@ package Games.Alternations
 			}
 		}
 		
-		//made by Jordan
+		//made by Kaloqn
 		private function loadCardDeckContainer():void
 		{
 			var deck:Sprite = deckContainer.getChildAt(0) as Sprite;
@@ -269,7 +269,7 @@ package Games.Alternations
 			}
 		}
 		
-		//made by Jordan
+		//made by Kaloqn
 		private function dealDeckCard(e:MouseEvent):void
 		{
 			var currentCard:Sprite = e.target as Sprite;
