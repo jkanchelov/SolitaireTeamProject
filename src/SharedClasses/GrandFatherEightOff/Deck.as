@@ -1,6 +1,7 @@
-package SharedClasses 
+package SharedClasses.GrandFatherEightOff 
 {
 	import flash.display.Sprite;
+	import SharedClasses.*
 	/**
 	 * ...
 	 * @author Kolarov
@@ -16,11 +17,13 @@ package SharedClasses
 			Assistant.fillContainerWithImg(this as Sprite, "Data/images/Cards/" + this.cardSkin + "0Back.png", 65, 100);
 		}
 		
+		//RETURNS RANDOM NUMBER 
 		private function RandomNumber():int
 		{
 			return (Math.floor(Math.random() * ((this.deck.length - 1) - 0 + 1)) + 0);
 		}
 		
+		//RETURN TOP CARD //KOLAROV
 		public function giveTopCard():Card
 		{
 			var topCard:Card;
@@ -30,6 +33,7 @@ package SharedClasses
 			return topCard;
 		}
 		
+		//FILL ARRAY WITH 52 DIFFERENT CARDS
 		protected function loadDeck():void
 		{
 			var cardUrl:String;

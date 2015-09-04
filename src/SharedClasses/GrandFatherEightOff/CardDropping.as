@@ -1,4 +1,4 @@
-package SharedClasses 
+package SharedClasses.GrandFatherEightOff 
 {
 	import flash.display.Sprite;
 	/**
@@ -17,12 +17,14 @@ package SharedClasses
 			initFields(generalPar, fieldPilesPar, sidePilesPar);
 		}
 		
+		
 		private function initFields(generalPar:Sprite, fieldPilesPar:Array, sidepilesPar:Array):void {
 			this.general = generalPar;
 			this.fieldPiles = fieldPilesPar;
 			this.sidePiles = sidepilesPar;
 		}
 		
+		//GETTER FOR ISDROPPED VARIABLE //KOLAROV
 		public function get IsDropped():Boolean {
 			return this.isDropped;	
 		}

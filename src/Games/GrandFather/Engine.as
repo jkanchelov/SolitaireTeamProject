@@ -26,7 +26,6 @@ package Games.GrandFather
 		
 		private var isThereEmpties:Boolean;//is field var for use object as reference
 		
-		private var isDropped:Boolean;
 		private var cardDropping:CardDroppingGrandfather;
 		
 		public function Engine(deckPar:DeckGrandfather, deckPilePar:DeckPile, fieldPilesPar:Array, sidePilesPar:Array, generalContainerPar:Grandfather)
@@ -37,7 +36,7 @@ package Games.GrandFather
 			makeInteraction();
 		}
 		
-		// DRAG CARD FROM DECK PILE
+		// DRAG CARD FROM DECK PILE //KOLAROV
 		private function dragTopCardFromDeckPile(e:MouseEvent):void
 		{
 			this.pressedDeckPile = e.currentTarget as DeckPile;
@@ -51,11 +50,10 @@ package Games.GrandFather
 			}
 		}
 		
-		// DROP TAKEN CARD FROM DECK PILE
+		// DROP TAKEN CARD FROM DECK PILE //KOLAROV
 		private function dropTakenCardFromDeckPile(e:MouseEvent):void
 		{
 			this.takenCard.stopDrag();
-			this.isDropped = false;
 			
 			this.cardDropping.tryCardOnSidePile(this.takenCard);
 			
@@ -72,7 +70,7 @@ package Games.GrandFather
 			this.takenCard = null;
 		}
 		
-		// PUT CARD ON DECK PILE WHILE DECK IS PRESSED
+		// PUT CARD ON DECK PILE WHILE DECK IS PRESSED //KOLAROV
 		private function putCardOnDeckPile(e:MouseEvent):void
 		{
 			if(deck.CardsCount!=0){
@@ -84,8 +82,6 @@ package Games.GrandFather
 				if (deckTopCard != null)
 				{
 					motionToDeckPile(deckTopCard);
-					//this.deckPile.pushCard(deckTopCard);
-					//pushCardInDeckPile(deckTopCard);
 					//autoFillEmptyFieldPiles();
 				}
 			}
@@ -102,17 +98,19 @@ package Games.GrandFather
 				}
 			}
 		}
-		// MOTION  CARD TO DECK PILE
+		
+		// MOTION  CARD TO DECK PILE //KOLAROV
 		private function motionToDeckPile(deckTopCard:Card):void {
 			TweenMax.to(deckTopCard, 0.5, { x:this.deckPile.x, y:this.deckPile.y, onComplete:function():void{performPushingCardInDeckPile(deckTopCard)}} ) ;
 		}
-		// PERFORMING PUSHING CARD IN DECK PILE
+		
+		// PERFORMING PUSHING CARD IN DECK PILE //KOLAROV
 		private function performPushingCardInDeckPile(deckTopCard:Card):void {
 			deckTopCard.parent.removeChild(deckTopCard);
 			this.deckPile.pushCard(deckTopCard);
 		}
 		
-		// DRAG CARD FROM FIELD PILES	
+		// DRAG CARD FROM FIELD PILES //KOLAROV
 		private function dragTopCardFromFieldPile(e:MouseEvent):void
 		{
 			this.pressedFieldPile = e.currentTarget as FieldPile;
@@ -126,7 +124,7 @@ package Games.GrandFather
 			}
 		}
 		
-		//DROP CARD TAKEN CARD FROM FIELD PILES
+		//DROP CARD TAKEN CARD FROM FIELD PILES //KOLAROV
 		private function dropTakenCardFromFieldPile(e:MouseEvent):void
 		{
 			takenCard.stopDrag();
@@ -191,7 +189,7 @@ package Games.GrandFather
 			Assistant.dealing(this.deck, this.fieldPiles);
 		}
 		
-		// AUTO FILL EMPTIES
+		// AUTO FILL EMPTIES //DENISLAV
 		//// FILL EMPTIES AFTER DEALING
 		private function autoFillEmptiesOnDealing():void
 		{
@@ -214,6 +212,7 @@ package Games.GrandFather
 					this.takenCard = deck.giveTopCard();
 					currentFieldPile.pushCard(this.takenCard);
 					this.isThereEmpties = true;
+					break;
 				}
 			}
 		}
@@ -235,6 +234,7 @@ package Games.GrandFather
 							//todo: motion from field pile to currentSidePile
 							currentSidePile.pushCard(this.takenCard);
 							this.isThereEmpties = true;
+							break;
 						}
 					}
 				}
@@ -258,13 +258,12 @@ package Games.GrandFather
 						this.takenCard = deckPile.giveTopCard();
 					}
 					currentFieldPile.pushCard(this.takenCard);
-					//todo: motion from deck pile to currentFieldPile
 					break;
 				}
 			}
 		}
 		
-		// CARD RETURNING IF CANT BE DROPPED
+		// CARD RETURNING IF CANT BE DROPPED //KOLAROV
 		//// RETURN TO FIELD PILES
 		private function returnTakenCardToFieldPile():void
 		{
@@ -274,7 +273,7 @@ package Games.GrandFather
 				this.pressedFieldPile.pushCard(this.takenCard);
 			}
 		}
-		
+			
 		//// RETURN TO DECK PILE
 		private function returnTakenCardToDeckPile():void
 		{
@@ -294,9 +293,8 @@ package Games.GrandFather
 			this.sidePiles = sidePilesPar;
 			this.generalContainer = generalContainerPar;
 			this.isThereEmpties = true;
-			this.cardDropping = new CardDroppingGrandfather(this.generalContainer, this.fieldPiles, this.sidePiles, this.isDropped);
+			this.cardDropping = new CardDroppingGrandfather(this.generalContainer, this.fieldPiles, this.sidePiles);
 		}
-	
 	}
 
 }

@@ -4,7 +4,7 @@ package Games.EightOff
 	import flash.display.Shape;
 	import SharedClasses.Assistant;
 	import SharedClasses.Card;
-	import SharedClasses.Pile;
+	import SharedClasses.GrandFatherEightOff.Pile;
 	
 	/**
 	 * ...
@@ -23,6 +23,7 @@ package Games.EightOff
 			drawSign();
 		}
 		
+		//LOAD IMAGE OF  SIDE PILE SUIT 
 		private function drawSign():void
 		{
 			var signContainer:Sprite = new Sprite();
@@ -33,6 +34,7 @@ package Games.EightOff
 			signContainer.y = 35;
 		}
 		
+		//PUSH CARD IN SIDE PILE. ADD IT IN ARRAY AND IN DISPLAY LIST
 		public function pushCard(card:Card):void
 		{
 			this.addChild(card);
@@ -42,21 +44,25 @@ package Games.EightOff
 			determineTopCard();
 		}
 		
+		//DETERMINE TOP CARD
 		private function determineTopCard():void
 		{
 			this.topCard = this.cards[this.cards.length - 1];
 		}
-		
+
+		//RETURNS TOP CARD 
 		public function get TopCard():Card
 		{
 			return this.topCard;
 		}
 		
+		//RETURNS SUIT OF PILE
 		public function get Suit():String
 		{
 			return this.suit;
 		}
 		
+		//RETURNS COUNT OF CARDS THAT SIDE PILE CONTAINS
 		public function get CardsCount():int
 		{
 			return this.cards.length;

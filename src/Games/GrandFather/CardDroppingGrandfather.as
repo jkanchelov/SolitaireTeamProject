@@ -2,19 +2,19 @@ package Games.GrandFather
 {
 	import flash.display.Sprite;
 	import SharedClasses.Card;
-	import SharedClasses.CardDropping;
+	import SharedClasses.GrandFatherEightOff.CardDropping;
 	/**
 	 * ...
 	 * @author Kolarov
 	 */
 	public class CardDroppingGrandfather extends CardDropping
 	{	
-		public function CardDroppingGrandfather(generalPar:Sprite,fieldPilesPar:Array,sidePilesPar:Array,isDroppedPar:Boolean) 
+		public function CardDroppingGrandfather(generalPar:Sprite,fieldPilesPar:Array,sidePilesPar:Array) 
 		{
 			super(generalPar, fieldPilesPar, sidePilesPar);
 		}
 		
-		//TRY DO DROP CARD ON FIELD PILE
+		//TRY DO DROP CARD ON FIELD PILE //KOLAROV
 		public function tryCardOnFieldPile(takenCard:Card):void
 		{
 			this.isDropped = false;
@@ -35,7 +35,7 @@ package Games.GrandFather
 			}
 		}
 		
-		//TRY TO DROP CARD ON SIDE PILE
+		//TRY TO DROP CARD ON SIDE PILE //KOLAROV
 		public function tryCardOnSidePile(takenCard:Card):void
 		{
 			this.isDropped = false;
@@ -76,6 +76,7 @@ package Games.GrandFather
 			}
 		}
 		
+		//PERFORM DROPPING OF CARD ON SIDE PILE
 		private function makeDroppingOnSidePile(currentSidePile:SidePile,takenCard:Card):void {
 			this.isDropped = true;
 			this.general.removeChild(takenCard);

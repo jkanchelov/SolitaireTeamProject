@@ -1,4 +1,4 @@
-package SharedClasses 
+package SharedClasses.GrandFatherEightOff 
 {
 	import flash.display.Sprite;
 	import flash.display.Shape;
@@ -16,6 +16,7 @@ package SharedClasses
 			this.drawBorder();
 		}
 		
+		//DRAW BORDER 
 		private function drawBorder():void
 		{
 			var line:Shape = new Shape();

@@ -1,7 +1,7 @@
 package Games.GrandFather
 {
 	import SharedClasses.Card;
-	import SharedClasses.Pile;
+	import SharedClasses.GrandFatherEightOff.Pile;
 	
 	/**
 	 * ...
@@ -18,6 +18,7 @@ package Games.GrandFather
 			super();
 		}
 		
+		//PUSH CARD IN FIELD PILE. ADD CARD IN ARRAY AND IN DISPLAY LIST
 		public function pushCard(card:Card):void
 		{
 			this.topCard = card;
@@ -37,6 +38,7 @@ package Games.GrandFather
 			this.cardsInFieldPile.push(card);
 		}
 		
+		//RETURNS TOP CARD. THE TOP CARD IS REMOVED FROM ARRAY AND FROM DISPLAY LIST
 		public function giveTopCard():Card
 		{
 			var currentTopCard:Card = this.topCard;
@@ -54,12 +56,14 @@ package Games.GrandFather
 			return currentTopCard;
 		}
 		
+		//RETURN TOP CARD 
 		public function get TopCard():Card
 		{ 				
 			
 			return this.topCard;
 		}
 		
+		//RETURNS COUNT OF CARDS THAT FIELD PILE 
 		public function get CardsCount():int
 		{ 		
 			var cardsInThisFieldPile:int = this.cardsInFieldPile.length;

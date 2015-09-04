@@ -35,7 +35,7 @@ package Games.EightOff
 			this.makeInteraction();
 		}
 		
-		// AUTO FILL
+		// AUTO FILL //Dimitar Genov
 		//// AUTO SEND ACES TO PILES
 		private function sendAcesToSidePiles():void
 		{
@@ -94,7 +94,7 @@ package Games.EightOff
 							var sidePile:SidePile = this.sidePiles[sidePileIndex];
 							if (sidePile.Suit == this.tempPile.FirstCard.CardSign)
 							{
-								//tween tempPile to sidePile
+								
 								this.cardForMoving = this.tempPile.giveCard();
 								sidePile.pushCard(this.cardForMoving);
 							}
@@ -104,7 +104,7 @@ package Games.EightOff
 			}
 		}
 		
-		// EXTRA PILE DRAG&DROP
+		// EXTRA PILE DRAG&DROP //KOLAROV
 		//// DRAG CARD FROM EXTRA PILES
 		private function dragCardFromExtraPile(e:MouseEvent):void
 		{
@@ -144,7 +144,7 @@ package Games.EightOff
 			this.removeTempPile();
 		}
 		
-		// FIELD PILES Drag&Drop	
+		// FIELD PILES Drag&Drop //KOLAROV
 		//// DRAG CARDS FROM FIELD PILE
 		private function dragCardsFromFieldPile(e:MouseEvent):void
 		{
@@ -207,7 +207,7 @@ package Games.EightOff
 			sendAcesFromFieldToSide();
 		}
 		
-		// INIT FIELDS
+		// INIT FIELDS //KOLAROV
 		private function initFields(generalPar:Eightoff, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:DeckEightoff):void
 		{
 			this.general = generalPar;
@@ -219,14 +219,14 @@ package Games.EightOff
 			this.interaction = new Interaction(this.extraPiles, this.fieldPiles, this.sidePiles, this.dragCardFromExtraPile, this.dragCardsFromFieldPile);
 		}
 		
-		// MAKE DEALING
+		// MAKE DEALING //KOLAROV
 		private function dealCards():void
 		{
 			var dealing:Dealing = new Dealing(this.deck, this.fieldPiles, this.extraPiles, this.sidePiles);
 			dealing.initialDealing();
 		}
 		
-		// MAKE GAME OVER
+		// MAKE GAME OVER 
 		private function makeGameOver():void
 		{
 			this.general.IsGameRunning = false;
@@ -239,7 +239,7 @@ package Games.EightOff
 			this.makeGameOver();
 		}
 		
-		// INVOKE TEMP PILE TO MOUSE
+		// INVOKE TEMP PILE TO MOUSE //KOLAROV
 		private function invokeTempPileToMouse():void
 		{
 			this.general.addChild(tempPile);
@@ -247,16 +247,16 @@ package Games.EightOff
 			this.tempPile.y = general.mouseY - 20;
 		}
 		
-		// REMOVE TEMP PILE FROM GENERAL CONTAINER
+		// REMOVE TEMP PILE FROM GENERAL CONTAINER //KOLAROV
 		private function removeTempPile():void
 		{
 			this.general.removeChild(tempPile);
 		}
 		
-		// RETURN CARD TO PILE WHILE CANT BE DROPPED
+		// RETURN CARD TO PILE WHILE CANT BE DROPPED //KOLAROV
 		//// RETURN CARD TO EXTRA PILE 
 		private function returnCardToExtraPile():void
-		{
+		{ 
 			this.pressedExtraPile.pushCard(this.cardForMoving);
 		}
 		

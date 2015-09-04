@@ -4,8 +4,8 @@ package Games.GrandFather
 	import flash.geom.Point;
 	import flash.events.MouseEvent;
 	import SharedClasses.*
-	import SharedClasses.Interfaces.IGame;
-	import SharedClasses.Rules;
+	import Interfaces.IGame;
+	import SharedClasses.GrandFatherEightOff.Rules;
 	
 	/**
 	 * ...
@@ -47,6 +47,7 @@ package Games.GrandFather
 			gameEngine = new Engine(this.deck, this.deckPile, this.fieldPiles, this.sidePiles, this);
 		}
 		
+		//CREATE VISUAL OBJECTS THAT ARE APPEAR ON STAGE //KOLAROV
 		private function loadInitialComponents(cardSkinPar:String):void
 		{
 			loadButtons();
@@ -57,6 +58,7 @@ package Games.GrandFather
 			loadSidePiles();
 		}
 		
+		//CREATE NEW TIMER //KOLAROV
 		private function loadTimer():void
 		{
 			this.timer = new TimerCounter(0xFFFFFF, 12);
@@ -64,12 +66,14 @@ package Games.GrandFather
 			this.addChild(timer);
 		}
 		
+		//INVOKE NEW BUTTONS - BUTTON RULES AND BUTTON SURRENDER //KOLAROV
 		private function loadButtons():void
 		{
 			loadButtonRules();
 			loadButtonSurrender();
 		}
 		
+		//CREATE BUTTON SURRENDER //KOLAROV
 		private function loadButtonSurrender():void
 		{
 			this.buttonSurrender = new GameButton("Surrender");
@@ -79,12 +83,14 @@ package Games.GrandFather
 			Assistant.addEventListenerTo(this.buttonSurrender, MouseEvent.CLICK, surrender)
 		}
 		
+		//TRIGGER WHILE BUTTON SURRENDER IS PRESSED //KOLAROV
 		private function surrender(e:MouseEvent):void
 		{
 			this.isWin = false;
 			this.isGameRunning = false;
 		}
 		
+		//CREATE NEW BUTTON RULES //KOLAROV
 		private function loadButtonRules():void
 		{
 			this.buttonRules = new Button(120, "How To Play...");
@@ -95,6 +101,7 @@ package Games.GrandFather
 			this.rules = new Rules(rulesText);
 		}
 		
+		//SHOW OR HIDE OBJECT RULES WHILE BUTTON RULES IS PRESSED //KOLAROV
 		private function showHideRules(e:MouseEvent):void
 		{
 			if (this.isRulesHidden)
@@ -110,6 +117,7 @@ package Games.GrandFather
 			}
 		}
 		
+		//CREATE NEW DECK AND ADD IT IN DISPLAY LIST //KOLAROV
 		private function loadDeck(cardSkinPar:String):void
 		{
 			this.cardSkin = cardSkinPar;
@@ -119,6 +127,7 @@ package Games.GrandFather
 			this.deck.y = 140;
 		}
 		
+		//CREATE NEW DECK PILE AND ADD IT IN DISPLAY LIST //KOLAROV
 		private function loadDeckPile():void
 		{
 			this.deckPile = new DeckPile();
@@ -127,6 +136,7 @@ package Games.GrandFather
 			this.deckPile.y = 260;
 		}
 		
+		//CREATE NEW FILED PILES AND ADD THEM IN DISPLAY LIST //KOLAROV
 		private function loadFieldPiles():void
 		{
 			var pileIndex:int = 0;
@@ -146,6 +156,7 @@ package Games.GrandFather
 			}
 		}
 		
+		//CREATE NEW SIDE PILES AND ADD THEM IN DISPLAY LIST //KOLAROV
 		private function loadSidePiles():void
 		{
 			var startValues:Array = [1, 13];
@@ -169,21 +180,25 @@ package Games.GrandFather
 			}
 		}
 		
+		//GETTER
 		public function get IsWin():Boolean
 		{
 			return this.isWin;
 		}
 		
+		//GETTER
 		public function get IsGameRunning():Boolean
 		{
 			return this.isGameRunning;
 		}
 		
+		//SETTER
 		public function set IsWin(newValue:Boolean):void
 		{
 			this.isWin = newValue;
 		}
-		
+
+		//SETTER
 		public function set IsGameRunning(newValue:Boolean):void
 		{
 			this.isGameRunning = newValue;

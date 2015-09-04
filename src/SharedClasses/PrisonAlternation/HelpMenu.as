@@ -1,4 +1,4 @@
-package SharedClasses
+package SharedClasses.PrisonAlternation
 {
 	import flash.display.Sprite;
 	import flash.text.*
@@ -19,7 +19,7 @@ package SharedClasses
 			loadBackground();
 			loadText();
 		}
-		
+		      // made by Kaloqn
 		private function loadBackground():void
 		{
 			addChild(background);
@@ -28,7 +28,7 @@ package SharedClasses
 			background.graphics.drawRect(0, 0, 500, 350);
 			background.graphics.endFill();
 		}
-		
+			// made by Kaloqn
 		private function loadText():void
 		{
 			var txtBoxTextFormat:TextFormat = new TextFormat();

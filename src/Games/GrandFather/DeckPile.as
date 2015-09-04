@@ -3,12 +3,12 @@ package Games.GrandFather
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import SharedClasses.Card;
-	import SharedClasses.Deck;
-	import SharedClasses.Pile;
+	import SharedClasses.GrandFatherEightOff.Deck;
+	import SharedClasses.GrandFatherEightOff.Pile;
 	
 	/**
 	 * ...
-	 * @author
+	 * @author DENISLAV
 	 */
 	public class DeckPile extends Pile
 	{
@@ -20,6 +20,7 @@ package Games.GrandFather
 			super();
 		}
 		
+		//PUSH CARD IN DECK PILE:PUSH CARD IN ARRAY AND ADD IT IN DISPLAY LIST
 		public function pushCard(card:Card):void
 		{
 			this.cardsInDeckPile.push(card);
@@ -29,6 +30,7 @@ package Games.GrandFather
 			this.topCard = card;
 		}
 		
+		//RETURNS TOP CARD OF DECK PILE. THE CARD IS POPED FROM ARRAY AND REMOVED FROM DISPLAY LIST
 		public function giveTopCard():Card
 		{
 			var currentTopCard:Card = this.topCard;
@@ -45,12 +47,14 @@ package Games.GrandFather
 			return currentTopCard;
 		}
 		
+		//RETURNS CARDS THAT DECK PILE CONTAINS
 		public function get Cards():Array
 		{
 			this.topCard = null;
 			return this.cardsInDeckPile;
 		}
 		
+		//RETURNS TOP CARD OF DECK PILE
 		public function get TopCard():Card
 		{
 			return this.topCard;

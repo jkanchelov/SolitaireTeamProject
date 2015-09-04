@@ -3,8 +3,8 @@ package Games.EightOff
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import SharedClasses.Card;
-	import SharedClasses.CardDropping;
-	import SharedClasses.Pile;
+	import SharedClasses.GrandFatherEightOff.CardDropping;
+	import SharedClasses.GrandFatherEightOff.Pile;
 	
 	/**
 	 * ...
@@ -18,12 +18,12 @@ package Games.EightOff
 		
 		public function CardDroppingEightoff(extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, tempPilePar:TempCardsPile, generalPar:Sprite)
 		{
+			super(generalPar, fieldPilesPar, sidePilesPar);
 			this.extraPiles = extraPilesPar;
 			this.tempPile = tempPilePar;
-			super(generalPar, fieldPilesPar, sidePilesPar);
 		}
 		
-		
+		//TRY TO DROP CARD ON EXTRA PILES AND DROP IF IS ALLOWED // KOLAROV
 		public function tryCardOnExtraPile(cardForMoving:Card):void
 		{
 			this.isDropped = false;
@@ -40,9 +40,9 @@ package Games.EightOff
 					}
 				}
 			}
-		
 		}
 		
+		//TRY TO DROP CARD ON FIELD PILES AND DROP IF IS ALLOWED // KOLAROV
 		public function tryCardOnFieldPile(cardForMoving:Card):void
 		{
 			this.isDropped = false;
@@ -60,6 +60,7 @@ package Games.EightOff
 			}
 		}
 		
+		//TRY TO DROP CARD ON SIDE PILES AND DROP IF IS ALLOWED // KOLAROV
 		public function tryCardOnSidePile(cardForMoving:Card):void
 		{
 			this.isDropped = false;
@@ -77,6 +78,7 @@ package Games.EightOff
 			}
 		}
 		
+		//TRY TO DROP CARDS ON FIELD PILES AND DROP IF IS ALLOWED // KOLAROV
 		public function tryCardsOnFieldPile(cardsForMoving:Array):void
 		{
 			this.isDropped = false;
@@ -96,6 +98,7 @@ package Games.EightOff
 			}
 		}
 		
+		//PERFORM DROPPING ON CARD
 		private function makeDroppingOnCard(cardForMoving:Card):void {
 			cardForMoving = this.tempPile.giveCard();
 			this.isDropped = true;
