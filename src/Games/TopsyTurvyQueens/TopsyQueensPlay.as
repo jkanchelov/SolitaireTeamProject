@@ -20,20 +20,15 @@ package Games.TopsyTurvyQueens
 		private var talonContainer:Sprite = new Sprite();
 		private var foundationContainer:Sprite = new Sprite();
 		private var tableauContainer:Sprite = new Sprite();
-		
 		private var stockCard:Cards = new Cards(16, "backgroundSprite");
 		private var faceDownCardStock:Cards = new Cards(15, "back2");
-		
 		private var arrCardsDeck:Array = new Array();
-		
 		private var countTalon:int = 0;
 		private var arrTalon:Array = new Array();
 		private var currCardTalonDrag:Cards;
-		
 		private var arrFaceUpFoundation:Array = new Array();
 		private var arrFoundationContainers:Array = new Array();
 		private var arrFaceDownFoundation:Array = new Array();
-		
 		private var arrTableauContainers:Array = new Array();
 		private var arrTableau1:Array = new Array();
 		private var arrTableau2:Array = new Array();
@@ -63,13 +58,16 @@ package Games.TopsyTurvyQueens
 		private var currImprisonedCard:Cards;
 		private var paddingX:int = 20;
 		private var paddingY:int = 10;
+		private const PADDING_X:int = 42;
+		private const PADDING_Y:int = 54;
+		private const REST_OF_DECK:int = 64;
 		
 		public function TopsyQueensPlay()
 		{
 			addChild(container);
 			container.addChild(stockCard);
-			stockCard.x = 42;
-			stockCard.y = 54;
+			stockCard.x = PADDING_X;
+			stockCard.y = PADDING_Y;
 			container.addChild(stockContainer);
 			container.addChild(tableauContainer);
 			container.addChild(foundationContainer);
@@ -81,8 +79,9 @@ package Games.TopsyTurvyQueens
 			dealStock();
 			dealFoundations();
 			dealTableaus();
-		}
 		
+		}
+		//push containers in Arrays  //Desislava
 		private function initFoundationContainers():void
 		{
 			for (var i:int = 0; i < 8; i++)
@@ -103,6 +102,7 @@ package Games.TopsyTurvyQueens
 			}
 		
 		}
+		
 		//push all cards in an array
 		private function initCardsDeck():void
 		{
@@ -120,20 +120,22 @@ package Games.TopsyTurvyQueens
 				}
 			}
 		}
-		
+		//init deck    
 		private function dealStock():void
 		{
 			stockContainer.addChild(faceDownCardStock);
-			faceDownCardStock.x = 42;
-			faceDownCardStock.y = 54;
+			faceDownCardStock.x = PADDING_X;
+			faceDownCardStock.y = PADDING_Y;
 			if (!isMovingTalonCard)
 			{
 				faceDownCardStock.addEventListener(MouseEvent.CLICK, firstTalonDeal, false, 0, true);
+				
 			}
 		}
-		
+		//getting random cards from deck and pushing them in new array for another redeal
 		private function firstTalonDeal(evt:MouseEvent):void
 		{
+			
 			var currIndexRandom:int = getRandomNumber();
 			var cardTalon:Cards = arrCardsDeck[currIndexRandom];
 			var currFreeIndex:int = arrFaceUpFoundation.length;
@@ -143,8 +145,8 @@ package Games.TopsyTurvyQueens
 			{
 				countTalon++;
 				talonContainer.addChild(cardTalon);
-				cardTalon.x = 42 + paddingX + cardTalon.width;
-				cardTalon.y = 54;
+				cardTalon.x = PADDING_X + paddingX + cardTalon.width;
+				cardTalon.y = PADDING_Y;
 				kingsFromTalon(cardTalon, currFreeIndex);
 			}
 			else
@@ -154,23 +156,26 @@ package Games.TopsyTurvyQueens
 			arrCardsDeck.splice(currIndexRandom, 1);
 		
 		}
+		
 		private function pushCardsInTalon(currCardTalon:Cards, freeIndexArrFaceUpFoundation:int):void
 		{
-			if (countTalon == 64)
+			if (countTalon == REST_OF_DECK)
 			{
 				faceDownCardStock.removeEventListener(MouseEvent.CLICK, firstTalonDeal);
 				faceDownCardStock.parent.removeChild(faceDownCardStock);
 				stockCard.addEventListener(MouseEvent.CLICK, clickStock);
+				
 			}
 			countTalon++;
 			arrTalon.push(currCardTalon);
 			talonContainer.addChild(currCardTalon);
-			currCardTalon.x = 42 + paddingX + currCardTalon.width;
-			currCardTalon.y = 54;
+			currCardTalon.x = PADDING_X + paddingX + currCardTalon.width;
+			currCardTalon.y = PADDING_Y;
 			currCardTalon.addEventListener(MouseEvent.MOUSE_DOWN, clickDownTalonCard);
 			currCardTalon.addEventListener(MouseEvent.MOUSE_UP, clickUpTalonCard);
 		}
-		//move kings from talon to foundation
+		
+		//move kings from talon to foundation  //Desislava
 		private function kingsFromTalon(currCard:Cards, freeIndexArrFaceUpFoundation:int):void
 		{
 			currCard.parent.removeChild(currCard);
@@ -178,14 +183,12 @@ package Games.TopsyTurvyQueens
 			if (freeIndexArrFaceUpFoundation == 7)
 			{
 				isMovingTalonCard = true;
-				TweenMax.to(currCard, 0.2, { x: 42 + currCard.cardWidth * 7 + 140, y: 64 + currCard.cardHeight, onComplete: setKingFromTalonInFoundation,
-				onCompleteParams: [currCard, freeIndexArrFaceUpFoundation]});
+				TweenMax.to(currCard, 0.2, {x: PADDING_X + currCard.cardWidth * 7 + 140, y: PADDING_Y + currCard.cardHeight, onComplete: setKingFromTalonInFoundation, onCompleteParams: [currCard, freeIndexArrFaceUpFoundation]});
 			}
 			else
 			{
 				isMovingTalonCard = true;
-				TweenMax.to(currCard, 0.2, { x: arrFaceDownFoundation[freeIndexArrFaceUpFoundation].x, y: arrFaceDownFoundation[freeIndexArrFaceUpFoundation].y,
-				onComplete: setKingFromTalonInFoundation, onCompleteParams: [currCard, freeIndexArrFaceUpFoundation]});
+				TweenMax.to(currCard, 0.2, {x: arrFaceDownFoundation[freeIndexArrFaceUpFoundation].x, y: arrFaceDownFoundation[freeIndexArrFaceUpFoundation].y, onComplete: setKingFromTalonInFoundation, onCompleteParams: [currCard, freeIndexArrFaceUpFoundation]});
 			}
 		}
 		
@@ -201,6 +204,7 @@ package Games.TopsyTurvyQueens
 			isMovingTalonCard = false;
 		
 		}
+		
 		private function clickDownTalonCard(evt:MouseEvent):void
 		{
 			currCardTalonDrag = evt.currentTarget as Cards;
@@ -225,7 +229,7 @@ package Games.TopsyTurvyQueens
 				var isCollDetectedOnTableau:Boolean = checkCollisionFromTalonToTableau(indexArrTalon); //collision on tableau
 				if (!isCollDetectedOnTableau)
 				{
-					TweenMax.to(currCardTalonDrag, 0.2, {x: 42 + paddingX + currCardTalonDrag.cardWidth, y: 54, onComplete: removeCurrCardTalon});
+					TweenMax.to(currCardTalonDrag, 0.2, {x: PADDING_X + paddingX + currCardTalonDrag.cardWidth, y: PADDING_Y, onComplete: removeCurrCardTalon});
 				}
 			}
 		}
@@ -267,6 +271,7 @@ package Games.TopsyTurvyQueens
 			}
 			return false;
 		}
+		
 		private function checkCollisionFromTalonToTableau(currIndex:int):Boolean
 		{
 			for (var i:int = 0; i < checkCollisionArr.length; i++)
@@ -313,20 +318,33 @@ package Games.TopsyTurvyQueens
 			arrCardsDeck.splice(0, 1);
 		
 		}
+		
 		private function checkKingFoundation():void
 		{
 			var currFreeIndex:int = arrFaceUpFoundation.length;
-			while (arrFoundationContainers[currFreeIndex].numChildren > 0)
+			if (currFreeIndex == 7)
 			{
-				arrFoundationContainers[currFreeIndex].removeChildAt(0);
+				arrFoundationContainers[currFreeIndex].addChild(arrCardsDeck[0]);
+				arrCardsDeck[0].x = paddingX+arrCardsDeck[0].cardWidth*7+160;
+				arrCardsDeck[0].y = 64+arrCardsDeck[0].cardHeight;
+				arrFaceUpFoundation.push(arrCardsDeck[0]);
+				arrCardsDeck.splice(arrCardsDeck[0], 1);
 			}
-			arrFoundationContainers[currFreeIndex].addChild(arrCardsDeck[0]);
-			arrCardsDeck[0].x = arrFaceDownFoundation[currFreeIndex].x
-			arrCardsDeck[0].y = arrFaceDownFoundation[currFreeIndex].y;
-			arrFaceUpFoundation.push(arrCardsDeck[0]);
-			arrCardsDeck.splice(arrCardsDeck[0], 1);
-						
+			else
+			{
+				while (arrFoundationContainers[currFreeIndex].numChildren > 0)
+				{
+					arrFoundationContainers[currFreeIndex].removeChildAt(0);
+				}
+				arrFoundationContainers[currFreeIndex].addChild(arrCardsDeck[0]);
+				arrCardsDeck[0].x = arrFaceDownFoundation[currFreeIndex].x;
+				arrCardsDeck[0].y = arrFaceDownFoundation[currFreeIndex].y;
+				arrFaceUpFoundation.push(arrCardsDeck[0]);
+				arrCardsDeck.splice(arrCardsDeck[0], 1);
+			}
+		
 		}
+		
 		private function mouseDownFoundation(evt:MouseEvent):void
 		{
 			isCollideFoundationCard = false;
@@ -370,24 +388,24 @@ package Games.TopsyTurvyQueens
 			if (!isCollideFoundationCard)
 			{
 				var X:int = currCoordImprisonedCard.x;
-				trace(X);
-				trace(Y);
 				var Y:int = currCoordImprisonedCard.y;
 				TweenMax.to(currImprisonedCard, 0.2, {x: X, y: Y, onComplete: removeImprisonedCard});
 			}
 		
 		}
+		
 		private function removeImprisonedCard():void
 		{
 			currImprisonedCard.parent.removeChild(currImprisonedCard);
 			arrFoundationContainers[indexCurrImprisonedCard].addChild(currImprisonedCard);
 		}
+		
 		private function mouseDownTableau(evt:MouseEvent):void
 		{
-			isForReturnTableauCard = true;
 			var canBeMove:Boolean = true;
 			if (evt.currentTarget != null)
 			{
+				isForReturnTableauCard = true;
 				tempContainer = new Sprite();
 				container.addChild(tempContainer);
 				tempContainer.mouseEnabled = false;
@@ -420,13 +438,14 @@ package Games.TopsyTurvyQueens
 			}
 		
 		}
+		
 		private function canMoveCardsInTableau():Boolean
 		{
 			var counter:int = 0;
 			var firstCardInTempArr:Cards = tempArr[0];
 			for (var i:int = 1; i < tempArr.length; i++)
 			{
-				if ((firstCardInTempArr.cardValue-1 == tempArr[i].cardValue) && (firstCardInTempArr.cardSuit == tempArr[i].cardSuit))
+				if ((firstCardInTempArr.cardValue - 1 == tempArr[i].cardValue) && (firstCardInTempArr.cardSuit == tempArr[i].cardSuit))
 				{
 					firstCardInTempArr = tempArr[i];
 					counter++;
@@ -438,6 +457,7 @@ package Games.TopsyTurvyQueens
 			}
 			return false;
 		}
+		
 		private function mouseUpTableau(evt:MouseEvent):void
 		{
 			if ((evt.currentTarget != null) && (eventArr != null) && (tempContainer != null))
@@ -460,25 +480,28 @@ package Games.TopsyTurvyQueens
 			{
 				isForRun = detectCollisionOnFondation();
 			}
-			
 			if (isForRun)
 			{
 				detectCollisionOnTableau();
 			}
 			
-			if ((isForReturnTableauCard)&&(tempContainer.x!=0)&&(tempContainer.y!=0))
+			if (isForReturnTableauCard)
 			{
-				TweenMax.to(tempContainer, 0.3, {x: 0, y: 0, onComplete: removeTempContainer});
-			}
-			else
-			{
-				removeTempContainer();
+				if ((tempContainer.x != 0) && (tempContainer.y != 0))
+				{
+					TweenMax.to(tempContainer, 0.3, {x: 0, y: 0, onComplete: removeTempContainer});
+				}
+				else
+				{
+					removeTempContainer();
+				}
+				
 			}
 		}
 		
 		private function removeTempContainer():void
 		{
-		
+			
 			while (tempContainer.numChildren > 0)
 			{
 				tempContainer.removeChildAt(0);
@@ -568,7 +591,7 @@ package Games.TopsyTurvyQueens
 					eventArr.splice(eventArr.length - 1, 1);
 					checkForEmptyPositionTableaus(eventArr, numOfArr);
 					checkForKingsInTableaus();
-					if ((arrFaceUpFoundation[i].cardValue == 12)&&(i<7))
+					if ((arrFaceUpFoundation[i].cardValue == 12) && (i < 7))
 					{
 						currIndexDameFoundation = i;
 						imprisonedCard();
@@ -579,6 +602,7 @@ package Games.TopsyTurvyQueens
 			}
 			return true;
 		}
+		
 		//push cards on empty rectangles
 		private function detectCollisionOnEmptyRectangles():Boolean
 		{
@@ -643,16 +667,15 @@ package Games.TopsyTurvyQueens
 			{
 				faceDownCardStock.parent.removeChild(faceDownCardStock);
 			}
-			if (arrTalon[countTalon]!=undefined)
+			if (arrTalon[countTalon] != undefined)
 			{
-				trace(arrTalon[countTalon]);
 				talonContainer.addChild(arrTalon[countTalon]);
 				countTalon++;
 			}
 			else
 			{
 				faceDownCardStock.parent.removeChild(faceDownCardStock);
-				//stockCard.removeEventListener(MouseEvent.CLICK, clickStock);
+		     
 			}
 		}
 		
@@ -662,8 +685,8 @@ package Games.TopsyTurvyQueens
 			{
 				var faceDownCardFoundation:Cards = new Cards(15, "back2");
 				arrFoundationContainers[i].addChild(faceDownCardFoundation);
-				faceDownCardFoundation.x = 42 + (faceDownCardFoundation.cardWidth * i) + paddingX * i;
-				faceDownCardFoundation.y = 54 + faceDownCardFoundation.cardHeight + paddingY;
+				faceDownCardFoundation.x = PADDING_X + (faceDownCardFoundation.cardWidth * i) + paddingX * i;
+				faceDownCardFoundation.y = PADDING_Y + faceDownCardFoundation.cardHeight + paddingY;
 				arrFaceDownFoundation.push(faceDownCardFoundation);
 			}
 		}
@@ -683,8 +706,8 @@ package Games.TopsyTurvyQueens
 		{
 			var emptyRectTableau:Rectangle = new Rectangle(72, 96);
 			arrTableauContainers[index].addChild(emptyRectTableau);
-			emptyRectTableau.x = 42 + emptyRectTableau.Width * index + paddingX * index;
-			emptyRectTableau.y = 54 + emptyRectTableau.Height * 2 + paddingY;
+			emptyRectTableau.x = PADDING_X + emptyRectTableau.Width * index + paddingX * index;
+			emptyRectTableau.y = PADDING_Y + emptyRectTableau.Height * 2 + paddingY;
 			arrEmptyRectangles.push(emptyRectTableau);
 			var paddingYTableau:int = 20;
 			var currArrayTableau:Array = getArr(index);
@@ -696,8 +719,8 @@ package Games.TopsyTurvyQueens
 					var cardTableau:Cards = arrCardsDeck[indexRandom];
 					arrTableauContainers[index].addChild(cardTableau);
 					cardTableau.whichArr = index;
-					cardTableau.x = 42 + emptyRectTableau.Width * index + paddingX * index;
-					cardTableau.y = 54 + (emptyRectTableau.Height * 2) + (paddingYTableau * i) + paddingY;
+					cardTableau.x = PADDING_X + emptyRectTableau.Width * index + paddingX * index;
+					cardTableau.y = PADDING_Y + (emptyRectTableau.Height * 2) + (paddingYTableau * i) + paddingY;
 					arrCardsDeck.splice(indexRandom, 1);
 					currArrayTableau[i] = cardTableau;
 					cardTableau.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownTableau, false, 0, true);
