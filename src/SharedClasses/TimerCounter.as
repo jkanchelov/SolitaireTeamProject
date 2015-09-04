@@ -22,13 +22,13 @@ package SharedClasses
 		private var textSize:int;
 		private var oneSecond:uint = 1000;
 		
-		public function TimerCounter(timerTxtColor:uint = 0, textSizePar:int = 15)
+		public function TimerCounter(timerTxtColor:uint = 0, textSize:int = 15)
 		{
 			_timerTxtColor = timerTxtColor;
-			this.textSize = textSizePar;
+			this.textSize = textSize;
 			loadTimer();
 		}
-		
+		//Initializing the clock with text format   //Slobodan
 		private function loadTimer():void
 		{
 			
@@ -54,7 +54,7 @@ package SharedClasses
 		{
 			return tField.text;
 		}
-		
+		//Drawing seconds,minutes and hours  //Slobodan
 		private function drawClock(evt:TimerEvent):void
 		{
 			tHours = (hours < 10) ? "0" + hours.toString() : hours.toString();
@@ -66,7 +66,7 @@ package SharedClasses
 			if (seconds > 59)
 			{
 				minutes += 1;
-				seconds = 0;
+			seconds = 0;
 			}
 			tField.text = String(tHours + ":" + tMinutes + ":" + tSeconds);
 		}

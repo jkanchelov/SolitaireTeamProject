@@ -39,7 +39,7 @@ package Games.TopsyTurvyQueens
 			init();
 			drawText();
 		}
-		
+		//Drawing buttons and adding listeners on mouseover and mouseout   //Slobodan
 		private function init():void
 		{
 			var btn:Sprite = new Sprite();
@@ -51,7 +51,7 @@ package Games.TopsyTurvyQueens
 			btn.addEventListener(MouseEvent.MOUSE_OVER, addGlow, false, 0, true);
 			btn.addEventListener(MouseEvent.MOUSE_OUT, removeGlow, false, 0, true);
 		}
-		
+		//Drawing text for buttons  //Slobodan
 		private function drawText():void
 		{
 			var tField:TextField = new TextField();
@@ -68,9 +68,10 @@ package Games.TopsyTurvyQueens
 			tField.addEventListener(MouseEvent.MOUSE_OVER, addGlow, false, 0, true);
 			tField.addEventListener(MouseEvent.MOUSE_OUT, removeGlow, false, 0, true);
 		}
-	
+	    //Tweenmax for glow  //Slobodan
 		private function addGlow(e:MouseEvent):void 
 		{
+	    //Removing glow  //Slobodan
 			TweenMax.to(e.currentTarget,1,{glowFilter:{color:0xFFFFFF, alpha:1, blurX:50, blurY:50}});
 		}
 		private function removeGlow(e:MouseEvent):void 

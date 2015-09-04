@@ -13,7 +13,6 @@ package Games.TopsyTurvyQueens
 	import SharedClasses.*;
 	import Interfaces.IGame;
 	
-	
 	/**
 	 * ...
 	 * @author Slobodan
@@ -43,7 +42,7 @@ package Games.TopsyTurvyQueens
 			time.y = 2;
 		
 		}
-		
+		//Checking if game is running   //Slobodan
 		public function get IsGameRunning():Boolean
 		{
 			return this.isGameRunning;
@@ -53,7 +52,7 @@ package Games.TopsyTurvyQueens
 		{
 			return this.isWin;
 		}
-		
+		//Menu buttons(surrender,statistics,rules,timer) and sound //Slobodan
 		private function loadMenuButtons():void
 		{
 			addChild(buttonsContainer);
@@ -78,28 +77,28 @@ package Games.TopsyTurvyQueens
 			timerButton.x = 406;
 			timerButton.y = 5;
 			buttonsContainer.addChild(timerButton);
-		    
-			buttonSound.load(new URLRequest("Data/sound/Blop.mp3"));
 			
-		}
+			buttonSound.load(new URLRequest("Data/sound/Blop.mp3"));
 		
-		private function buttonsSound(e:MouseEvent):void 
+		}
+		//Event for sound onclick //Slobodan
+		private function buttonsSound(e:MouseEvent):void
 		{
 			buttonsSoundChannel = buttonSound.play();
 		}
-		
+		//Onclick calls gameOver() function //Slobodan
 		private function surrender(e:MouseEvent):void
 		{
 			gameOver();
 		
 		}
-		
+		//Ends game
 		private function gameOver():void
 		{
 			isGameRunning = false;
 		}
-		
-	private function howToPlay():void
+		//Writing text  and field for rules.Added TweenMax for motions.Added rules button click listener //Slobodan
+		private function howToPlay():void
 		{
 			var rulesTxtField:TextField = new TextField();
 			rulesTxtField.defaultTextFormat = new TextFormat('Comic Sans MS', 15, 0x000000, 'bold');
@@ -124,24 +123,24 @@ package Games.TopsyTurvyQueens
 			
 			TweenMax.to(rulesTxtField, 0.4, {x: 120, y: 65});
 		}
-		
+		//Calls howToPlay() onclick //Slobodan
 		private function showRules(e:MouseEvent):void
 		{
 			howToPlay();
 			rulesButton.removeEventListener(MouseEvent.CLICK, showRules);
 			TweenMax.to(rulesButton, 0.5, {y: -25});
 		}
-		
+		//Moves rules to right and sets timeout //Slobodan
 		private function closeRules(e:MouseEvent):void
 		{
 			rulesButton.addEventListener(MouseEvent.CLICK, showRules, false, 0, true);
 			TweenMax.to(rules, 0.5, {x: 750, y: 0});
 			TweenMax.to(rulesButton, 0.5, {x: 304, y: 5});
-			setTimeout(dropChild, 500);
+			setTimeout(removeRules, 500);
 		
 		}
-		
-		private function dropChild():void
+		//Removes rules from the stage //Slobodan
+		private function removeRules():void 
 		{
 			removeChild(rules);
 		

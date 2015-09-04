@@ -181,7 +181,7 @@ package
 			Assistant.fillContainerWithImg(winMessageContainer, winMessagePath, 450, 200);
 			Assistant.fillContainerWithImg(loseMessageContainer, loseMessagePath, 450, 200);
 		}
-		
+		//made by Slobodan
 		private function displayWin():void
 		{
 			addChild(winMessageContainer);
@@ -189,7 +189,7 @@ package
 			TweenMax.to(winMessageContainer, 1, {x: 900, y: 200, delay: 2.5});
 			setTimeout(clearMessage, 4000);
 		}
-		
+		//made by Slobodan
 		private function displayLose():void
 		{
 			addChildAt(loseMessageContainer, this.numChildren);
