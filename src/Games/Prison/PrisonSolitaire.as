@@ -8,7 +8,6 @@ package Games.Prison
 	import Interfaces.IGame;
 	import SharedClasses.*
 	import SharedClasses.PrisonAlternation.*
-
 	
 	/**
 	 * ...
@@ -76,12 +75,7 @@ package Games.Prison
 		{
 			menuContainer = new Sprite();
 			
-			var helpMenuText:String = "The top cards of tableau piles and cards from cells are available to play." +
-			"You may build tableau piles down in suit." +
-			"Only one card at a time can be moved."+
-			"The top card of any tableau pile can also be moved to any cell." +
-			"Each cell may contain only one card." +
-			"Cards in the cells can be moved to the foundation piles or back to the tableau piles, if possible."
+			var helpMenuText:String = "The top cards of tableau piles and cards from cells are available to play." + "You may build tableau piles down in suit." + "Only one card at a time can be moved." + "The top card of any tableau pile can also be moved to any cell." + "Each cell may contain only one card." + "Cards in the cells can be moved to the foundation piles or back to the tableau piles, if possible."
 			
 			var helpMenu:HelpMenu = new HelpMenu(helpMenuText);
 			menuContainer.addChild(helpMenu);
@@ -131,9 +125,9 @@ package Games.Prison
 		//made by Vladimir
 		protected override function dealSolitaire():void
 		{
-			addCardContainers();
+			cards = fillDeck(cards,cardsSkin);
 			
-			loadDeck();
+			addCardContainers();
 			loadCardsFoundation();
 			loadReservedCards();
 			loadTaublePilesCards();
@@ -156,21 +150,7 @@ package Games.Prison
 				{
 					if (counter == rndCardNumber)
 					{
-						for (var card:int = cardValue * cardColors; card < cardValue * cardColors + cardColors; card++)
-						{
-							var object:Sprite = foundationContainer.getChildAt(counterAddedCards) as Sprite;
-							object.addChild(cards[card - counterAddedCards])
-							
-							//removing buttonMode for the foundation cards
-							var currentCard:Card = object.getChildAt(1) as Card;
-							currentCard.buttonMode = false;
-							currentCard.removeEventListener(MouseEvent.MOUSE_DOWN, startDraging);
-							currentCard.removeEventListener(MouseEvent.MOUSE_UP, stopDraging);
-							
-							cards.splice(card - counterAddedCards, 1);
-							counterAddedCards++;
-							counterPlacedCards++;
-						}
+						dealCardFoundation(cardValue, cardSign);
 					}
 					counter++;
 				}
@@ -182,6 +162,27 @@ package Games.Prison
 			if (foundationPile.numChildren < 2)
 			{
 				loadCardsFoundation();
+			}
+			
+			function dealCardFoundation(cardValue:int,cardSign:int):void
+			{
+				var cardsDeal:int = 4;
+				
+				for (var card:int = cardValue * cardColors; card < cardsDeal; card++)
+				{
+					var object:Sprite = foundationContainer.getChildAt(counterAddedCards) as Sprite;
+					object.addChild(cards[card - counterAddedCards])
+					
+					//removing buttonMode for the foundation cards
+					var currentCard:Card = object.getChildAt(1) as Card;
+					currentCard.buttonMode = false;
+					currentCard.removeEventListener(MouseEvent.MOUSE_DOWN, startDraging);
+					currentCard.removeEventListener(MouseEvent.MOUSE_UP, stopDraging);
+					
+					cards.splice(card - counterAddedCards, 1);
+					counterAddedCards++;
+					counterPlacedCards++;
+				}
 			}
 		}
 		
@@ -294,7 +295,7 @@ package Games.Prison
 		
 		// check if card can be moved to target possition and if its true sets the sprite field to it 
 		protected override function canBeMoved(givenCard:Card):Boolean
-		{			
+		{
 			//foundation container
 			if (givenCard.hitTestObject(foundationContainer))
 			{
@@ -403,7 +404,7 @@ package Games.Prison
 					return true;
 				}
 				
-			}	
+			}
 			return false;
 		}
 		
@@ -501,64 +502,6 @@ package Games.Prison
 		protected override function gameOver():void
 		{
 			isGameRunning = false;
-		}
-		
-		//made by Vladimir
-		protected override function loadDeck():void
-		{
-			var cardUrl:String;
-			var cardNumbers:int = 14;
-			var cardColors:int = 4
-			
-			for (var i:int = 0; i < cardNumbers; i++)
-			{
-				if (i == 0)
-				{ //pass back card
-					continue;
-				}
-				
-				for (var j:int = 0; j < cardColors; j++)
-				{
-					var cardColor:String;
-					
-					if (i == 0)
-					{
-						cardColor = "Back";
-						cardUrl = i + cardColor;
-						
-						var card:Card = new Card(cardUrl, i, cardsSkin);
-						cards.push(card);
-						
-						break;
-					}
-					else
-					{
-						switch (j)
-						{
-						case 0: 
-							cardColor = "C";
-							break;
-						case 1: 
-							cardColor = "D";
-							break;
-						case 2: 
-							cardColor = "H";
-							break;
-						case 3: 
-							cardColor = "S";
-							break;
-						}
-					}
-					
-					cardUrl = i + cardColor;
-					
-					var card:Card = new Card(cardUrl, i, cardsSkin);
-					card.addEventListener(MouseEvent.MOUSE_DOWN, startDraging, false, 0, true);
-					card.addEventListener(MouseEvent.MOUSE_UP, stopDraging, false, 0, true);
-					card.buttonMode = true;
-					cards.push(card);
-				}
-			}
 		}
 	}
 }

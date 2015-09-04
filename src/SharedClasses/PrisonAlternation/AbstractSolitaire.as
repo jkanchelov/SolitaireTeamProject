@@ -19,6 +19,49 @@ package SharedClasses.PrisonAlternation
 			cards.splice(rndCardNumber, 1);
 		}
 		
+		protected function fillDeck(cardsDeck:Vector.<Card>, cardsSkin:String):Vector.<Card>
+		{
+			
+			var resultDeck:Vector.<Card> = cardsDeck;
+			
+			var cardUrl:String;
+			var cardNumbers:int = 14;
+			var cardColors:int = 4
+			
+			for (var cardValue:int = 1; cardValue < cardNumbers; cardValue++)
+			{
+				for (var cardSign:int = 0; cardSign < cardColors; cardSign++)
+				{
+					var cardColor:String;
+					switch (cardSign)
+					{
+					case 0: 
+						cardColor = "C";
+						break;
+					case 1: 
+						cardColor = "D";
+						break;
+					case 2: 
+						cardColor = "H";
+						break;
+					case 3: 
+						cardColor = "S";
+						break;
+					}
+					
+					cardUrl = cardValue + cardColor;
+					
+					var card:Card = new Card(cardUrl, cardValue, cardsSkin);
+					card.addEventListener(MouseEvent.MOUSE_DOWN, startDraging, false, 0, true);
+					card.addEventListener(MouseEvent.MOUSE_UP, stopDraging, false, 0, true);
+					card.buttonMode = true;
+					resultDeck.push(card);
+				}
+			}
+			
+			return resultDeck;
+		}
+		
 		protected function isLastCardOfPile(givenCard:Card, spriteContainer:Sprite = null):Boolean
 		{
 			throw new Error("AbstractExample must not be directly instantiated");
@@ -93,7 +136,6 @@ package SharedClasses.PrisonAlternation
 		{
 			throw new Error("AbstractExample must not be directly instantiated");
 		}
-		
 		
 		protected function randomRange(minNum:Number, maxNum:Number):int
 		{

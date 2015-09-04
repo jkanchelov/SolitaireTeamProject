@@ -107,33 +107,34 @@ package Games.Alternations
 		}
 		
 		//made by Kaloqn
-		protected override function showSurrenderAndTimer():void
-		{
-			buttonsContainer = new Sprite();
-			
-			var buttonWidth:int = 100;
-			
-			var surrenderButton:Button = new Button(buttonWidth, "  Surrender", true);
-			surrenderButton.x = -125
-			surrenderButton.addEventListener(MouseEvent.CLICK, surrender, false, 0, true);
-			
-			var time:TimerCounter = new TimerCounter(0xffffff);
-			time.y = 10;
-			
-			buttonsContainer.x = STAGE_WIDTH - buttonWidth;
-			buttonsContainer.addChild(time);
-			buttonsContainer.addChild(surrenderButton);
-			
-			addChild(buttonsContainer);
-		}
+		//protected override function showSurrenderAndTimer():void
+		//{
+			//buttonsContainer = new Sprite();
+			//
+			//var buttonWidth:int = 100;
+			//
+			//var surrenderButton:Button = new Button(buttonWidth, "  Surrender", true);
+			//surrenderButton.x = -125
+			//surrenderButton.addEventListener(MouseEvent.CLICK, surrender, false, 0, true);
+			//
+			//var time:TimerCounter = new TimerCounter(0xffffff);
+			//time.y = 10;
+			//
+			//buttonsContainer.x = STAGE_WIDTH - buttonWidth;
+			//buttonsContainer.addChild(time);
+			//buttonsContainer.addChild(surrenderButton);
+			//
+			//addChild(buttonsContainer);
+		//}
 		
 		//made by Kaloqn
 		protected override function dealSolitaire():void
 		{
-			addCardContainers();
+			//adding two decks
+			cards = fillDeck(cards, cardsSkin);
+			cards = fillDeck(cards, cardsSkin);
 			
-			loadDeck();
-			
+			addCardContainers();	
 			loadCardDeckContainer();
 			loadTaublePilesCards();
 		}
@@ -329,67 +330,6 @@ package Games.Alternations
 		}
 		
 		//made by Jordan
-		protected override function loadDeck():void
-		{
-			var cardUrl:String;
-			var cardNumbers:int = 14;
-			var cardColors:int = 4
-			
-			for (var loadTimes:int = 0; loadTimes < 2; loadTimes++)
-			{
-				for (var i:int = 0; i < cardNumbers; i++)
-				{
-					if (i == 0)
-					{ //pass back card
-						continue;
-					}
-					
-					for (var j:int = 0; j < cardColors; j++)
-					{
-						var cardColor:String;
-						
-						if (i == 0)
-						{
-							cardColor = "Back";
-							cardUrl = i + cardColor;
-							
-							var card:Card = new Card(cardUrl, i);
-							cards.push(card);
-							
-							break;
-						}
-						else
-						{
-							switch (j)
-							{
-							case 0: 
-								cardColor = "C";
-								break;
-							case 1: 
-								cardColor = "D";
-								break;
-							case 2: 
-								cardColor = "H";
-								break;
-							case 3: 
-								cardColor = "S";
-								break;
-							}
-						}
-						
-						cardUrl = i + cardColor;
-						
-						var card:Card = new Card(cardUrl, i, cardsSkin);
-						card.addEventListener(MouseEvent.MOUSE_DOWN, startDraging, false, 0, true);
-						card.addEventListener(MouseEvent.MOUSE_UP, stopDraging, false, 0, true);
-						card.buttonMode = false;
-						cards.push(card);
-					}
-				}
-			}
-		}
-		
-		//made by Jordan
 		private function canBeDragged(cardContainer:Sprite, cardIndex:int):Boolean
 		{
 			var cardOne:Card;
@@ -428,8 +368,7 @@ package Games.Alternations
 				isDragging = true;
 				
 				var cardContainer:Sprite = e.target.parent as Sprite;
-				var card:Card = e.target as Card;
-				var cardIndex:int = cardContainer.getChildIndex(card);
+				var cardIndex:int = cardContainer.getChildIndex(e.target as Card);
 				
 				if (canBeDragged(cardContainer, cardIndex))
 				{
