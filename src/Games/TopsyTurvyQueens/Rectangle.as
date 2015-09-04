@@ -12,10 +12,12 @@ package Games.TopsyTurvyQueens
 		private var _Height:int;
 		private var _color:uint;
 		private var rect:Sprite=new Sprite();
-		public function Rectangle()
+		public function Rectangle(Width:int,Height:int)
 		{
-			init();
+			_Width = Width;
+			_Height = Height;
 			addChild(rect);
+			init();
 		}
 		public function init():void
 		{
@@ -24,6 +26,14 @@ package Games.TopsyTurvyQueens
 			rect.graphics.drawRect(0,0, 72,96);
 			rect.graphics.endFill();
 		
+		}
+		public function get Width():int
+		{
+			return _Width;
+		}
+		public function get Height():int
+		{
+			return _Height;
 		}
 		
 	}
