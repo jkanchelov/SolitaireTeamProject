@@ -46,7 +46,7 @@ package Games.TopsyTurvyQueens
 			ldr.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderCompleate);
 		
 		}
-		
+		//Loading cards as bitmap and adding listeners //Desislava
 		private function loaderCompleate(evt:Event):void
 		{
 			
