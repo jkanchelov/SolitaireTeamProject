@@ -22,14 +22,14 @@ package Games.GrandFather
 			this.sign = signPar;								
 			drawSign();
 		}
-		//DRAW SIGNS IN SIDEPILE
+		//ADD IMAGE WITH CARD SUIT SIGNS IN SIDEPILE
 		private function drawSign():void
 		{
 			var signContainer:Sprite = new Sprite();
 			var path:String = "Data/images/Suit/" + this.sign + ".png";
 			Assistant.fillContainerWithImg(signContainer, path, 20, 20);
 			this.addChild(signContainer);
-			signContainer.x = 23;										//in the middle
+			signContainer.x = 23;										
 			signContainer.y = 35;
 		}
 		// ADD CARD TO SIDE PILE

@@ -96,7 +96,7 @@ package Games.EightOff
 				}
 			}
 		}
-		//////
+		////// SEARCH THE RIGHT PLACE FOR THE TAKEN ACES
 		private function moveAcesToSidePile(extraPile:ExtraPile):void {
 			this.cardForMoving = extraPile.giveCard();
 			invokeTempPileToMouse();
@@ -110,8 +110,7 @@ package Games.EightOff
 					sidePile.pushCard(this.cardForMoving);
 				}
 			}
-		}
-		
+		}		
 		
 		// EXTRA PILE DRAG&DROP
 		//// DRAG CARD FROM EXTRA PILES

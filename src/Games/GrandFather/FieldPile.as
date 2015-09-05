@@ -5,7 +5,7 @@ package Games.GrandFather
 	
 	/**
 	 * ...
-	 * @author Mitko
+	 * @author Dimitar Genov
 	 */
 	public class FieldPile extends Pile
 	{
@@ -17,7 +17,7 @@ package Games.GrandFather
 		{
 			super();
 		}
-		
+		// PUSH CARD IN FIELDPILE
 		public function pushCard(card:Card):void
 		{
 			this.topCard = card;
@@ -37,6 +37,7 @@ package Games.GrandFather
 			this.cardsInFieldPile.push(card);
 		}
 		
+		//THE PILE 
 		public function giveTopCard():Card
 		{
 			var currentTopCard:Card = this.topCard;
