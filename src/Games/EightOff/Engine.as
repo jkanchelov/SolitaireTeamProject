@@ -40,11 +40,11 @@ package Games.EightOff
 		private function sendAcesToSidePiles():void
 		{
 			sendAcesFromExtraToSide();
-			sendAcesFromFieldToSide();
+			checkForAcePossibility();
 		}
 		
-		////// AUTO SEND ACES FROM FIELD PILE TO SIDE PILES 
-		private function sendAcesFromFieldToSide():void 				
+		////// CHEKS IF THERE ANY POSSIBILITIES FOR ACE IN FIELDPILE 
+		private function checkForAcePossibility():void 				
 		{
 			var isThereMorePossible:Boolean = true;
 			while (isThereMorePossible)
@@ -212,7 +212,7 @@ package Games.EightOff
 			Assistant.removeEventListenerTo(this.tempPile, MouseEvent.MOUSE_UP, dropTakenCardsFromFieldPile);
 			this.removeTempPile();
 			
-			sendAcesFromFieldToSide();
+			checkForAcePossibility();
 		}
 		
 		// INIT FIELDS
