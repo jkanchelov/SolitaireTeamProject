@@ -19,7 +19,6 @@ package Games.EightOff
 			super();
 		}
 		
-		//PUSH CARD IN FIELD PILE: ADD AS CHILD AND ADD IT IN ARRAY
 		public function pushCard(card:Card):void
 		{
 			this.addChild(card);
@@ -28,7 +27,6 @@ package Games.EightOff
 			determineTopCard();
 		}
 		
-		//PUSH CARD IN FIELD PILE: ADD AS CHILD AND ADD IT IN ARRAY 
 		public function pushCards(cardsForPushing:Array):void
 		{
 			for (var cardIndex:int = 0; cardIndex < cardsForPushing.length; cardIndex++)
@@ -41,7 +39,6 @@ package Games.EightOff
 			determineTopCard();
 		}
 		
-		//RETURNS CARDS FROM FIELD PILE 
 		public function giveCards(startCard:Card):Array
 		{
 			var cardsForGive:Array = [];

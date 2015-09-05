@@ -21,14 +21,12 @@ package Games.EightOff
 			this.sidePiles = sidePilesPar;
 		}
 		
-		//AFTER GAME IS RAN IS MAKING DEALING //KOLAROV
 		public function initialDealing():void
 		{
 			dealToFieldPiles();
 			dealToExtraPiles();
 		}
 		
-		//DEAL TO FIELD PILES //KOLAROV
 		private function dealToFieldPiles():void
 		{
 			for (var fieldPileIndex:int = 0; fieldPileIndex < 8; fieldPileIndex++)
@@ -42,7 +40,6 @@ package Games.EightOff
 			}
 		}
 		
-		//DEAL TO EXTRA PILES //KOLAROV
 		private function dealToExtraPiles():void
 		{
 			for (var extraPileIndex:int = 0; extraPileIndex < 4; extraPileIndex++)

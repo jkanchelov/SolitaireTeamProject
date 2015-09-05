@@ -11,7 +11,7 @@ package Games.GrandFather
 	
 	/**
 	 * ...
-	 * @author Denislav
+	 * @author
 	 */
 	public class DeckGrandfather extends Deck
 	{
@@ -24,8 +24,7 @@ package Games.GrandFather
 			loadDeck();
 			loadDeck();
 		}
-
-		//ONLY 1 TIME ACCEPT CARDS FROM DECK PILE TO REALOAD DECK AGAIN
+		
 		public function ReloadDeck(deckPileCards:Array):void
 		{
 			var deckPileTopCard:Card;
@@ -36,14 +35,12 @@ package Games.GrandFather
 			}
 			this.reloadTimesLeft--;
 		}
-	
-		//RETURNS COUNT OF CARDS THAT DECK CONTAINS 
+		
 		public function get CardsCount():int
 		{
 			return this.deck.length;
 		}
 		
-		//RETURNS THE NUMBER OF LEFT LOADED TIMES
 		public function get ReloadedTimesLeft():int
 		{
 			return this.reloadTimesLeft;

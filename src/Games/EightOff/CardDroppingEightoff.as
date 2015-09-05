@@ -18,12 +18,12 @@ package Games.EightOff
 		
 		public function CardDroppingEightoff(extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, tempPilePar:TempCardsPile, generalPar:Sprite)
 		{
-			super(generalPar, fieldPilesPar, sidePilesPar);
 			this.extraPiles = extraPilesPar;
 			this.tempPile = tempPilePar;
+			super(generalPar, fieldPilesPar, sidePilesPar);
 		}
 		
-		//TRY TO DROP CARD ON EXTRA PILES AND DROP IF IS ALLOWED // KOLAROV
+		
 		public function tryCardOnExtraPile(cardForMoving:Card):void
 		{
 			this.isDropped = false;
@@ -35,14 +35,14 @@ package Games.EightOff
 				{
 					if (extraPile.isEmpty)
 					{
-						makeDroppingOnCard(cardForMoving);
+						makeDropping(cardForMoving);
 						extraPile.pushCard(cardForMoving);
 					}
 				}
 			}
+		
 		}
 		
-		//TRY TO DROP CARD ON FIELD PILES AND DROP IF IS ALLOWED // KOLAROV
 		public function tryCardOnFieldPile(cardForMoving:Card):void
 		{
 			this.isDropped = false;
@@ -53,14 +53,13 @@ package Games.EightOff
 				{
 					if (fieldPile.CardsCount != 0 && fieldPile.TopCard.CardValue - 1 == this.tempPile.FirstCard.CardValue && fieldPile.TopCard.CardSign == this.tempPile.FirstCard.CardSign || fieldPile.CardsCount == 0 && tempPile.FirstCard.CardValue == 13)
 					{
-						makeDroppingOnCard(cardForMoving);
+						makeDropping(cardForMoving);
 						fieldPile.pushCard(cardForMoving);
 					}
 				}
 			}
 		}
 		
-		//TRY TO DROP CARD ON SIDE PILES AND DROP IF IS ALLOWED // KOLAROV
 		public function tryCardOnSidePile(cardForMoving:Card):void
 		{
 			this.isDropped = false;
@@ -71,14 +70,13 @@ package Games.EightOff
 				{
 					if ((sidePile.CardsCount == 0 && this.tempPile.FirstCard.CardValue == 1 && sidePile.Suit == this.tempPile.FirstCard.CardSign) || (sidePile.CardsCount != 0 && sidePile.TopCard.CardValue == this.tempPile.FirstCard.CardValue - 1 && sidePile.Suit == tempPile.FirstCard.CardSign))
 					{
-						makeDroppingOnCard(cardForMoving);
+						makeDropping(cardForMoving);
 						sidePile.pushCard(cardForMoving);
 					}
 				}
 			}
 		}
 		
-		//TRY TO DROP CARDS ON FIELD PILES AND DROP IF IS ALLOWED // KOLAROV
 		public function tryCardsOnFieldPile(cardsForMoving:Array):void
 		{
 			this.isDropped = false;
@@ -98,8 +96,7 @@ package Games.EightOff
 			}
 		}
 		
-		//PERFORM DROPPING ON CARD
-		private function makeDroppingOnCard(cardForMoving:Card):void {
+		private function makeDropping(cardForMoving:Card):void {
 			cardForMoving = this.tempPile.giveCard();
 			this.isDropped = true;
 			this.tempPile.stopDrag();

@@ -43,38 +43,46 @@ package Games.EightOff
 			sendAcesFromFieldToSide();
 		}
 		
-		////// AUTO SEND ACES FROM FIELD PILE TO SIDE PILES
-		private function sendAcesFromFieldToSide():void
+		////// AUTO SEND ACES FROM FIELD PILE TO SIDE PILES 
+		private function sendAcesFromFieldToSide():void 				
 		{
 			var isThereMorePossible:Boolean = true;
 			while (isThereMorePossible)
 			{
-				isThereMorePossible = false;
-				for (var fieldPileIndex:int = 0; fieldPileIndex < this.fieldPiles.length; fieldPileIndex++)
-				{
-					var fieldPile:FieldPile = this.fieldPiles[fieldPileIndex];
-					if (fieldPile.TopCard != null)
-					{
-						if (fieldPile.TopCard.CardValue == 1)
-						{
-							
-							this.cardForMoving = fieldPile.giveCard();
-							
-							for (var sidePileIndex:int = 0; sidePileIndex < this.sidePiles.length; sidePileIndex++)
-							{
-								var sidePile:SidePile = this.sidePiles[sidePileIndex];
-								if (sidePile.Suit == this.cardForMoving.CardSign)
-								{
-									sidePile.pushCard(this.cardForMoving);
-									isThereMorePossible = true;
-									break;
-								}
-							}
-						}
-					}
-				}
+				isThereMorePossible = searchFieldPileForAce();
 			}
 		}
+		////// SEARCH FOR ACE INTO FIELDPILES
+		private function searchFieldPileForAce():Boolean { 						
+			for (var fieldPileIndex:int = 0; fieldPileIndex < this.fieldPiles.length; fieldPileIndex++)
+			{
+				var fieldPile:FieldPile = this.fieldPiles[fieldPileIndex];
+				if (fieldPile.TopCard == null)
+				{
+					return false;
+				}
+				if (fieldPile.TopCard.CardValue == 1)
+				{
+					return isThereCorrectSidePile(fieldPile);
+				}
+			}
+			return false;
+		}
+		
+		////// SEARCH SIDE PILE FOR ACE. IF FOUND RETURN TRUE AND PUSH ACE TO SIDE PILE;
+		private function isThereCorrectSidePile(fieldPile:FieldPile):Boolean {
+			this.cardForMoving = fieldPile.giveCard();
+			for (var sidePileIndex:int = 0; sidePileIndex < this.sidePiles.length; sidePileIndex++)
+			{
+				var sidePile:SidePile = this.sidePiles[sidePileIndex];
+				if (sidePile.Suit == this.cardForMoving.CardSign)
+				{
+					sidePile.pushCard(this.cardForMoving);
+					return true;
+				}
+			}
+			return false;
+		}		
 		
 		////// AUTO SEND ACES FROM EXTRA PILE TO SIDE PILE
 		private function sendAcesFromExtraToSide():void
@@ -82,29 +90,30 @@ package Games.EightOff
 			for (var extraPileIndex:int = 0; extraPileIndex < this.extraPiles.length; extraPileIndex++)
 			{
 				var extraPile:ExtraPile = this.extraPiles[extraPileIndex];
-				if (!extraPile.isEmpty)
+				if (!extraPile.isEmpty && extraPile.itsCard.CardValue == 1)
 				{
-					if (extraPile.itsCard.CardValue == 1)
-					{
-						this.cardForMoving = extraPile.giveCard();
-						invokeTempPileToMouse();
-						this.tempPile.pushCard(this.cardForMoving);
-						for (var sidePileIndex:int = 0; sidePileIndex < this.sidePiles.length; sidePileIndex++)
-						{
-							var sidePile:SidePile = this.sidePiles[sidePileIndex];
-							if (sidePile.Suit == this.tempPile.FirstCard.CardSign)
-							{
-								
-								this.cardForMoving = this.tempPile.giveCard();
-								sidePile.pushCard(this.cardForMoving);
-							}
-						}
-					}
+					moveAcesToSidePile(extraPile);
+				}
+			}
+		}
+		//////
+		private function moveAcesToSidePile(extraPile:ExtraPile):void {
+			this.cardForMoving = extraPile.giveCard();
+			invokeTempPileToMouse();
+			this.tempPile.pushCard(this.cardForMoving);
+			for (var sidePileIndex:int = 0; sidePileIndex < this.sidePiles.length; sidePileIndex++)
+			{
+				var sidePile:SidePile = this.sidePiles[sidePileIndex];
+				if (sidePile.Suit == this.tempPile.FirstCard.CardSign)
+				{	
+					this.cardForMoving = this.tempPile.giveCard();
+					sidePile.pushCard(this.cardForMoving);
 				}
 			}
 		}
 		
-		// EXTRA PILE DRAG&DROP //KOLAROV
+		
+		// EXTRA PILE DRAG&DROP
 		//// DRAG CARD FROM EXTRA PILES
 		private function dragCardFromExtraPile(e:MouseEvent):void
 		{
@@ -144,7 +153,7 @@ package Games.EightOff
 			this.removeTempPile();
 		}
 		
-		// FIELD PILES Drag&Drop //KOLAROV
+		// FIELD PILES Drag&Drop	
 		//// DRAG CARDS FROM FIELD PILE
 		private function dragCardsFromFieldPile(e:MouseEvent):void
 		{
@@ -207,7 +216,7 @@ package Games.EightOff
 			sendAcesFromFieldToSide();
 		}
 		
-		// INIT FIELDS //KOLAROV
+		// INIT FIELDS
 		private function initFields(generalPar:Eightoff, extraPilesPar:Array, fieldPilesPar:Array, sidePilesPar:Array, deckPar:DeckEightoff):void
 		{
 			this.general = generalPar;
@@ -219,27 +228,27 @@ package Games.EightOff
 			this.interaction = new Interaction(this.extraPiles, this.fieldPiles, this.sidePiles, this.dragCardFromExtraPile, this.dragCardsFromFieldPile);
 		}
 		
-		// MAKE DEALING //KOLAROV
+		// MAKE DEALING
 		private function dealCards():void
 		{
 			var dealing:Dealing = new Dealing(this.deck, this.fieldPiles, this.extraPiles, this.sidePiles);
 			dealing.initialDealing();
 		}
 		
-		// MAKE GAME OVER //KOLAROV
+		// MAKE GAME OVER
 		private function makeGameOver():void
 		{
 			this.general.IsGameRunning = false;
 		}
 		
-		// MAKE WIN //KOLAROV
+		// MAKE WIN
 		private function makeWin():void
 		{
 			this.general.IsWin = true;
 			this.makeGameOver();
 		}
 		
-		// INVOKE TEMP PILE TO MOUSE //KOLAROV
+		// INVOKE TEMP PILE TO MOUSE
 		private function invokeTempPileToMouse():void
 		{
 			this.general.addChild(tempPile);
@@ -247,26 +256,26 @@ package Games.EightOff
 			this.tempPile.y = general.mouseY - 20;
 		}
 		
-		// REMOVE TEMP PILE FROM GENERAL CONTAINER //KOLAROV
+		// REMOVE TEMP PILE FROM GENERAL CONTAINER
 		private function removeTempPile():void
 		{
 			this.general.removeChild(tempPile);
 		}
 		
-		// RETURN CARD TO PILE WHILE CANT BE DROPPED //KOLAROV
+		// RETURN CARD TO PILE WHILE CANT BE DROPPED
 		//// RETURN CARD TO EXTRA PILE 
 		private function returnCardToExtraPile():void
-		{ 
+		{
 			this.pressedExtraPile.pushCard(this.cardForMoving);
 		}
 		
-		//// RETURN CARD TO FIELD PILE //KOLAROV
+		//// RETURN CARD TO FIELD PILE
 		private function returnCardsToFieldPile():void
 		{
 			this.pressedFieldPile.pushCards(this.cardsForMoving);
 		}
 		
-		// RETURN COUNT OF CHOOSEN CARDS -> FOR SUPER MOVE //KOLAROV
+		// RETURN COUNT OF CHOOSEN CARDS -> FOR SUPER MOVE
 		private function emptyExtraPiles():int {
 			var count:int = 0;
 			for (var extraPileIndex:int = 0; extraPileIndex < this.extraPiles.length; extraPileIndex++) {
@@ -278,7 +287,7 @@ package Games.EightOff
 			return count;
 		}
 		
-		// CHECK FOR WIN //KOLAROV
+		// CHECK FOR WIN
 		private function win():Boolean
 		{
 			var filledSidePilesCount:int = 0;
@@ -300,7 +309,7 @@ package Games.EightOff
 			}
 		}
 		
-		// ADD EVENT LISTENERS TO PILES //KOLAROV
+		// ADD EVENT LISTENERS TO PILES
 		private function makeInteraction():void
 		{
 			this.interaction.makeExtraPilesInteractive();

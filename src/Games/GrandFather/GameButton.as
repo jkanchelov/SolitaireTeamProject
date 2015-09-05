@@ -8,7 +8,7 @@ package Games.GrandFather
 	
 	/**
 	 * ...
-	 * @author Mitko
+	 * @author Dimitar Genov
 	 */
 	public class GameButton extends Sprite
 	{
@@ -16,19 +16,23 @@ package Games.GrandFather
 		
 		public function GameButton(buttonTextPar:String)
 		{
-			this.buttonText = buttonTextPar;
+			drawButton(buttonTextPar);
+		}
+		//DRAW BUTTON
+		private function drawButton(buttonTextPar:String) : void {
+			this.buttonText = buttonTextPar;				
 			
 			var gradientType:String = GradientType.RADIAL;
 			var gradientColors:Array = [0xF2290D, 0x000000];
 			var gradientAlphas:Array = [1, 1];
-			var gradientRatios:Array = [100, 250]; 										// the color of the elipse in the middle of the button is more saturated
+			var gradientRatios:Array = [100, 250]; 										// the color of the elipse is more saturated
 			var graeientSpreadMethod:String = SpreadMethod.PAD;
 			var colorInterpolation:String = InterpolationMethod.RGB;
 			var focalPointRatio:Number = 100;
 			var matrix:Matrix = new Matrix();
-			var boxWidth:Number = 200; 													// increases the width of the elipse in the
+			var boxWidth:Number = 200; 													// increases the width of the elipse
 			var boxHeight:Number = 100;
-			var boxRotation:Number = Math.PI / 2; 										// 90° 
+			var boxRotation:Number = Math.PI / 2; 										
 			var tx:Number = 0; 															// sets the position of the elipse
 			var ty:Number = -20;
 			
@@ -40,7 +44,7 @@ package Games.GrandFather
 			buttonTxtFiled.defaultTextFormat = new TextFormat('Comic Sans MS', 10, 0x80FF00, 'bold');
 			buttonTxtFiled.text = this.buttonText;
 			this.addChild(buttonTxtFiled);
-			buttonTxtFiled.x = 13; 														//this.x + (this.width / 2) - (buttonTxtFiled.textWidth / 2);
+			buttonTxtFiled.x = 13; 														
 			buttonTxtFiled.y = -2;
 			buttonTxtFiled.mouseEnabled = true;
 			buttonTxtFiled.height = 50;

@@ -55,14 +55,12 @@ package Games.EightOff
 			gameEngine = new Engine(this, this.extraPiles, this.fieldPiles, this.sidePiles, this.deck);
 		}
 		
-		//CREATE NEW DECK //KOLAROV
 		private function loadDeck(cardSkinPar:String):void
 		{
 			this.cardSkin = cardSkinPar;
 			this.deck = new DeckEightoff(this.cardSkin);
 		}
 		
-		//CREATE NEW TIMER AND ADD IT IN DISPLAY LIST //KOLAROV
 		private function loadTimer():void
 		{
 			this.timer = new TimerCounter(0xFFFFFF, 12);
@@ -71,14 +69,12 @@ package Games.EightOff
 			timer.x = 0;
 		}
 		
-		//INVOKE CREATING OF BUTTON RULES AND BUTTON SURRENDER //KOLAROV
 		private function loadButtons():void
 		{
 			loadButtonRules();
 			loadButtonSurrender();
 		}
 		
-		//CREATE NEW BUTTON SURRENDER //KOLAROV
 		private function loadButtonSurrender():void
 		{
 			this.addChild(this.buttonSurrender);
@@ -87,14 +83,12 @@ package Games.EightOff
 			Assistant.addEventListenerTo(this.buttonSurrender, MouseEvent.CLICK, surrender)
 		}
 		
-		//TRIGGER WHILE USER PRESS BUTTON SURRENDER //KOLAROV
 		private function surrender(e:MouseEvent):void
 		{
 			this.isWin = false;
 			this.isGameRunning = false;
 		}
 		
-		//CREATE NEW BUTTONS RULES AND ADD IT IN DISPLAY LIST //KOLAROV
 		private function loadButtonRules():void
 		{
 			this.buttonRules = new Button(120, "How To Play...");
@@ -105,7 +99,6 @@ package Games.EightOff
 			this.rules = new Rules(rulesText);
 		}
 		
-		//SHOW AND HIDE OBJECT RULES WHILE BUTTON RULES IS PRESSED
 		private function showHideRules(e:MouseEvent):void
 		{
 			if (this.isRulesHidden)
@@ -121,7 +114,6 @@ package Games.EightOff
 			}
 		}
 		
-		//CREATE NEW PILES
 		private function loadPiles():void
 		{
 			loadExtraPiles();
@@ -129,7 +121,6 @@ package Games.EightOff
 			loadSidePiles();
 		}
 		
-		//CREATE NEW EXTRA PILES
 		private function loadExtraPiles():void
 		{
 			var interval:int = 10;
@@ -143,7 +134,6 @@ package Games.EightOff
 			}
 		}
 		
-		//CREATE NEW FIELD PILES
 		private function loadFieldPiles():void
 		{
 			var interval:int = 10;
@@ -157,7 +147,6 @@ package Games.EightOff
 			}
 		}
 		
-		//CREATE NEW SIDE PILES
 		private function loadSidePiles():void
 		{
 			var interval:int = 10;
@@ -172,25 +161,21 @@ package Games.EightOff
 			}
 		}
 		
-		//GETTER
 		public function get IsWin():Boolean
 		{
 			return this.isWin
 		}
 		
-		//GETTER
 		public function get IsGameRunning():Boolean
 		{
 			return this.isGameRunning
 		}
 		
-		//Setter
 		public function set IsWin(newValue:Boolean):void
 		{
 			this.isWin = newValue;
 		}
 		
-		//SETTER
 		public function set IsGameRunning(newValue:Boolean):void
 		{
 			this.isGameRunning = newValue;

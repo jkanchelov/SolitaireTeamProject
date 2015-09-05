@@ -9,12 +9,12 @@ package Games.GrandFather
 	 */
 	public class CardDroppingGrandfather extends CardDropping
 	{	
-		public function CardDroppingGrandfather(generalPar:Sprite,fieldPilesPar:Array,sidePilesPar:Array) 
+		public function CardDroppingGrandfather(generalPar:Sprite,fieldPilesPar:Array,sidePilesPar:Array,isDroppedPar:Boolean) 
 		{
 			super(generalPar, fieldPilesPar, sidePilesPar);
 		}
 		
-		//TRY DO DROP CARD ON FIELD PILE //KOLAROV
+		//TRY DO DROP CARD ON FIELD PILE
 		public function tryCardOnFieldPile(takenCard:Card):void
 		{
 			this.isDropped = false;
@@ -35,7 +35,7 @@ package Games.GrandFather
 			}
 		}
 		
-		//TRY TO DROP CARD ON SIDE PILE //KOLAROV
+		//TRY TO DROP CARD ON SIDE PILE
 		public function tryCardOnSidePile(takenCard:Card):void
 		{
 			this.isDropped = false;
@@ -76,7 +76,6 @@ package Games.GrandFather
 			}
 		}
 		
-		//PERFORM DROPPING OF CARD ON SIDE PILE
 		private function makeDroppingOnSidePile(currentSidePile:SidePile,takenCard:Card):void {
 			this.isDropped = true;
 			this.general.removeChild(takenCard);

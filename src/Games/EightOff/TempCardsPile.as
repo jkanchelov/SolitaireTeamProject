@@ -1,4 +1,4 @@
-package Games.EightOff 
+package Games.EightOff
 {
 	import flash.display.Sprite;
 	import SharedClasses.Card;
@@ -14,8 +14,7 @@ package Games.EightOff
 		private var cardsCount:int = 0;
 		
 		private var interval:int = 20;
-
-		//CREATE NEW ARRAY AND PUSH CARD IN IT AND ADD IT IN DISPLAY LIST. AT THE END TOP CARD IS DETERMINE //KOLAROV
+		
 		public function pushCard(card:Card):void
 		{
 			this.cards = [];
@@ -24,7 +23,6 @@ package Games.EightOff
 			determineFirstCard();
 		}
 		
-		//RETURNS CARD. IT IS REMOVED FROM ARRAY AND FROM DISPLAY LIST //KOLAROV
 		public function giveCard():Card
 		{
 			var cardForGive:Card = this.cards.pop();
@@ -33,7 +31,6 @@ package Games.EightOff
 			return cardForGive;
 		}
 		
-		// PUSH CARDS IN TEMP PILE. THE CARDS ARE PUSHED IN NEW ARRAY AND ADDED IN DISPLAY LIST //KOLAROV
 		public function pushCards(choosenCards:Array):void
 		{
 			this.cards = [];
@@ -47,7 +44,6 @@ package Games.EightOff
 			determineFirstCard();
 		}
 		
-		//TEMP PILE OBJECT RETURNS CARDS THAT CONTAINS AS ARRAY //KOLAROV
 		public function giveCards():Array
 		{
 			var cardsForGive:Array = [];
@@ -61,19 +57,16 @@ package Games.EightOff
 			return cardsForGive;
 		}
 		
-		// DETERMINE FIRST CARD IN SEQUENCE //KOLAROV
 		private function determineFirstCard():void
 		{
 			this.firstCard = this.cards[0];
 		}
 		
-		//RETURNS FIRST CARD IN TEMP PILE 
 		public function get FirstCard():Card
 		{
 			return this.firstCard;
 		}
 		
-		//RETURNS COUNT OF CARDS THAT TEMP PILE CONTAINS
 		public function get CardsCount():int
 		{
 			return this.cards.length;
