@@ -191,7 +191,7 @@ package Games.TopsyTurvyQueens
 				TweenMax.to(currCard, 0.2, {x: arrFaceDownFoundation[freeIndexArrFaceUpFoundation].x, y: arrFaceDownFoundation[freeIndexArrFaceUpFoundation].y, onComplete: setKingFromTalonInFoundation, onCompleteParams: [currCard, freeIndexArrFaceUpFoundation]});
 			}
 		}
-		//set kings from talon to foundation //Desislava
+		
 		private function setKingFromTalonInFoundation(currCard:Cards, freeIndexArrFoundation:int):void
 		{
 			while (arrFoundationContainers[freeIndexArrFoundation].numChildren > 0)
@@ -204,7 +204,7 @@ package Games.TopsyTurvyQueens
 			isMovingTalonCard = false;
 		
 		}
-		//Desislava
+		
 		private function clickDownTalonCard(evt:MouseEvent):void
 		{
 			currCardTalonDrag = evt.currentTarget as Cards;
@@ -212,13 +212,13 @@ package Games.TopsyTurvyQueens
 			currCardTalonDrag.parent.removeChild(currCardTalonDrag);
 			container.addChild(currCardTalonDrag);
 		}
-		//Desislava
+		
 		private function clickUpTalonCard(evt:MouseEvent):void
 		{
 			evt.currentTarget.stopDrag();
 			checkCollisionTalon();
 		}
-		//we check collision when card is opened  //Desislava
+		
 		private function checkCollisionTalon():void
 		{
 			paddingX = 20;
@@ -233,13 +233,13 @@ package Games.TopsyTurvyQueens
 				}
 			}
 		}
-		//Desislava
+		
 		private function removeCurrCardTalon():void
 		{
 			currCardTalonDrag.parent.removeChild(currCardTalonDrag);
 			talonContainer.addChild(currCardTalonDrag);
 		}
-		//Desislava
+		
 		private function checkCollisionFromTalonToFoundation(currIndex:int):Boolean
 		{
 			
@@ -271,7 +271,7 @@ package Games.TopsyTurvyQueens
 			}
 			return false;
 		}
-		//Desislava
+		
 		private function checkCollisionFromTalonToTableau(currIndex:int):Boolean
 		{
 			for (var i:int = 0; i < checkCollisionArr.length; i++)
@@ -301,7 +301,7 @@ package Games.TopsyTurvyQueens
 			}
 			return false;
 		}
-		//Desislava
+		
 		private function imprisonedCard():void
 		{
 			if (arrCardsDeck[0].cardValue == 0)
@@ -318,7 +318,7 @@ package Games.TopsyTurvyQueens
 			arrCardsDeck.splice(0, 1);
 		
 		}
-		//when given card is king we move him to foundation (impr.) //Desislava
+		
 		private function checkKingFoundation():void
 		{
 			var currFreeIndex:int = arrFaceUpFoundation.length;
@@ -362,7 +362,7 @@ package Games.TopsyTurvyQueens
 			evt.currentTarget.stopDrag();
 			checkCollisionFoundation();
 		}
-		//imprisoned card //Desislava
+		
 		private function checkCollisionFoundation():void
 		{
 			for (var i:int = 0; i < arrFaceUpFoundation.length; i++)
@@ -438,7 +438,7 @@ package Games.TopsyTurvyQueens
 			}
 		
 		}
-		//can we take card from tableu //Desislava
+		
 		private function canMoveCardsInTableau():Boolean
 		{
 			var counter:int = 0;
