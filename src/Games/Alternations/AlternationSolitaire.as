@@ -107,25 +107,25 @@ package Games.Alternations
 		}
 		
 		//made by Kaloqn
-		//protected override function showSurrenderAndTimer():void
-		//{
-			//buttonsContainer = new Sprite();
-			//
-			//var buttonWidth:int = 100;
-			//
-			//var surrenderButton:Button = new Button(buttonWidth, "  Surrender", true);
-			//surrenderButton.x = -125
-			//surrenderButton.addEventListener(MouseEvent.CLICK, surrender, false, 0, true);
-			//
-			//var time:TimerCounter = new TimerCounter(0xffffff);
-			//time.y = 10;
-			//
-			//buttonsContainer.x = STAGE_WIDTH - buttonWidth;
-			//buttonsContainer.addChild(time);
-			//buttonsContainer.addChild(surrenderButton);
-			//
-			//addChild(buttonsContainer);
-		//}
+		protected override function showSurrenderAndTimer():void
+		{
+			buttonsContainer = new Sprite();
+			
+			var buttonWidth:int = 100;
+			
+			var surrenderButton:Button = new Button(buttonWidth, "  Surrender", true);
+			surrenderButton.x = -125
+			surrenderButton.addEventListener(MouseEvent.CLICK, surrender, false, 0, true);
+			
+			var time:TimerCounter = new TimerCounter(0xffffff);
+			time.y = 10;
+			
+			buttonsContainer.x = STAGE_WIDTH - buttonWidth;
+			buttonsContainer.addChild(time);
+			buttonsContainer.addChild(surrenderButton);
+			
+			addChild(buttonsContainer);
+		}
 		
 		//made by Kaloqn
 		protected override function dealSolitaire():void
