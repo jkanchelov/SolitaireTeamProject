@@ -4,6 +4,7 @@ package SharedClasses
 	import flash.display.*;
 	import flash.geom.*;
 	import flash.net.URLRequest;
+	import com.greensock.*
 	/**
 	 * ...
 	 * @author Jordan
@@ -29,8 +30,11 @@ package SharedClasses
 			else {
 				this.cardSign = "back";
 			}
-			
+
 			loadCard();
+				
+			this.addEventListener(MouseEvent.MOUSE_OVER, addGlow, false, 0, true);
+			this.addEventListener(MouseEvent.MOUSE_OUT, removeGlow, false , 0 , true);
 		}
 		
 		public function get CardSign():String {
@@ -39,6 +43,16 @@ package SharedClasses
 		
 		public function get CardValue():int {
 			return this.cardValue;
+		}
+		
+		private function addGlow(e:MouseEvent):void
+		{
+			TweenMax.to(e.currentTarget, 1, {glowFilter: {color: 0xFFFFFF, alpha: 1, blurX: 30, blurY: 30}});
+		}
+		
+		private function removeGlow(e:MouseEvent):void
+		{
+			TweenMax.to(e.currentTarget, 1, {glowFilter: {alpha: 0}});
 		}
 		
 		private function loadCard():void {
