@@ -441,18 +441,15 @@ package Games.Alternations
 			{
 				if (followingCards.length > 0)
 				{
-					for (var i:int = 0; i < followingCards.length; i++)
-					{
-						var followingCard:Card = followingCards[i];
-						followingCards.splice(i, 1);
+					while(followingCards.length){
+						var followingCard:Card = followingCards[0];
+						followingCards.splice(0, 1);
 						
 						removeChild(followingCard);
 						movCardCurrentSprite.addChild(followingCard);
 						followingCard.x = 0;
 						followingCard.y = (movCardCurrentSprite.numChildren - 1) * CARDS_Y_SPACING
 						followingCard.removeEventListener(Event.ENTER_FRAME, followCard);
-						
-						i--;
 					}
 				}
 				
